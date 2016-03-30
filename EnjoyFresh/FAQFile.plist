@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Answers</key>
+	<array>
+		<string>EnjoyFresh is a marketplace to connect local chefs and their unique with food lovers. We hand-pick chefs and local restaurants to provide members with exclusive, chef-curated in-restaurant dining and delivery experiences (where available).</string>
+		<string>You’re a food lover and appreciate new culinary experiences. EnjoyFresh finds exclusive chef-curated dining experiences and food offerings near you and gives you an opportunity to book your seat at the chef’s table, or have it delivered. Personalize your preferences on EnjoyFresh and you’ll be notified when new events or menu items are available to match your interests, such as favorite restaurants, dietary choices, and lunch delivery options.</string>
+		<string>Yes. Becoming an EnjoyFresh member is free. Users only pay for the dining experiences and food products they purchase through EnjoyFresh.</string>
+		<string>Sign up and create a profile on our website or mobile app. You can also sign up through Facebook and Twitter.</string>
+		<string>EnjoyFresh uses location based settings to show you menu items that are in your area. You can refine your search terms by type of cuisine, dietary preferences, location, date, or if available for delivery.</string>
+		<string>By entering your information into EnjoyFresh you can order instantly through the app. If you don’t wish to enter your information you can choose your payment type, quantity and enter your information in the order form.</string>
+		<string>Our site is made for local restaurants and chefs. If we don’t have offerings in your zip code, you might not see anything in the search. If you are unable to view any results as soon as you log in, click on “change location” and try a different zip code.</string>
+		<string>You can pay online via your PayPal, credit or debit card.</string>
+		<string>The payment gateway we use is very secure. Payment gateways protect credit card details by encrypting sensitive information, such as credit card numbers, to ensure that information is passed securely between the customer, the merchant and the payment processor.</string>
+		<string>Experiences must be purchased through EnjoyFresh at this time.</string>
+		<string>EnjoyFresh works with our restaurants and chefs to make sure your order is correct. However, if there is a problem with your order, please feel free to discuss with the restaurant or chef directly.  Or you can contact customer service at EnjoyFresh (insert phone number and email address for support) and we’ll be happy to immediately contact the restaurant or chef on your behalf.</string>
+		<string>We cannot refund you, but you can use the total amount of your order as a credit towards future visits to the restaurant. All you have to do is show the credit information to restaurant and the amount will be credited in the bill.</string>
+		<string>Once an order is placed, an order summary is sent to the user and restaurant owner. If there is not a specified time, you can reserve through the restaurant.</string>
+		<string>EnjoyFresh offers in restaurant dining experiences and in some locations, delivery and pick-up is available.  Your selected menu items will indicate what options you have before you check out.</string>
+		<string>Delivery is available in selected locations.Please check the available options on the menu items you’ve selected before checking out.</string>
+		<string>There is no limit to the orders you can make.</string>
+		<string>This is left to restaurant’s sole discretion.</string>
+		<string>You cannot change or modify your order once it is placed through EnjoyFresh.However, if dining at a restaurant, you can discuss directly with the restaurant or chef.Delivery orders cannot be changed or modified once placed.</string>
+		<string>We do not currently offer this feature.</string>
+		<string>After you log in, click on your username on the top right hand corner. From there, select “Profile” from the drop down menu, turn off notifications option under &quot;favorites tab&quot;</string>
+		<string>We thoroughly verify all of the restaurants that advertise with us, so you should not come across such a situation</string>
+	</array>
+	<key>Questions</key>
+	<array>
+		<string>What is EnjoyFresh?</string>
+		<string>Why EnjoyFresh?</string>
+		<string>Is EnjoyFresh FREE?</string>
+		<string>How do I create an account?</string>
+		<string>How do I search for a dish or food product?</string>
+		<string>How do I make a purchase?</string>
+		<string>Why don’t I see food offerings on EnjoyFresh?</string>
+		<string>How do I pay after I select my order?</string>
+		<string>How secure is the payment gateway?</string>
+		<string>Is It possible to reserve the dish and pay at the restaurant?</string>
+		<string>What do I do if the dish or food product isn’t what I ordered?</string>
+		<string>If I do not use one of my orders, can I get refunded?</string>
+		<string>How does the restaurant know who has placed an order and when we will come in?</string>
+		<string>Is it possible to pick-up orders?</string>
+		<string>Do you offer delivery?</string>
+		<string>Is there a limit to the number of orders I can make?</string>
+		<string>Can I change or substitute once I am at the restaurant?</string>
+		<string>Can I change or modify my order?</string>
+		<string>Do you offer rewards points for regular customers?</string>
+		<string>How do I opt out of newsletters, updates and offers from EnjoyFresh?</string>
+		<string>What do I do if I suspect a fraudulent seller?</string>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>BD7557B6-CE8D-4015-87C4-0C333A3BC6BF</string>
+	<key>IDESourceControlProjectName</key>
+	<string>EnjoyFresh</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7DB2BD1D292B58AFEDB8B2DDE0C2CB422128ABBD</key>
+		<string>https://bitbucket.org/smuralikrishna/enjoy-fresh.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>EnjoyFresh.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7DB2BD1D292B58AFEDB8B2DDE0C2CB422128ABBD</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/smuralikrishna/enjoy-fresh.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7DB2BD1D292B58AFEDB8B2DDE0C2CB422128ABBD</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7DB2BD1D292B58AFEDB8B2DDE0C2CB422128ABBD</string>
+			<key>IDESourceControlWCCName</key>
+			<string>EF-User%20App</string>
+		</dict>
+	</array>
+</dict>
+</plist>
