@@ -89,7 +89,7 @@ BOOL cellFlag=NO;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-    cell.contentView.superview.backgroundColor=[UIColor colorWithRed:247/255.0f green:247/255.0f blue:247/255.0f alpha:1.0f];
+    //cell.contentView.superview.backgroundColor=[UIColor colorWithRed:247/255.0f green:247/255.0f blue:247/255.0f alpha:1.0f];
     [cell.layer setCornerRadius:5.0f];
     [cell.layer setMasksToBounds:YES];
 
