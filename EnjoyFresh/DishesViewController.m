@@ -47,6 +47,7 @@ static UIColor *unfavcolor;
 @synthesize searchActionSheet, layerView;
 @synthesize UserFavorites, CurrentUserProfile, IsInitialLoad;
 @synthesize CurrentButtonTag;
+typedef void(^Completion)(NSDictionary*);
 
 
 #pragma mark
@@ -119,7 +120,10 @@ static UIColor *unfavcolor;
     
     locationManager.distanceFilter = kCLDistanceFilterNone;
     locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-    [self updateCurrentLocation];
+    [self updateCurrentLocation:^(NSDictionary *result) {
+        
+        
+    }];
     
     
     if(!IS_IPHONE5)
@@ -231,14 +235,17 @@ static UIColor *unfavcolor;
 }
 - (void)appDidBecomeActive:(NSNotification *)notification {
     NSLog(@"did become active notification");
-    [self updateCurrentLocation];
+    [self updateCurrentLocation:^(NSDictionary *result) {
+        
+        
+    }];
 }
 
 - (void)appWillEnterForeground:(NSNotification *)notification {
     NSLog(@"will enter foreground notification");
 }
 
-- (void)updateCurrentLocation {
+- (void)updateCurrentLocation :(Completion) compblock {
     
     if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
         [locationManager requestWhenInUseAuthorization];
@@ -256,9 +263,9 @@ static UIColor *unfavcolor;
                                CLPlacemark *place = [placemarks objectAtIndex:0];
                                
                                addrFromLocation=place.addressDictionary;
-                               
                            }
-                       
+                       compblock(nil);
+
                    }];
 }
 -(void)showYourView{
@@ -1750,51 +1757,59 @@ static UIColor *unfavcolor;
 //    [self getDishes];
     selectedDate=nil;
 
-    
-    [self updateCurrentLocation];
-    [self.view endEditing:YES];
-    
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
-    
-    SDImageCache *imageCache = [SDImageCache sharedImageCache];
-    [imageCache clearMemory];
-    [imageCache clearDisk];
-    
-    
-    NSString *zipCd=[[[NSUserDefaults standardUserDefaults]valueForKey:@"UserProfile"]valueForKey:@"zipcode"];
-    
-    zipCd = appDel.CurrentCustomerDetails.user_zipcode;
-    NSString *locationZIp=[addrFromLocation valueForKey:@"ZIP"];
-    
-  NSString *urlquerystring;
-
-    if([CLLocationManager locationServicesEnabled] &&
-       [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied && locationZIp!=nil)
+    if (hud==nil)
     {
-        parseInt=11;
-
-        if (hud==nil)
-        {
-            hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-            hud.delegate = self;
-            [self.view addSubview:hud];
-            [hud show:YES];
-            
-        }
-        urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=%@&min=0&max=75&findNearMe=1",locationZIp];
-        [parser parseAndGetDataForGetMethod:urlquerystring];
-        urlquerystring=nil;
+        hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        hud.delegate = self;
+        [self.view addSubview:hud];
+        [hud show:YES];
         
     }
-    else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"EnjoyFresh"
-                                                        message:@"Location service is not enabled"
-                                                       delegate:self
-                                              cancelButtonTitle:@"Cancel"
-                                              otherButtonTitles:@"Settings", nil];
-        alert.tag=88;
-        [alert show];
-    }
+    [self updateCurrentLocation:^(NSDictionary *result) {
+        
+        
+        [self.view endEditing:YES];
+        
+        [[NSURLCache sharedURLCache] removeAllCachedResponses];
+        
+        SDImageCache *imageCache = [SDImageCache sharedImageCache];
+        [imageCache clearMemory];
+        [imageCache clearDisk];
+        
+        
+        NSString *zipCd=[[[NSUserDefaults standardUserDefaults]valueForKey:@"UserProfile"]valueForKey:@"zipcode"];
+        
+        zipCd = appDel.CurrentCustomerDetails.user_zipcode;
+        NSString *locationZIp=[addrFromLocation valueForKey:@"ZIP"];
+        
+        NSString *urlquerystring;
+        
+        if([CLLocationManager locationServicesEnabled] &&
+           [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied && locationZIp!=nil)
+        {
+            parseInt=11;
+            
+            
+            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=%@&min=0&max=75&findNearMe=1",locationZIp];
+            [parser parseAndGetDataForGetMethod:urlquerystring];
+            urlquerystring=nil;
+            
+        }
+        else{
+            
+            [hud hide:YES];
+            [hud removeFromSuperview];
+            hud=nil;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"EnjoyFresh"
+                                                            message:@"Location service is not enabled"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Cancel"
+                                                  otherButtonTitles:@"Settings", nil];
+            alert.tag=88;
+            [alert show];
+        }
+
+    }];
     
 }
 
