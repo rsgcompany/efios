@@ -678,7 +678,7 @@ static NSString *consumerKey=@"yIPITPHBFJ7CuwN857MvtGwflwF0ViZa7D3YEa78VjW9z98tx
             return NO;
         }
     }
-    else if(textField==zipCode || textField==self.socialZip)
+    if(textField==zipCode || textField==_socialZip)
     {
         if (textField.text.length >= 5 && range.length == 0)
             return NO;
