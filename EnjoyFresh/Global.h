@@ -18,7 +18,7 @@
 
 ////// server to   www.enjoyfresh.com
 //
- #define BaseURL @"http://www.enjoyfresh.com/mobile/api_feb/v1/"
+ #define BaseURL @"http://www.enjoyfresh.com/mobile/api_march/v1/"
  #define BaseURLImage @"http://www.enjoyfresh.com/public/upload/restaurant/dish/"
  #define UserURlImge @"http://www.enjoyfresh.com/public/upload/user/"
  #define BaseURLRestaurant @"http://www.enjoyfresh.com/public/upload/restaurant/"
@@ -56,11 +56,11 @@
 
 
 //stripe
-#define stripeSecretKey @"sk_test_EzC0PEJh58N2KBwMGYA0aSP9"
-#define StripePublishableKey @"pk_test_4Xd5w93LQ7du0QhJtUYUbWjL"
+//#define stripeSecretKey @"sk_test_EzC0PEJh58N2KBwMGYA0aSP9"
+//#define StripePublishableKey @"pk_test_4Xd5w93LQ7du0QhJtUYUbWjL"
 
-//#define stripeSecretKey @"sk_live_NOrokMFEUVjzi97EFhf0gIK0"
-//#define StripePublishableKey @"pk_live_2LfWTbUpd3JkRbwofqrSyyrf"
+#define stripeSecretKey @"sk_live_NOrokMFEUVjzi97EFhf0gIK0"
+#define StripePublishableKey @"pk_live_2LfWTbUpd3JkRbwofqrSyyrf"
 
 ///////////
 

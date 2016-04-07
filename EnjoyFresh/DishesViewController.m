@@ -321,7 +321,7 @@ typedef void(^Completion)(NSDictionary*);
     
 #warning "change to production for live"
     
-    [PayPalMobile preconnectWithEnvironment:PayPalEnvironmentSandbox];
+    [PayPalMobile preconnectWithEnvironment:PayPalEnvironmentProduction];
     _payPalConfig.payPalShippingAddressOption = PayPalShippingAddressOptionNone;
     
     if (switchTag == nil) {
@@ -2182,7 +2182,7 @@ typedef void(^Completion)(NSDictionary*);
     NSPredicate * predict1=[[NSPredicate alloc]init] ;
     NSArray *array=[[NSArray alloc]init];
     
-    
+    [self setImages];
     if ([sender tag]==25 ) {
         predict1=[NSPredicate predicateWithFormat:@"is_delivery == %@",@"1"];
         

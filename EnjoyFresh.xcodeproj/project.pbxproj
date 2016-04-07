@@ -167,6 +167,10 @@
 		4779700D1B30048600D82697 /* Location.png in Resources */ = {isa = PBXBuildFile; fileRef = 4779700C1B30048600D82697 /* Location.png */; };
 		4783E6561B2AC1C5001FD934 /* Dropdown.png in Resources */ = {isa = PBXBuildFile; fileRef = 4783E6541B2AC1C5001FD934 /* Dropdown.png */; };
 		47873F741B79D2900044578D /* noDishPlaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47873F731B79D2900044578D /* noDishPlaceholder@2x.png */; };
+		47909C3E1CB3C1D6007C704F /* dine.png in Resources */ = {isa = PBXBuildFile; fileRef = 47909C3D1CB3C1D6007C704F /* dine.png */; };
+		47909C401CB3C1E1007C704F /* dine_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 47909C3F1CB3C1E1007C704F /* dine_hover.png */; };
+		47909C431CB3C25F007C704F /* pickup_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 47909C411CB3C25F007C704F /* pickup_hover.png */; };
+		47909C441CB3C25F007C704F /* pickup.png in Resources */ = {isa = PBXBuildFile; fileRef = 47909C421CB3C25F007C704F /* pickup.png */; };
 		47971CD61C1FEA6E0033A53F /* Bell.png in Resources */ = {isa = PBXBuildFile; fileRef = 47971CD51C1FEA6E0033A53F /* Bell.png */; };
 		47998F871C9A863E0088AB17 /* offering-btn-2_CommunalTables.png in Resources */ = {isa = PBXBuildFile; fileRef = 47998F861C9A863E0088AB17 /* offering-btn-2_CommunalTables.png */; };
 		47998F891C9A86690088AB17 /* offering-btn-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 47998F881C9A86690088AB17 /* offering-btn-2.png */; };
@@ -242,10 +246,6 @@
 		47DCDADB1C1014D600C612E8 /* all.png in Resources */ = {isa = PBXBuildFile; fileRef = 47DCDAD31C1014D600C612E8 /* all.png */; };
 		47DCDADC1C1014D600C612E8 /* delivery_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 47DCDAD41C1014D600C612E8 /* delivery_hover.png */; };
 		47DCDADD1C1014D600C612E8 /* delivery.png in Resources */ = {isa = PBXBuildFile; fileRef = 47DCDAD51C1014D600C612E8 /* delivery.png */; };
-		47DCDADE1C1014D600C612E8 /* dine_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 47DCDAD61C1014D600C612E8 /* dine_hover.png */; };
-		47DCDADF1C1014D600C612E8 /* dine.png in Resources */ = {isa = PBXBuildFile; fileRef = 47DCDAD71C1014D600C612E8 /* dine.png */; };
-		47DCDAE01C1014D600C612E8 /* pickup_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 47DCDAD81C1014D600C612E8 /* pickup_hover.png */; };
-		47DCDAE11C1014D600C612E8 /* pickup.png in Resources */ = {isa = PBXBuildFile; fileRef = 47DCDAD91C1014D600C612E8 /* pickup.png */; };
 		47DD2BFD1BE89A20005B7CAC /* libPayPalMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47DD2BF51BE89A20005B7CAC /* libPayPalMobile.a */; };
 		47DF049A1BE243A200ABE2E5 /* comments@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47DF04991BE243A200ABE2E5 /* comments@2x.png */; };
 		47DF81731BDE097A00A3B268 /* active_About Us@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47DF816B1BDE097A00A3B268 /* active_About Us@2x.png */; };
@@ -596,6 +596,10 @@
 		4779700C1B30048600D82697 /* Location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Location.png; sourceTree = "<group>"; };
 		4783E6541B2AC1C5001FD934 /* Dropdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dropdown.png; sourceTree = "<group>"; };
 		47873F731B79D2900044578D /* noDishPlaceholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noDishPlaceholder@2x.png"; sourceTree = "<group>"; };
+		47909C3D1CB3C1D6007C704F /* dine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dine.png; sourceTree = "<group>"; };
+		47909C3F1CB3C1E1007C704F /* dine_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dine_hover.png; sourceTree = "<group>"; };
+		47909C411CB3C25F007C704F /* pickup_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickup_hover.png; sourceTree = "<group>"; };
+		47909C421CB3C25F007C704F /* pickup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickup.png; sourceTree = "<group>"; };
 		47971CD51C1FEA6E0033A53F /* Bell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bell.png; sourceTree = "<group>"; };
 		47998F861C9A863E0088AB17 /* offering-btn-2_CommunalTables.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "offering-btn-2_CommunalTables.png"; sourceTree = "<group>"; };
 		47998F881C9A86690088AB17 /* offering-btn-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "offering-btn-2.png"; sourceTree = "<group>"; };
@@ -675,10 +679,6 @@
 		47DCDAD31C1014D600C612E8 /* all.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = all.png; sourceTree = "<group>"; };
 		47DCDAD41C1014D600C612E8 /* delivery_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delivery_hover.png; sourceTree = "<group>"; };
 		47DCDAD51C1014D600C612E8 /* delivery.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delivery.png; sourceTree = "<group>"; };
-		47DCDAD61C1014D600C612E8 /* dine_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dine_hover.png; sourceTree = "<group>"; };
-		47DCDAD71C1014D600C612E8 /* dine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dine.png; sourceTree = "<group>"; };
-		47DCDAD81C1014D600C612E8 /* pickup_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickup_hover.png; sourceTree = "<group>"; };
-		47DCDAD91C1014D600C612E8 /* pickup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickup.png; sourceTree = "<group>"; };
 		47DD2BED1BE89A20005B7CAC /* CardIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIO.h; sourceTree = "<group>"; };
 		47DD2BEE1BE89A20005B7CAC /* CardIOCreditCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIOCreditCardInfo.h; sourceTree = "<group>"; };
 		47DD2BEF1BE89A20005B7CAC /* CardIODetectionMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIODetectionMode.h; sourceTree = "<group>"; };
@@ -1585,10 +1585,10 @@
 				47DCDAD31C1014D600C612E8 /* all.png */,
 				47DCDAD41C1014D600C612E8 /* delivery_hover.png */,
 				47DCDAD51C1014D600C612E8 /* delivery.png */,
-				47DCDAD61C1014D600C612E8 /* dine_hover.png */,
-				47DCDAD71C1014D600C612E8 /* dine.png */,
-				47DCDAD81C1014D600C612E8 /* pickup_hover.png */,
-				47DCDAD91C1014D600C612E8 /* pickup.png */,
+				47909C3F1CB3C1E1007C704F /* dine_hover.png */,
+				47909C3D1CB3C1D6007C704F /* dine.png */,
+				47909C411CB3C25F007C704F /* pickup_hover.png */,
+				47909C421CB3C25F007C704F /* pickup.png */,
 				47DF04991BE243A200ABE2E5 /* comments@2x.png */,
 				47B70DD71BD5150900550D85 /* close_icon_03@2x.png */,
 				47F857991BEE28BE006EE4BD /* user_pic@2x.png */,
@@ -1852,7 +1852,6 @@
 				47E4F5C91C21452A004E84C6 /* coupon@2x.png in Resources */,
 				04189972198FFDCF00893DF3 /* InfoPlist.strings in Resources */,
 				47EEEDB41BA001660068DAFB /* Raleway-ExtraLightItalic.ttf in Resources */,
-				47DCDADF1C1014D600C612E8 /* dine.png in Resources */,
 				47EEEDB81BA001660068DAFB /* Raleway-Medium.ttf in Resources */,
 				4707B3F91C0DAC2500099C55 /* Find Near Me.png in Resources */,
 				0404EB09199AA76A00C056AA /* Dosis-Light.ttf in Resources */,
@@ -1869,10 +1868,10 @@
 				5E39159119E2F38F00834D8B /* States.plist in Resources */,
 				4747B58F1B46C23F00028228 /* left_arrow@2x.png in Resources */,
 				47C6715C1BE11FA800090736 /* Email_Icon1@2x.png in Resources */,
+				47909C441CB3C25F007C704F /* pickup.png in Resources */,
 				47EDCD241B9EF64700DC4006 /* dish_Pic@2x.png in Resources */,
 				47EAF6221BF5C62500C9EEDD /* Social Share@2x.png in Resources */,
 				47D500061B1F27EE0006CDA3 /* signup_03.png in Resources */,
-				47DCDADE1C1014D600C612E8 /* dine_hover.png in Resources */,
 				0465EFD0199E49D000E45DB2 /* nf_contact_number@2x.png in Resources */,
 				47B327221BF0CEF20024C99A /* Payment@2x.png in Resources */,
 				47B327181BF0CE9C0024C99A /* Contact@2x.png in Resources */,
@@ -1882,6 +1881,7 @@
 				47EEEDB91BA001660068DAFB /* Raleway-MediumItalic.ttf in Resources */,
 				47DF81751BDE097A00A3B268 /* active_Favorites@2x.png in Resources */,
 				47EEEDBF1BA001660068DAFB /* SIL Open Font License.txt in Resources */,
+				47909C431CB3C25F007C704F /* pickup_hover.png in Resources */,
 				47EEEDBA1BA001660068DAFB /* Raleway-Regular.ttf in Resources */,
 				47A0B73D1BD10CCB00AD5548 /* Icon-80.png in Resources */,
 				2DEC06B519A3895D0086614F /* slider-default7-trackBackground@2x.png in Resources */,
@@ -1905,7 +1905,6 @@
 				47A0B73E1BD10CCB00AD5548 /* Icon-120.png in Resources */,
 				47EEEDB51BA001660068DAFB /* Raleway-Italic.ttf in Resources */,
 				47998F8F1C9AAB910088AB17 /* screen-1.png in Resources */,
-				47DCDAE01C1014D600C612E8 /* pickup_hover.png in Resources */,
 				47EEEDB21BA001660068DAFB /* Raleway-ExtraBoldItalic.ttf in Resources */,
 				47BB92561BBFE98700462112 /* textData.plist in Resources */,
 				4707B3F31C0D6E3300099C55 /* FindWhite.png in Resources */,
@@ -1943,6 +1942,7 @@
 				47DCDADC1C1014D600C612E8 /* delivery_hover.png in Resources */,
 				47998F871C9A863E0088AB17 /* offering-btn-2_CommunalTables.png in Resources */,
 				47998F901C9AAB910088AB17 /* screen-2.png in Resources */,
+				47909C401CB3C1E1007C704F /* dine_hover.png in Resources */,
 				47EEEDB31BA001660068DAFB /* Raleway-ExtraLight.ttf in Resources */,
 				47FE36261BCFDDFF00C651BD /* offering-btn-3.png in Resources */,
 				47FB35521BD0DD4F0025CA2A /* favoritebl.png in Resources */,
@@ -1983,7 +1983,6 @@
 				47998F911C9AAB910088AB17 /* screen-4.png in Resources */,
 				47B70DE31BD52DD000550D85 /* offering-btn-4_FoodClasses.png in Resources */,
 				47DF817C1BDE098700A3B268 /* active_user@2x.png in Resources */,
-				47DCDAE11C1014D600C612E8 /* pickup.png in Resources */,
 				47EEEDB01BA001660068DAFB /* Raleway-BoldItalic.ttf in Resources */,
 				47998F891C9A86690088AB17 /* offering-btn-2.png in Resources */,
 				47A2280B1B8734A8000DEF24 /* profile_icon.png in Resources */,
@@ -1991,6 +1990,7 @@
 				0404EB0C199AA76A00C056AA /* Dosis-SemiBold.ttf in Resources */,
 				4783E6561B2AC1C5001FD934 /* Dropdown.png in Resources */,
 				47D500091B1F341F0006CDA3 /* Backbutton1.png in Resources */,
+				47909C3E1CB3C1D6007C704F /* dine.png in Resources */,
 				47B3271E1BF0CECD0024C99A /* Logout@2x.png in Resources */,
 				0465EFCC199E451400E45DB2 /* nf_message_green@2x.png in Resources */,
 				47AC74051C180118002BB652 /* Dropdownup.png in Resources */,
