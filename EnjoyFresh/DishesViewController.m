@@ -37,8 +37,8 @@ CGPoint location;
 {
 }
 @property(nonatomic, strong, readwrite) PayPalConfiguration *payPalConfig;
-
-
+@property(nonatomic)UIRefreshControl *refreshControl;
+@property(nonatomic)CGPoint lastContentOffset;
 @end
 static UIColor *favcolor;
 static UIColor *unfavcolor;
@@ -47,6 +47,7 @@ static UIColor *unfavcolor;
 @synthesize searchActionSheet, layerView;
 @synthesize UserFavorites, CurrentUserProfile, IsInitialLoad;
 @synthesize CurrentButtonTag;
+typedef void(^Completion)(NSDictionary*);
 
 
 #pragma mark
@@ -119,14 +120,24 @@ static UIColor *unfavcolor;
     
     locationManager.distanceFilter = kCLDistanceFilterNone;
     locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-    [self updateCurrentLocation];
+    [self updateCurrentLocation:^(NSDictionary *result) {
+        
+        
+    }];
     
     
     if(!IS_IPHONE5)
     {
         [dishes_Tbl setFrame:CGRectMake(0, 64, 320, 510)];
     }
-    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor lightGrayColor];
+    self.refreshControl.tintColor = [UIColor colorWithRed:138/255.0 green:188/255.0 blue:105/255.0 alpha:1];
+    [self.refreshControl addTarget:self
+                            action:@selector(getDishes)
+                  forControlEvents:UIControlEventValueChanged];
+    [self.scrollView addSubview:self.refreshControl];
+
     
     categoryArr=[[NSMutableArray alloc]init];
     dietryStr=@"";
@@ -154,7 +165,7 @@ static UIColor *unfavcolor;
     
     
     search_bar=[[UISearchBar alloc]initWithFrame:CGRectMake(0,0, 320, 40)];
-    [self.scrollView addSubview:search_bar];
+    [self.view addSubview:search_bar];
 
     search_bar.delegate=self;
     search_bar.searchBarStyle=UISearchBarStyleMinimal;
@@ -224,14 +235,17 @@ static UIColor *unfavcolor;
 }
 - (void)appDidBecomeActive:(NSNotification *)notification {
     NSLog(@"did become active notification");
-    [self updateCurrentLocation];
+    [self updateCurrentLocation:^(NSDictionary *result) {
+        
+        
+    }];
 }
 
 - (void)appWillEnterForeground:(NSNotification *)notification {
     NSLog(@"will enter foreground notification");
 }
 
-- (void)updateCurrentLocation {
+- (void)updateCurrentLocation :(Completion) compblock {
     
     if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
         [locationManager requestWhenInUseAuthorization];
@@ -249,9 +263,9 @@ static UIColor *unfavcolor;
                                CLPlacemark *place = [placemarks objectAtIndex:0];
                                
                                addrFromLocation=place.addressDictionary;
-                               
                            }
-                       
+                       compblock(nil);
+
                    }];
 }
 -(void)showYourView{
@@ -724,6 +738,7 @@ static UIColor *unfavcolor;
             break;
         case 2:
         {
+            [self.refreshControl endRefreshing];
             if (errMsg)
             {
                 NSLog(@"Dish Listing Result: %@", result);
@@ -1066,6 +1081,7 @@ static UIColor *unfavcolor;
 }
 -(void)dataDidFailedLoadingWithError:(NSString *)err
 {
+    [self.refreshControl endRefreshing];
     [hud hide:YES];
     [hud removeFromSuperview];
     hud=nil;
@@ -1423,7 +1439,24 @@ static UIColor *unfavcolor;
     CGRect rect = searchBar.frame;
     rect.origin.y = MIN(0, self.scrollView.contentOffset.y);
     searchBar.frame = rect;
+    
+    CGPoint currentOffset = scrollView.contentOffset;
+    if (currentOffset.y > self.lastContentOffset.y && currentOffset.y>10)
+    {
+        // Upward
+        [self hideSearchBar];
+
+    }
+    else
+    {
+        [self showSearchBar];
+
+        // Downward
+    }
+    self.lastContentOffset = currentOffset;
+
 }
+
 #pragma mark
 #pragma mark - Button Actions
 - (void)shareClicked:(id)sender
@@ -1724,51 +1757,59 @@ static UIColor *unfavcolor;
 //    [self getDishes];
     selectedDate=nil;
 
-    
-    [self updateCurrentLocation];
-    [self.view endEditing:YES];
-    
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
-    
-    SDImageCache *imageCache = [SDImageCache sharedImageCache];
-    [imageCache clearMemory];
-    [imageCache clearDisk];
-    
-    
-    NSString *zipCd=[[[NSUserDefaults standardUserDefaults]valueForKey:@"UserProfile"]valueForKey:@"zipcode"];
-    
-    zipCd = appDel.CurrentCustomerDetails.user_zipcode;
-    NSString *locationZIp=[addrFromLocation valueForKey:@"ZIP"];
-    
-  NSString *urlquerystring;
-
-    if([CLLocationManager locationServicesEnabled] &&
-       [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied && locationZIp!=nil)
+    if (hud==nil)
     {
-        parseInt=11;
-
-        if (hud==nil)
-        {
-            hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-            hud.delegate = self;
-            [self.view addSubview:hud];
-            [hud show:YES];
-            
-        }
-        urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=%@&min=0&max=75&findNearMe=1",locationZIp];
-        [parser parseAndGetDataForGetMethod:urlquerystring];
-        urlquerystring=nil;
+        hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        hud.delegate = self;
+        [self.view addSubview:hud];
+        [hud show:YES];
         
     }
-    else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"EnjoyFresh"
-                                                        message:@"Location service is not enabled"
-                                                       delegate:self
-                                              cancelButtonTitle:@"Cancel"
-                                              otherButtonTitles:@"Settings", nil];
-        alert.tag=88;
-        [alert show];
-    }
+    [self updateCurrentLocation:^(NSDictionary *result) {
+        
+        
+        [self.view endEditing:YES];
+        
+        [[NSURLCache sharedURLCache] removeAllCachedResponses];
+        
+        SDImageCache *imageCache = [SDImageCache sharedImageCache];
+        [imageCache clearMemory];
+        [imageCache clearDisk];
+        
+        
+        NSString *zipCd=[[[NSUserDefaults standardUserDefaults]valueForKey:@"UserProfile"]valueForKey:@"zipcode"];
+        
+        zipCd = appDel.CurrentCustomerDetails.user_zipcode;
+        NSString *locationZIp=[addrFromLocation valueForKey:@"ZIP"];
+        
+        NSString *urlquerystring;
+        
+        if([CLLocationManager locationServicesEnabled] &&
+           [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied && locationZIp!=nil)
+        {
+            parseInt=11;
+            
+            
+            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=%@&min=0&max=75&findNearMe=1",locationZIp];
+            [parser parseAndGetDataForGetMethod:urlquerystring];
+            urlquerystring=nil;
+            
+        }
+        else{
+            
+            [hud hide:YES];
+            [hud removeFromSuperview];
+            hud=nil;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"EnjoyFresh"
+                                                            message:@"Location service is not enabled"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Cancel"
+                                                  otherButtonTitles:@"Settings", nil];
+            alert.tag=88;
+            [alert show];
+        }
+
+    }];
     
 }
 
@@ -3141,7 +3182,21 @@ BOOL clearClick=NO;
     [hud removeFromSuperview];
     hud = nil;
 }
+-(void)hideSearchBar{
+    
+    
+         search_bar.frame
+         = CGRectMake(0, -100,
+                      search_bar.frame.size.width, search_bar.frame.size.height);
+}
+-(void)showSearchBar{
 
+    search_bar.frame
+         = CGRectMake(0, 65,
+                      search_bar.frame.size.width, search_bar.frame.size.height);
+    
+
+}
 #pragma mark
 #pragma mark - TextField Delegates
 

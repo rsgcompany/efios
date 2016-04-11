@@ -9,6 +9,7 @@
 #import "FAQViewController.h"
 #import "Global.h"
 @interface FAQViewController ()
+@property(nonatomic)NSIndexPath *lastSelectedIndex;
 
 @end
 BOOL cellFlag=NO;
@@ -158,6 +159,11 @@ BOOL cellFlag=NO;
 {
     if ([self tableView:tableView canCollapseSection:indexPath.section])
     {
+        if (self.lastSelectedIndex.section!=indexPath.section) {
+            
+            [self resetTable:indexPath];
+        }
+
         if (!indexPath.row)
         {
             // only first row toggles exapand/collapse
@@ -209,12 +215,58 @@ BOOL cellFlag=NO;
 
         [self changeImageForCell:cell];
         }
-       
+
     }
-    
+    self.lastSelectedIndex=indexPath;
+
 }
 
-
+-(void)resetTable:(NSIndexPath*)index{
+    
+    
+    [expandedSections enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        
+        
+        BOOL currentlyExpanded = [expandedSections containsIndex:idx];
+        NSInteger rows;
+        
+        // UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        
+        NSMutableArray *tmpArray = [NSMutableArray array];
+        
+        if (currentlyExpanded)
+        {
+            rows = [self tableView:self.FAQTable numberOfRowsInSection:idx];
+            [expandedSections removeIndex:idx];
+            cellFlag=YES;
+        }
+        NSIndexPath *tmpIndexPath=nil;
+        for (int i=1; i<rows; i++)
+        {
+            tmpIndexPath = [NSIndexPath indexPathForRow:i
+                                              inSection:idx];
+            [tmpArray addObject:tmpIndexPath];
+        }
+        
+        
+        if (currentlyExpanded)
+        {
+            [self.FAQTable deleteRowsAtIndexPaths:tmpArray
+                                 withRowAnimation:UITableViewRowAnimationTop];
+            
+            
+        }
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:idx];
+        UITableViewCell *cell = [self.FAQTable cellForRowAtIndexPath:indexPath];
+        
+        [self changeImageForCell:cell];
+        
+    }];
+    
+    
+    
+}
 -(void)changeImageForCell:(id)sender{
     UITableViewCell *cell=sender;
     if (cellFlag==YES) {
