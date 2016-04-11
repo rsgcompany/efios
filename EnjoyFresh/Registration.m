@@ -77,11 +77,11 @@ static NSString *consumerKey=@"yIPITPHBFJ7CuwN857MvtGwflwF0ViZa7D3YEa78VjW9z98tx
     
     zipCode.attributedPlaceholder = zip;
     
-    NSAttributedString * promo = [[NSAttributedString alloc] initWithString:@"Enter promo code" attributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor]}];
+    NSAttributedString * promo = [[NSAttributedString alloc] initWithString:@"Enter promo code (optional)" attributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor]}];
     
     promoFld.attributedPlaceholder = promo;
     
-    NSAttributedString * phno = [[NSAttributedString alloc] initWithString:@"Phone number" attributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor]}];
+    NSAttributedString * phno = [[NSAttributedString alloc] initWithString:@"Mobile number" attributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor]}];
     
     phoneNumber.attributedPlaceholder = phno;
     
