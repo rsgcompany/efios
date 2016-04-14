@@ -305,6 +305,7 @@ int flag=0;
 
         dateButton.date = date;
         CKDateItem *item = [[CKDateItem alloc] init];
+        
         if ([self _dateIsToday:dateButton.date]) {
             item.textColor = UIColorFromRGB(0xF2F2F2);
             item.backgroundColor = [UIColor whiteColor];
@@ -327,7 +328,11 @@ int flag=0;
             dateButton.layer.borderColor=item.borderColor.CGColor;
 
         }
+        if (item.image) {
+            [dateButton setImage:item.image forState:UIControlStateNormal];
+            [dateButton setImageEdgeInsets:UIEdgeInsetsMake(-25, 0, 0, 0)];
 
+        }
         dateButton.frame = [self _calculateDayCellFrame:date];
 
         [self.calendarContainer addSubview:dateButton];
