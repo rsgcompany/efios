@@ -24,7 +24,7 @@
 @property (nonatomic, strong) UIColor *textColor;
 @property (nonatomic, strong) UIColor *selectedTextColor;
 @property (nonatomic, strong) UIColor *borderColor;
-
+@property(nonatomic,strong)UIImage *image;
 @end
 
 typedef enum {
