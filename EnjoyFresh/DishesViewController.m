@@ -2269,6 +2269,8 @@ typedef void(^Completion)(NSDictionary*);
         [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289)];
 
     }
+    
+    //Filtering future dates based on Order type
     [self.duplicateDatesArray removeAllObjects];
     [self.availableDatesArray removeAllObjects];
     NSArray *temparray=[dishesArr valueForKey:@"future_available_dates"];
