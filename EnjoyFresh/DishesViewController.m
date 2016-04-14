@@ -321,7 +321,7 @@ typedef void(^Completion)(NSDictionary*);
     
 #warning "change to production for live"
     
-    [PayPalMobile preconnectWithEnvironment:PayPalEnvironmentProduction];
+    [PayPalMobile preconnectWithEnvironment:PayPalEnvironmentSandbox];
     _payPalConfig.payPalShippingAddressOption = PayPalShippingAddressOptionNone;
     
     if (switchTag == nil) {
