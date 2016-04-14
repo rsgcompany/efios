@@ -39,6 +39,7 @@ CGPoint location;
 @property(nonatomic, strong, readwrite) PayPalConfiguration *payPalConfig;
 @property(nonatomic)UIRefreshControl *refreshControl;
 @property(nonatomic)CGPoint lastContentOffset;
+@property(nonatomic)NSMutableArray *duplicateDatesArray;
 @end
 static UIColor *favcolor;
 static UIColor *unfavcolor;
@@ -57,7 +58,7 @@ typedef void(^Completion)(NSDictionary*);
     [super viewDidLoad];
     
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
-    
+    self.duplicateDatesArray=[NSMutableArray new];
     // Do any additional setup after loading the view from its nib.
     [self.navigationController setNavigationBarHidden:YES];
     _payPalConfig = [[PayPalConfiguration alloc] init];
@@ -67,7 +68,7 @@ typedef void(^Completion)(NSDictionary*);
     IsInitialLoad = YES;
     
     CurrentButtonTag = 0;
-   // datesArray =[[NSMutableArray alloc]init];
+
     dishes_Tbl.delegate=self;
     dishes_Tbl.dataSource=self;
     
@@ -1110,8 +1111,8 @@ typedef void(^Completion)(NSDictionary*);
     
 //    NSDate *date=[self.dateFormatter dateFromString:[[dishesArr objectAtIndex:indexPath.row] valueForKey:@"avail_by_date"]];
 //    if (date !=nil ) {
-//        [datesArray addObject:date];
-//    }
+
+    //    }
     NSString *rating =[NSString stringWithFormat:@"%@",[[dishesArr objectAtIndex:indexPath.row] valueForKey:@"dish_rating"]];
     if ([rating isEqual:@"0"] || [rating isEqual:@""] || [rating isEqual:@" "]) {
         withoutRatingCount++;
@@ -1994,7 +1995,7 @@ typedef void(^Completion)(NSDictionary*);
     NSPredicate *glutenPredict = nil;
     NSPredicate *organicPredict = nil;
     NSPredicate *localPredict = nil;
-    
+    NSArray *temparray=nil;
     NSString *predictString = @"";
     
     [dishes_Tbl reloadData];
@@ -2067,11 +2068,14 @@ typedef void(^Completion)(NSDictionary*);
                     [alert show];
                 }
                 else{
-                    if([dietryStr length])
+                    if([dietryStr length]){
                         dishesArr=[dishesArr filteredArrayUsingPredicate:pred];
-                    else
+                    }else{
                         dishesArr=[dishesCopyArr filteredArrayUsingPredicate:pred];
+                    }
                     [self changeForButton:btnTemp];
+                    NSPredicate *pred1=[NSPredicate predicateWithFormat:@"ANY future_available_dates.avail_by_date == %@",selectedDate];
+
                 }
                 
             }
@@ -2083,6 +2087,10 @@ typedef void(^Completion)(NSDictionary*);
             [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
             [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
         }
+            [self.duplicateDatesArray removeAllObjects];
+           temparray=[dishesArr valueForKey:@"future_available_dates"];
+            [self.duplicateDatesArray addObjectsFromArray:temparray];
+            [self filteruniqueAvailabledate];
             break;
 
         case 33:
@@ -2132,7 +2140,12 @@ typedef void(^Completion)(NSDictionary*);
             [dishes_Tbl setFrame:CGRectMake(0,250, 320, Cell_height*[dishesArr count]+ 289)];
             [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289)];
         }
-        
+            [self.duplicateDatesArray removeAllObjects];
+
+            temparray=[dishesArr valueForKey:@"future_available_dates"];
+
+            [self.duplicateDatesArray addObjectsFromArray:temparray];
+            [self filteruniqueAvailabledate];
     
             break;
         case 44:
@@ -2397,6 +2410,11 @@ BOOL clearClick=NO;
         
         //[self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.frame.size.height+190)];
         dishesArr=dishesCopyArr;
+        [self.duplicateDatesArray removeAllObjects];
+
+        NSArray *temparray=[dishesArr valueForKey:@"future_available_dates"];
+        [self.duplicateDatesArray addObjectsFromArray:temparray];
+        [self filteruniqueAvailabledate];
         [dishes_Tbl reloadData];
         [self cusineArray];
         [self SetUnderScore:self.btnCategory];
@@ -3174,6 +3192,20 @@ BOOL clearClick=NO;
                      }];
 
     
+}
+-(void)filteruniqueAvailabledate{
+    
+    NSMutableArray *uniquearray=[NSMutableArray new];
+    for (NSArray *array1 in self.duplicateDatesArray) {
+        if (![array1 isKindOfClass:[NSNull class]]&& array1.count>0) {
+            
+            [uniquearray addObjectsFromArray:array1];
+        }
+    }
+    NSArray *uniqueStates;
+    uniqueStates = [uniquearray valueForKeyPath:@"@distinctUnionOfObjects.avail_by_date"];
+    uniquearray=[uniquearray valueForKey:@"avail_by_date"];
+    datesArray=uniquearray;
 }
 #pragma mark
 #pragma mark - HUD Delegtes
