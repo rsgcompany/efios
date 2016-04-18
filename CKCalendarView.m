@@ -20,12 +20,12 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CKCalendarView.h"
 
-#define BUTTON_MARGIN 4
+#define BUTTON_MARGIN 10
 #define CALENDAR_MARGIN 0
 #define TOP_HEIGHT 44
 #define DAYS_HEADER_HEIGHT 22
 #define DEFAULT_CELL_WIDTH 43
-#define CELL_BORDER_WIDTH 1
+#define CELL_BORDER_WIDTH 0.6
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -308,7 +308,7 @@ int flag=0;
         
         if ([self _dateIsToday:dateButton.date]) {
             item.textColor = UIColorFromRGB(0xF2F2F2);
-            item.backgroundColor = [UIColor whiteColor];
+            //item.backgroundColor = [UIColor whiteColor];
         } else if (!self.onlyShowCurrentMonth && [self _compareByMonth:date toDate:self.monthShowing] != NSOrderedSame) {
             item.textColor = [UIColor lightGrayColor];
         }
@@ -324,13 +324,16 @@ int flag=0;
         } else {
             [dateButton setTitleColor:item.textColor forState:UIControlStateNormal];
             dateButton.backgroundColor = item.backgroundColor;
-            dateButton.layer.borderWidth=1.0f;
-            dateButton.layer.borderColor=item.borderColor.CGColor;
+            
 
         }
-        if (item.image) {
-            [dateButton setImage:item.image forState:UIControlStateNormal];
-            [dateButton setImageEdgeInsets:UIEdgeInsetsMake(-25, 0, 0, 0)];
+        if (item.borderColor) {
+            //[dateButton setImage:item.image forState:UIControlStateNormal];
+            //[dateButton setImageEdgeInsets:UIEdgeInsetsMake(-25, 0, 0, 0)];
+            dateButton.layer.borderWidth=0.8;
+            dateButton.layer.borderColor=item.borderColor.CGColor;
+        }else{
+            dateButton.layer.borderWidth=0;
 
         }
         dateButton.frame = [self _calculateDayCellFrame:date];
