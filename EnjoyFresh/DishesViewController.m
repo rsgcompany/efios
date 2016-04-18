@@ -4002,32 +4002,67 @@ BOOL clearClick=NO;
     }
     return YES;
 }
+- (BOOL)isdateToday:(NSDate *)date {
+
+    NSDate *dt=[NSDate date];
+    
+    if ([[NSCalendar currentCalendar] isDate:dt inSameDayAsDate:date]) {
+        return YES;
+    }
+    return NO;
+}
+-(BOOL)isDateFallsinThisMonth:(NSDate *)date{
+    
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+
+    
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *dateComponents = [gregorian components:(NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:date];
+    if(dateComponents.year == components.year && dateComponents.month == components.month){
+        
+        return YES;
+    }
+    
+    return NO;
+    
+}
 
 #pragma mark -
 #pragma mark - CKCalendarDelegate
 
 - (void)calendar:(CKCalendarView *)calendar configureDateItem:(CKDateItem *)dateItem forDate:(NSDate *)date {
     // TODO: play with the coloring if we want to...
-    if ([self dateIsDisabled:date]) {
+    
+    
+    if ([self dateIsDisabled:date] && ![self isDateFallsinThisMonth:date]) {
         
         dateItem.backgroundColor = [UIColor whiteColor];
         dateItem.textColor = [UIColor lightGrayColor];
         
     }
-    else {
+    else if(![self dateIsDisabled:date]) {
         //dateItem.layer.borderColor=[UIColor colorWithRed:(147/255.0) green:(189/255.0) blue:(119/255.0) alpha:1];
-        dateItem.borderColor=[UIColor colorWithRed:(147/255.0) green:(189/255.0) blue:(119/255.0) alpha:1] ;
+        //dateItem.borderColor=[UIColor colorWithRed:(147/255.0) green:(189/255.0) blue:(119/255.0) alpha:1] ;
         dateItem.backgroundColor = [UIColor colorWithRed:(147/255.0) green:(189/255.0) blue:(119/255.0) alpha:1];
         dateItem.textColor = [UIColor whiteColor];
     }
+    if ([self isDateFallsinThisMonth:date]) {
+        dateItem.textColor = [UIColor blackColor];
+        
+    }else{
+        dateItem.textColor = [UIColor lightGrayColor];
+        
+    }
+      //dateItem.borderColor=[UIColor colorWithRed:(221/255.0) green:(221/255.0) blue:(221/255.0) alpha:0.6] ;
 
-     if ([self dateIsDisabledDot:date]) {
-         dateItem.image=nil;
+     if ([self isdateToday:date] && [self dateIsDisabled:date]) {
+         dateItem.borderColor=[UIColor colorWithRed:(147/255.0) green:(189/255.0) blue:(119/255.0) alpha:0.6] ;
 
      }else{
-         dateItem.image=[self imageFromColor:[UIColor colorWithRed:(147/255.0) green:(189/255.0) blue:(119/255.0) alpha:1]];
-
+         dateItem.borderColor=[UIColor clearColor];
      }
+    
+    
 }
 
 - (BOOL)calendar:(CKCalendarView *)calendar willSelectDate:(NSDate *)date {
