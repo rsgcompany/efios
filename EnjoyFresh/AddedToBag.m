@@ -833,6 +833,11 @@ NSMutableDictionary *dict=nil;
 
 -(void)buttonAction:(id)sender{
     
+    if (addressView1!=nil) {
+        
+        [addressView1 removeFromSuperview];
+        addressView1=nil;
+    }
     if ([sender tag] == 11) {
         [self.btnDineOpt setTitle:@"Delivery" forState:UIControlStateNormal];
         
@@ -1137,7 +1142,15 @@ NSMutableDictionary *dict=nil;
         self.txtSuiteNo.userInteractionEnabled=NO;
     self.btnAddnewAddr.hidden=NO;
 
-    self.addressId=[[addrssArray objectAtIndex:indexPath.row] valueForKey:@"address_id"];
+        self.txtAdrs.textColor=[UIColor blackColor];
+        self.txtCity.textColor=[UIColor blackColor];
+        self.txtZip.textColor=[UIColor blackColor];
+        self.txtPhoneNum.textColor=[UIColor blackColor];
+        self.txtSuiteNo.textColor=[UIColor blackColor];
+        self.txtInstructions.textColor=[UIColor blackColor];
+        self.txtState.textColor=[UIColor blackColor];
+
+        self.addressId=[[addrssArray objectAtIndex:indexPath.row] valueForKey:@"address_id"];
     [addressView1 removeFromSuperview];
     addressView1=nil;
     }
@@ -1416,6 +1429,12 @@ NSMutableDictionary *dict=nil;
     return  _states;
 }
 - (IBAction)newAddress:(id)sender {
+    
+    if (addressView1!=nil) {
+        [addressView1 removeFromSuperview];
+        addressView1=nil;
+    }
+    
     self.txtAddrs.text=nil;
     self.txtAdrs.text=nil;
     self.txtCity.text=nil;
@@ -1431,6 +1450,15 @@ NSMutableDictionary *dict=nil;
     self.txtPhoneNum.userInteractionEnabled=YES;
     self.txtSuiteNo.userInteractionEnabled=YES;
     self.txtInstructions.userInteractionEnabled=YES;
+
+    
+    self.txtAdrs.textColor=[UIColor blackColor];
+    self.txtCity.textColor=[UIColor blackColor];
+    self.txtZip.textColor=[UIColor blackColor];
+    self.txtPhoneNum.textColor=[UIColor blackColor];
+    self.txtSuiteNo.textColor=[UIColor blackColor];
+    self.txtInstructions.textColor=[UIColor blackColor];
+    self.txtState.textColor=[UIColor blackColor];
 
     self.btnAddnewAddr.hidden=YES;
     

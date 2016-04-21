@@ -214,6 +214,12 @@ BOOL cellFlag=NO;
             UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 
         [self changeImageForCell:cell];
+            
+            if (!currentlyExpanded && indexPath.section+1==questionsArray.count) {
+                
+                [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+                
+            }
         }
 
     }
