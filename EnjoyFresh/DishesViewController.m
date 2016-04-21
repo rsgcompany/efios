@@ -39,7 +39,8 @@ CGPoint location;
 @property(nonatomic, strong, readwrite) PayPalConfiguration *payPalConfig;
 @property(nonatomic)UIRefreshControl *refreshControl;
 @property(nonatomic)CGPoint lastContentOffset;
-@property(nonatomic)NSMutableArray *duplicateDatesArray,*availableDatesArray;;
+@property(nonatomic)NSMutableArray *duplicateDatesArray,*availableDatesArray;
+@property(nonatomic)BOOL isNOTFirstLunch;
 @end
 static UIColor *favcolor;
 static UIColor *unfavcolor;
@@ -168,7 +169,7 @@ typedef void(^Completion)(NSDictionary*);
     
     search_bar=[[UISearchBar alloc]initWithFrame:CGRectMake(0,0, 320, 40)];
     [self.view addSubview:search_bar];
-
+    [self hideSearchBar];
     search_bar.delegate=self;
     search_bar.searchBarStyle=UISearchBarStyleMinimal;
     
@@ -233,7 +234,8 @@ typedef void(^Completion)(NSDictionary*);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
 
 
-    
+    [self hideSearchBar];
+
 }
 - (void)appDidBecomeActive:(NSNotification *)notification {
     NSLog(@"did become active notification");
@@ -1449,11 +1451,17 @@ typedef void(^Completion)(NSDictionary*);
         [self hideSearchBar];
 
     }
-    else
+    else if(currentOffset.y ==-10 && self.isNOTFirstLunch==NO)
     {
+        // Upward
+        [self hideSearchBar];
+        
+    }else{
+        
         [self showSearchBar];
+        self.isNOTFirstLunch=YES;
+                // Downward
 
-        // Downward
     }
     self.lastContentOffset = currentOffset;
 
@@ -1551,7 +1559,7 @@ typedef void(^Completion)(NSDictionary*);
 }
 - (IBAction)refineSearchMethod:(id)sender {
     [self.view endEditing:YES];
-
+    [self showHUD];
     withRatingCount=0;
     withoutRatingCount=0;
     UIButton *curButton=(UIButton *)[self.scrollView viewWithTag:[sender tag]];
@@ -1559,168 +1567,174 @@ typedef void(^Completion)(NSDictionary*);
     [curButton setAlpha:0.60f];
     [curButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     curButton.titleLabel.font=[UIFont fontWithName:Bold size:11];
-    if ([sender tag] == 11) {
-        
-        [dishes_Tbl reloadData];
-         
-         [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-         [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-         switchTag=(int)[sender tag];
-        [self cusineArray];
-        
-        [self.btnDistance setAlpha:1.0f];
-        [self.btnOffering setAlpha:1.0f];
-        [self.btnDietary setAlpha:1.0f];
-        [self.btnDate setAlpha:1.0f];
-        
-        self.btnDistance.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        _btnOffering.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        _btnDietary.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        _btnDate.titleLabel.font=[UIFont fontWithName:Medium size:11];
-
-        [self.btnDistance setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnOffering setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnDietary setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnDate setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    }
-    else if([sender tag] == 22){
-        [dishes_Tbl reloadData];
-
-        [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-        [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-        // [self resetOfferings]
-       // [self setImages];
-        self.cuisineDietaryView.hidden=YES;
-        self.sliderOfferingView.hidden=NO;
-        self.offeringView.hidden=NO;
-        self.calendarView.hidden=YES;
-        switchTag=(int)[sender tag];
-
-        [self.btnCategory setAlpha:1.0f];
-        [self.btnDate setAlpha:1.0f];
-        [self.btnDistance setAlpha:1.0f];
-        [self.btnDietary setAlpha:1.0f];
-        
-        self.btnCategory.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        self.btnDistance.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        _btnDietary.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        _btnDate.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        
-        [self.btnCategory setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnDate setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnDistance setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnDietary setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-
-    }
-    else if ([sender tag] == 33){
-        [dishes_Tbl reloadData];
-        
-        [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-        [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-        self.cuisineDietaryView.hidden=NO;
-        self.sliderOfferingView.hidden=YES;
-        self.calendarView.hidden=YES;
-
-        switchTag=(int)[sender tag];
-        
-        [self.refineScroll.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
-        [self dietaryArray];
-        [self.refineScroll setContentSize:CGSizeMake(self.refineScroll.frame.size.width,116)];
-        [self.btnDate setAlpha:1.0f];
-        [self.btnDistance setAlpha:1.0f];
-        [self.btnCategory setAlpha:1.0f];
-        [self.btnOffering setAlpha:1.0f];
-
-        [self.btnDate setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnDistance setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnCategory setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnOffering setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-
-        self.btnCategory.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        self.btnDistance.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        _btnOffering.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        _btnDate.titleLabel.font=[UIFont fontWithName:Medium size:11];
-    }
-    else if ([sender tag] == 44){
-        [dishes_Tbl reloadData];
-        
-        [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-        [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-        [self configureLabelSlider ];
-        [self updateSliderLabels];
-        self.cuisineDietaryView.hidden=YES;
-        self.sliderOfferingView.hidden=NO;
-        self.offeringView.hidden=YES;
-        self.calendarView.hidden=YES;
-        
-        if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied)
-        {
-            self.txtfindZip.text=[addrFromLocation valueForKey:@"ZIP"];
+    dispatch_async( dispatch_get_main_queue(), ^{
+        // Add code here to update the UI/send notifications based on the
+        // results of the background processing
+        if ([sender tag] == 11) {
+            
+            [dishes_Tbl reloadData];
+            
+            [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+            [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+            switchTag=(int)[sender tag];
+            [self cusineArray];
+            
+            [self.btnDistance setAlpha:1.0f];
+            [self.btnOffering setAlpha:1.0f];
+            [self.btnDietary setAlpha:1.0f];
+            [self.btnDate setAlpha:1.0f];
+            
+            self.btnDistance.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            _btnOffering.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            _btnDietary.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            _btnDate.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            
+            [self.btnDistance setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnOffering setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnDietary setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnDate setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        }
+        else if([sender tag] == 22){
+            [dishes_Tbl reloadData];
+            
+            [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+            [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+            // [self resetOfferings]
+            // [self setImages];
+            self.cuisineDietaryView.hidden=YES;
+            self.sliderOfferingView.hidden=NO;
+            self.offeringView.hidden=NO;
+            self.calendarView.hidden=YES;
+            switchTag=(int)[sender tag];
+            
+            [self.btnCategory setAlpha:1.0f];
+            [self.btnDate setAlpha:1.0f];
+            [self.btnDistance setAlpha:1.0f];
+            [self.btnDietary setAlpha:1.0f];
+            
+            self.btnCategory.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            self.btnDistance.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            _btnDietary.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            _btnDate.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            
+            [self.btnCategory setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnDate setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnDistance setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnDietary setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            
+        }
+        else if ([sender tag] == 33){
+            [dishes_Tbl reloadData];
+            
+            [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+            [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+            self.cuisineDietaryView.hidden=NO;
+            self.sliderOfferingView.hidden=YES;
+            self.calendarView.hidden=YES;
+            
+            switchTag=(int)[sender tag];
+            
+            [self.refineScroll.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
+            [self dietaryArray];
+            [self.refineScroll setContentSize:CGSizeMake(self.refineScroll.frame.size.width,116)];
+            [self.btnDate setAlpha:1.0f];
+            [self.btnDistance setAlpha:1.0f];
+            [self.btnCategory setAlpha:1.0f];
+            [self.btnOffering setAlpha:1.0f];
+            
+            [self.btnDate setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnDistance setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnCategory setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnOffering setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            
+            self.btnCategory.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            self.btnDistance.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            _btnOffering.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            _btnDate.titleLabel.font=[UIFont fontWithName:Medium size:11];
+        }
+        else if ([sender tag] == 44){
+            [dishes_Tbl reloadData];
+            
+            [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+            [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+            [self configureLabelSlider ];
+            [self updateSliderLabels];
+            self.cuisineDietaryView.hidden=YES;
+            self.sliderOfferingView.hidden=NO;
+            self.offeringView.hidden=YES;
+            self.calendarView.hidden=YES;
+            
+            if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied)
+            {
+                self.txtfindZip.text=[addrFromLocation valueForKey:@"ZIP"];
+            }
+            else{
+                NSString *zipCd=[[[NSUserDefaults standardUserDefaults]valueForKey:@"UserProfile"]valueForKey:@"zipcode"];
+                
+                //zipCd = appDel.CurrentCustomerDetails.user_zipcode;
+                self.txtfindZip.text=zipCd;
+            }
+            
+            switchTag=(int)[sender tag];
+            
+            [self.btnDate setAlpha:1.0f];
+            [self.btnOffering setAlpha:1.0f];
+            [self.btnDietary setAlpha:1.0f];
+            [self.btnCategory setAlpha:1.0f];
+            
+            [self.btnDate setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnOffering setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnDietary setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnCategory setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            
+            self.btnCategory.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            _btnOffering.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            _btnDietary.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            _btnDate.titleLabel.font=[UIFont fontWithName:Medium size:11];
         }
         else{
-            NSString *zipCd=[[[NSUserDefaults standardUserDefaults]valueForKey:@"UserProfile"]valueForKey:@"zipcode"];
+            self.cuisineDietaryView.hidden=YES;
+            self.sliderOfferingView.hidden=YES;
+            self.offeringView.hidden=YES;
+            self.calendarView.hidden=NO;
+            switchTag=(int)[sender tag];
+            [self.calendar removeFromSuperview];
+            CKCalendarView *calendar =nil;
+            [calendar removeFromSuperview];
+            calendar=[[CKCalendarView alloc] initWithStartDay:startSunday];
+            self.calendar = calendar;
             
-            //zipCd = appDel.CurrentCustomerDetails.user_zipcode;
-            self.txtfindZip.text=zipCd;
+            
+            calendar.onlyShowCurrentMonth = NO;
+            calendar.adaptHeightToNumberOfWeeksInMonth = YES;
+            calendar.backgroundColor=[UIColor colorWithRed:(147/255.0) green:(189/255.0) blue:(119/255.0) alpha:1];
+            calendar.frame = CGRectMake(10,5,280, 260);
+            calendar.delegate = self;
+            [self.calendarView addSubview:calendar];
+            //        [self.calendarView bringSubviewToFront:self.tempView];
+            [self.calendarView sendSubviewToBack:calendar];
+            [dishes_Tbl setFrame:CGRectMake(0,295+146, 320, Cell_height*[dishesArr count]+ 289)];
+            [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289+146)];
+            
+            
+            [self.btnDistance setAlpha:1.0f];
+            [self.btnOffering setAlpha:1.0f];
+            [self.btnDietary setAlpha:1.0f];
+            [self.btnCategory setAlpha:1.0f];
+            
+            [self.btnDistance setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnOffering setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnDietary setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnCategory setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            
+            self.btnCategory.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            self.btnDistance.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            _btnOffering.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            _btnDietary.titleLabel.font=[UIFont fontWithName:Medium size:11];
         }
 
-        switchTag=(int)[sender tag];
-        
-        [self.btnDate setAlpha:1.0f];
-        [self.btnOffering setAlpha:1.0f];
-        [self.btnDietary setAlpha:1.0f];
-        [self.btnCategory setAlpha:1.0f];
-        
-        [self.btnDate setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnOffering setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnDietary setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnCategory setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    });
 
-        self.btnCategory.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        _btnOffering.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        _btnDietary.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        _btnDate.titleLabel.font=[UIFont fontWithName:Medium size:11];
-    }
-    else{
-        self.cuisineDietaryView.hidden=YES;
-        self.sliderOfferingView.hidden=YES;
-        self.offeringView.hidden=YES;
-        self.calendarView.hidden=NO;
-        switchTag=(int)[sender tag];
-        [self.calendar removeFromSuperview];
-        CKCalendarView *calendar =nil;
-        [calendar removeFromSuperview];
-        calendar=[[CKCalendarView alloc] initWithStartDay:startSunday];
-        self.calendar = calendar;
-        
-        
-        calendar.onlyShowCurrentMonth = NO;
-        calendar.adaptHeightToNumberOfWeeksInMonth = YES;
-        calendar.backgroundColor=[UIColor colorWithRed:(147/255.0) green:(189/255.0) blue:(119/255.0) alpha:1];
-        calendar.frame = CGRectMake(10,5,280, 260);
-         calendar.delegate = self;
-        [self.calendarView addSubview:calendar];
-//        [self.calendarView bringSubviewToFront:self.tempView];
-        [self.calendarView sendSubviewToBack:calendar];
-        [dishes_Tbl setFrame:CGRectMake(0,295+146, 320, Cell_height*[dishesArr count]+ 289)];
-        [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289+146)];
-       
-       
-        [self.btnDistance setAlpha:1.0f];
-        [self.btnOffering setAlpha:1.0f];
-        [self.btnDietary setAlpha:1.0f];
-        [self.btnCategory setAlpha:1.0f];
-        
-        [self.btnDistance setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnOffering setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnDietary setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnCategory setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-
-        self.btnCategory.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        self.btnDistance.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        _btnOffering.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        _btnDietary.titleLabel.font=[UIFont fontWithName:Medium size:11];
-    }
 }
 -(void)resetDeit:(id)sender{
     withRatingCount=0;
@@ -1884,11 +1898,7 @@ typedef void(^Completion)(NSDictionary*);
     int rem;
     
     NSMutableArray *buttons=[[NSMutableArray alloc]init];
-    dispatch_async( dispatch_get_main_queue(), ^{
-        // Add code here to update the UI/send notifications based on the
-        // results of the background processing
-    });
-    for (int i=0; i<catArr.count; i++) {
+        for (int i=0; i<catArr.count; i++) {
         NSString *myString=[catArr objectAtIndex:i];
         CGSize stringsize = [myString sizeWithFont:[UIFont fontWithName:Regular size:13]];
         //or whatever font you're using
@@ -1959,6 +1969,8 @@ typedef void(^Completion)(NSDictionary*);
  
 }
 -(void)refineSelector:(id)sender{
+    
+    [self showHUD];
     UIButton *btnTemp = (UIButton *)sender;
     int bTag = (int)btnTemp.tag;
     NSString *str=btnTemp.titleLabel.text;
@@ -2006,6 +2018,7 @@ typedef void(^Completion)(NSDictionary*);
 
     switch (switchTag) {
         case 11:
+            
         {
             if([selCat isEqualToString:@"All"])
             {
@@ -2413,73 +2426,86 @@ BOOL clearClick=NO;
 
 - (IBAction)showRefineFilters:(id)sender {
     [self.view endEditing:YES];
+
+    [self showHUD];
     selectedDate=nil;
     withRatingCount=0;
     withoutRatingCount=0;
-    [self setImages];
     if (!refineflag) {
         refineflag=YES;
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-             
+        dispatch_async( dispatch_get_main_queue(), ^{
+
+            
+            [self setImages];
+
+            //[self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.frame.size.height+190)];
+            dishesArr=dishesCopyArr;
+            [self.duplicateDatesArray removeAllObjects];
+            [self.availableDatesArray removeAllObjects];
+            NSArray *temparray=[dishesArr valueForKey:@"future_available_dates"];
+            [self.duplicateDatesArray addObjectsFromArray:temparray];
+            [self.availableDatesArray addObjectsFromArray:[dishesArr valueForKey:@"order_by_date"]];
+            [self filteruniqueAvailabledate];
+            [dishes_Tbl reloadData];
+            [self cusineArray];
+            [self SetUnderScore:self.btnCategory];
+            self.btnClearAll.hidden=NO;
+            self.btnSearchNear.hidden=YES;
+            
+            [UIView animateWithDuration:0.0f
+                                  delay:0.0f
+                                options:UIViewAnimationOptionTransitionCurlDown
+                             animations:^{
+                                 [dishes_Tbl setFrame:CGRectMake(0,250, 320,(Cell_height*withRatingCount+390*withoutRatingCount))];
+                                 [self.scrollView setContentSize:CGSizeMake(320,Cell_height*withRatingCount+390*withoutRatingCount+220)];
+                                 
+                             }
+                             completion:nil];
+            
+            [self.btnDistance setAlpha:1.0f];
+            [self.btnOffering setAlpha:1.0f];
+            [self.btnDietary setAlpha:1.0f];
+            [self.btnDate setAlpha:1.0f];
+            [self.btnCategory setAlpha:0.6f];
+            
+            self.btnDistance.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            _btnOffering.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            _btnDietary.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            _btnDate.titleLabel.font=[UIFont fontWithName:Medium size:11];
+            
+            [self.btnDistance setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnOffering setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnDietary setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.btnDate setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            self.btnCategory.titleLabel.font=[UIFont fontWithName:Bold size:11];
+            [self.btnCategory setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            
+            switchTag=11;
+
          });
         
-        
-        //[self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.frame.size.height+190)];
-        dishesArr=dishesCopyArr;
-        [self.duplicateDatesArray removeAllObjects];
-        [self.availableDatesArray removeAllObjects];
-        NSArray *temparray=[dishesArr valueForKey:@"future_available_dates"];
-        [self.duplicateDatesArray addObjectsFromArray:temparray];
-        [self.availableDatesArray addObjectsFromArray:[dishesArr valueForKey:@"order_by_date"]];
-        [self filteruniqueAvailabledate];
-        [dishes_Tbl reloadData];
-        [self cusineArray];
-        [self SetUnderScore:self.btnCategory];
-        self.btnClearAll.hidden=NO;
-        self.btnSearchNear.hidden=YES;
-        
-        [UIView animateWithDuration:0.0f
-                              delay:0.0f
-                            options:UIViewAnimationOptionTransitionCurlDown
-                         animations:^{
-                             [dishes_Tbl setFrame:CGRectMake(0,250, 320,(Cell_height*withRatingCount+390*withoutRatingCount))];
-                             [self.scrollView setContentSize:CGSizeMake(320,Cell_height*withRatingCount+390*withoutRatingCount+220)];
-
-                         }
-                         completion:nil];
-        
-        [self.btnDistance setAlpha:1.0f];
-        [self.btnOffering setAlpha:1.0f];
-        [self.btnDietary setAlpha:1.0f];
-        [self.btnDate setAlpha:1.0f];
-        [self.btnCategory setAlpha:0.6f];
-        
-        self.btnDistance.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        _btnOffering.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        _btnDietary.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        _btnDate.titleLabel.font=[UIFont fontWithName:Medium size:11];
-        
-        [self.btnDistance setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnOffering setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnDietary setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self.btnDate setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        self.btnCategory.titleLabel.font=[UIFont fontWithName:Bold size:11];
-        [self.btnCategory setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-
-        switchTag=11;
     }
     else{
-        [dishes_Tbl reloadData];
+        
+        dispatch_async( dispatch_get_main_queue(), ^{
 
-        refineflag=NO;
-        allflag=NO;
-        [dishes_Tbl setFrame:CGRectMake(0,89, 320, (Cell_height*withRatingCount+390*withoutRatingCount))];
-        [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+70)];
-        self.btnClearAll.hidden=YES;
-        self.btnSearchNear.hidden=NO;
+            [self setImages];
 
+            [dishes_Tbl reloadData];
+            
+            refineflag=NO;
+            allflag=NO;
+            [dishes_Tbl setFrame:CGRectMake(0,89, 320, (Cell_height*withRatingCount+390*withoutRatingCount))];
+            [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+70)];
+            self.btnClearAll.hidden=YES;
+            self.btnSearchNear.hidden=NO;
+            
+        });
+        
 
     }
+    
+    
 }
 -(void)setInitail{
     
@@ -3238,16 +3264,32 @@ BOOL clearClick=NO;
     // Remove HUD from screen when the HUD was hidded
     [hud removeFromSuperview];
     hud = nil;
+    
+}
+-(void)showHUD{
+    
+    if (hud==nil)
+    {
+        hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        hud.delegate = self;
+        [self.view addSubview:hud];
+        [hud show:YES];
+        
+    }
+
+
+    [self performSelector:@selector(hudWasHidden:) withObject:nil afterDelay:5];
+
 }
 -(void)hideSearchBar{
     
-    
+    search_bar.hidden=YES;
          search_bar.frame
-         = CGRectMake(0, -100,
+         = CGRectMake(0, -200,
                       search_bar.frame.size.width, search_bar.frame.size.height);
 }
 -(void)showSearchBar{
-
+    search_bar.hidden=NO;
     search_bar.frame
          = CGRectMake(0, 65,
                       search_bar.frame.size.width, search_bar.frame.size.height);
