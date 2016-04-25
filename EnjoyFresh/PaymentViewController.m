@@ -1070,6 +1070,11 @@ BOOL cardFlag=YES;
                     }
                 }
             }
+            
+            if (listofcards.count==0) {
+                
+                [self addNewCard:nil];
+            }
         }
         else if (parseInt==3)
         {
