@@ -4080,12 +4080,12 @@ BOOL clearClick=NO;
         
         dateItem.backgroundColor = [UIColor whiteColor];
         dateItem.textColor = [UIColor lightGrayColor];
-        
+
     }
     else if(![self dateIsDisabled:date]) {
         //dateItem.layer.borderColor=[UIColor colorWithRed:(147/255.0) green:(189/255.0) blue:(119/255.0) alpha:1];
         //dateItem.borderColor=[UIColor colorWithRed:(147/255.0) green:(189/255.0) blue:(119/255.0) alpha:1] ;
-        dateItem.backgroundColor = [UIColor colorWithRed:(147/255.0) green:(189/255.0) blue:(119/255.0) alpha:1];
+        dateItem.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"navigationbar_02"]];
         dateItem.textColor = [UIColor whiteColor];
     }
     if ([self isDateFallsinThisMonth:date]) {

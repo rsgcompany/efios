@@ -456,7 +456,8 @@ NSMutableDictionary *dict=nil;
         case 30:
         {    self.promoTxt.userInteractionEnabled=YES;
             self.apply_btn.userInteractionEnabled=YES;
-            self.promoTxt.alpha=1;
+            self.promoTxt.alpha=0.25f;
+            
             self.apply_btn.alpha=1;
             Price_lbl.text=[NSString stringWithFormat:@"$ %.2f",price*qty];
             [self.promoCodeBtn setImage:[UIImage imageNamed:@"checked"] forState:UIControlStateNormal];
