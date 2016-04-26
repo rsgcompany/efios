@@ -93,6 +93,7 @@
 		0468FFAB19A108FD0018C40B /* PaymentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0468FFA619A108FD0018C40B /* PaymentCell.m */; };
 		0468FFAD19A108FD0018C40B /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0468FFA919A108FD0018C40B /* PaymentViewController.m */; };
 		0468FFB119A109450018C40B /* nf_map_callout.png in Resources */ = {isa = PBXBuildFile; fileRef = 0468FFB019A109450018C40B /* nf_map_callout.png */; };
+		04AE0DDB1CCF177100E0F231 /* xclose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AE0DDA1CCF177100E0F231 /* xclose@2x.png */; };
 		04D60FF7199C02BD00D4A10A /* SettingViewController_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D60FF3199C02BD00D4A10A /* SettingViewController_iPhone4.xib */; };
 		04D60FF8199C02BD00D4A10A /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D60FF5199C02BD00D4A10A /* SettingViewController.m */; };
 		04D6100C199C046F00D4A10A /* Notifications_Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D61000199C046F00D4A10A /* Notifications_Icon@2x.png */; };
@@ -504,6 +505,7 @@
 		0468FFA819A108FD0018C40B /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		0468FFA919A108FD0018C40B /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		0468FFB019A109450018C40B /* nf_map_callout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nf_map_callout.png; sourceTree = "<group>"; };
+		04AE0DDA1CCF177100E0F231 /* xclose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xclose@2x.png"; sourceTree = "<group>"; };
 		04D60FF3199C02BD00D4A10A /* SettingViewController_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController_iPhone4.xib; sourceTree = "<group>"; };
 		04D60FF4199C02BD00D4A10A /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		04D60FF5199C02BD00D4A10A /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
@@ -1580,6 +1582,7 @@
 		47D5FFE71B1F27B30006CDA3 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				04AE0DDA1CCF177100E0F231 /* xclose@2x.png */,
 				47971CD51C1FEA6E0033A53F /* Bell.png */,
 				47DCDAD21C1014D600C612E8 /* all_hover.png */,
 				47DCDAD31C1014D600C612E8 /* all.png */,
@@ -1868,6 +1871,7 @@
 				5E39159119E2F38F00834D8B /* States.plist in Resources */,
 				4747B58F1B46C23F00028228 /* left_arrow@2x.png in Resources */,
 				47C6715C1BE11FA800090736 /* Email_Icon1@2x.png in Resources */,
+				04AE0DDB1CCF177100E0F231 /* xclose@2x.png in Resources */,
 				47909C441CB3C25F007C704F /* pickup.png in Resources */,
 				47EDCD241B9EF64700DC4006 /* dish_Pic@2x.png in Resources */,
 				47EAF6221BF5C62500C9EEDD /* Social Share@2x.png in Resources */,

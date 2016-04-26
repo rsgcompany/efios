@@ -18,7 +18,7 @@ float dollars;
 long count=nil;
 int height;
 @interface AddedToBag ()
-
+@property(nonatomic)NSArray *tipsArray;
 @end
 
 @implementation AddedToBag
@@ -342,6 +342,10 @@ NSMutableDictionary *dict=nil;
         
     self.addressView.frame=CGRectMake(self.addressView.frame.origin.x, self.addressView.frame.origin.y-self.btnAddress.frame.size.height/2, self.addressView.frame.size.width, self.addressView.frame.size.height);
     }
+    if(!IS_IPHONE5){
+        
+        self.scrollView.frame=CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.width, 560);
+    }
     height= self.scrollView.frame.size.height;
     self.addressId=@"";
     self.states=[self GetStatesList];
@@ -364,7 +368,29 @@ NSMutableDictionary *dict=nil;
     self.txtZip.leftViewMode = UITextFieldViewModeAlways;
     self.txtPhoneNum.leftViewMode = UITextFieldViewModeAlways;
 
+    self.tipsArray=[[NSArray alloc]initWithObjects:@"0%",@"10%",@"15%",@"18%",@"25%", nil];
     
+    [self  showDineOpts:nil];
+    
+    if ([[Item_details valueForKey:@"is_pickup"] integerValue]==1) {
+
+        UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+        btn.tag=33;
+        [self buttonAction:btn];
+    }
+    if ([[Item_details valueForKey:@"is_dinein"]integerValue] ==1) {
+        
+        UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+        btn.tag=22;
+        [self buttonAction:btn];
+    }
+    if ([[Item_details valueForKey:@"is_delivery"] integerValue] ==1){
+        UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+        btn.tag=11;
+        [self buttonAction:btn];
+        
+    }
+
 }
 - (void)updateCurrentLocation {
     
@@ -853,7 +879,14 @@ NSMutableDictionary *dict=nil;
              frame.origin.y = self.addressView.frame.origin.y+self.addressView.frame.size.height/2+70;
              frame.origin.x = 0;
              self.offerView.frame = frame;
-             [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, height+self.offerView.frame.size.height/2)];
+             if (IS_IPHONE5) {
+                 [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, height+self.offerView.frame.size.height/2)];
+
+             }else{
+                 [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, 820)];
+
+             }
+
          }
                          completion:^(BOOL finished)
          {
@@ -877,7 +910,13 @@ NSMutableDictionary *dict=nil;
              frame.origin.y = Quantity.frame.origin.y+25;
              frame.origin.x = 0;
              self.offerView.frame = frame;
-             [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width,height)];
+             if (IS_IPHONE5) {
+                 [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width,height)];
+                 
+             }else{
+                 [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, 630)];
+                 
+             }
          }
                          completion:^(BOOL finished)
          {
@@ -902,8 +941,13 @@ NSMutableDictionary *dict=nil;
              frame.origin.y = Quantity.frame.origin.y+25;
              frame.origin.x = 0;
              self.offerView.frame = frame;
-             [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width,height)];
-
+             if (IS_IPHONE5) {
+                 [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width,height)];
+                 
+             }else{
+                 [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, 630)];
+                 
+             }
          }
                          completion:^(BOOL finished)
          {
@@ -1006,7 +1050,54 @@ NSMutableDictionary *dict=nil;
     
     [self performSelector:@selector(Cancel_Btn_Clicked:) withObject:self afterDelay:0.5f];
 }
+-(IBAction)showTipsView{
+    
+    if (tipsView == nil) {
+        tipsView=[[UIScrollView alloc]initWithFrame:CGRectMake(self.btnTips.frame.origin.x,self.offerView.frame.origin.y+self.btnTips.frame.origin.y+24, self.btnTips.frame.size.width, 100)];
+        tipsView.backgroundColor=[UIColor whiteColor];
+        [self.scrollView addSubview:tipsView];
+        float Yaxis=1;
+        
+        for (int i=0; i<5; i++) {
+            
+            
+            UIButton *bt1=[[UIButton alloc]initWithFrame:CGRectMake(1, Yaxis, self.btnTips.frame.size.width-2, 20)];
+            [bt1 addTarget:self action:@selector(tipbuttonAction:) forControlEvents:UIControlEventTouchUpInside];
+            bt1.tag=i;
+            [bt1 setTitle:[self.tipsArray objectAtIndex:i] forState:UIControlStateNormal];
+            bt1.titleLabel.font=[UIFont systemFontOfSize:11];
+            [bt1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            bt1.backgroundColor=[UIColor whiteColor];
+            [tipsView addSubview:bt1];
+            Yaxis+=21;
 
+        }
+        
+    }
+    else{
+        [tipsView removeFromSuperview];
+        tipsView=nil;
+    }
+
+    
+}
+-(void)tipbuttonAction:(UIButton*)sender{
+        
+    [self.btnTips setTitle:sender.titleLabel.text forState:UIControlStateNormal];
+    appDel.tipPercent=[[self.tipsArray objectAtIndex:sender.tag] integerValue];
+    float tipPrice=0;
+    float tipvalue=(float)appDel.tipPercent;
+    tipPrice = (tipvalue/100)*price;
+
+    Price_lbl.text=[NSString stringWithFormat:@"$ %.2f",price+tipvalue];
+
+    if (tipsView!=nil) {
+        
+        [tipsView removeFromSuperview];
+        tipsView=nil;
+
+    }
+}
 #pragma mark -
 #pragma mark - datasource
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
