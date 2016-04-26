@@ -96,6 +96,7 @@
     NSMutableArray *datesArray;
     NSArray *arrayDate;
     int selectedIndx;
+    UIScrollView *tipsView;
 
 }
 @property(nonatomic,retain) NSArray *states;
@@ -159,6 +160,9 @@
 @property (strong, nonatomic) IBOutlet UITextField *txtAdrs;
 @property (strong, nonatomic) IBOutlet UIButton *btnStates;
 @property (strong, nonatomic) IBOutlet UIButton *btnAddnewAddr;
+@property (strong, nonatomic) IBOutlet UIButton *btnTips;
+
+
 - (IBAction)newAddress:(id)sender;
 
 - (IBAction)showStates:(id)sender;
