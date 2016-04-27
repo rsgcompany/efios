@@ -28,7 +28,7 @@
                 <outlet property="DishRestaurant_order" destination="An0-2s-g0y" id="0Xx-fp-f2L"/>
                 <outlet property="Dish_Name" destination="2Lt-I3-LTe" id="gRU-X0-waD"/>
                 <outlet property="Dishimage" destination="YJt-uo-hWA" id="ph4-bq-YZd"/>
-                <outlet property="First_Btn" destination="9HP-gJ-EAe" id="v2Q-hQ-Urh"/>
+                <outlet property="First_Btn" destination="xAp-LU-Z0y" id="lEH-WP-0fw"/>
                 <outlet property="Hearder_checkout" destination="XPq-HA-aFe" id="7LN-cL-t7I"/>
                 <outlet property="Hearder_lbl" destination="fLb-Wd-dWQ" id="anD-rj-yXu"/>
                 <outlet property="OrderNowBtn" destination="yPe-GA-d6x" id="lL2-tc-VAw"/>
@@ -45,7 +45,7 @@
                 <outlet property="Totalamt_Order_left" destination="FSm-Mx-QHs" id="Brw-yT-uxL"/>
                 <outlet property="actualDishAmt_Order_Left" destination="oQ9-pH-N5M" id="ghS-8u-UFC"/>
                 <outlet property="addressView" destination="LYg-an-dew" id="UsT-k6-EyW"/>
-                <outlet property="apply_btn" destination="Gom-Mt-VGt" id="fh7-DZ-qCD"/>
+                <outlet property="apply_btn" destination="hAk-lE-6bu" id="mfD-1O-hDD"/>
                 <outlet property="authNet_btn" destination="ZAc-HU-qem" id="3BW-kz-QRE"/>
                 <outlet property="btnAddnewAddr" destination="QG8-Vg-35s" id="cMe-68-4Jw"/>
                 <outlet property="btnAddress" destination="IeC-1Q-sLy" id="JkU-DQ-PG9"/>
@@ -53,10 +53,11 @@
                 <outlet property="btnPopCancel" destination="M0Y-L6-hAU" id="ljn-a6-HFG"/>
                 <outlet property="btnPopSubmit" destination="yQx-W1-ecA" id="JPo-Sj-zzZ"/>
                 <outlet property="btnStates" destination="MNc-wt-hPs" id="zgp-ZJ-rNz"/>
-                <outlet property="btnTips" destination="HyG-BF-RJU" id="Ehu-VK-IwF"/>
+                <outlet property="btnTips" destination="ao8-gB-oAk" id="RKR-dr-wgK"/>
                 <outlet property="btndropDown" destination="Hhf-Rb-OAA" id="vif-pF-lVX"/>
                 <outlet property="cancelBtn" destination="uYh-u2-yXM" id="zFI-bW-OLY"/>
                 <outlet property="checkOutVw" destination="ya4-UI-3rc" id="xCh-6q-cod"/>
+                <outlet property="choseOfferBtn" destination="DbS-jF-RZj" id="mfq-iA-LqQ"/>
                 <outlet property="discountAmt_Order" destination="d90-70-cyD" id="TnQ-Wn-8NT"/>
                 <outlet property="discountamt_order_Left" destination="410-Tn-4mK" id="oDV-ff-uAQ"/>
                 <outlet property="dishImage2" destination="9mb-Wt-DzR" id="BnO-yM-CWL"/>
@@ -67,16 +68,17 @@
                 <outlet property="lblDate" destination="Nq0-2J-bjm" id="i6B-5r-Upg"/>
                 <outlet property="lblbAddress" destination="3dj-eT-TZQ" id="7zE-2g-8fV"/>
                 <outlet property="lbldate1" destination="cge-EU-4G5" id="jnI-77-m8W"/>
-                <outlet property="none_btn" destination="xy0-XO-EOb" id="6Tw-GG-krU"/>
+                <outlet property="none_btn" destination="gX9-uR-WlO" id="jAh-8u-UdL"/>
                 <outlet property="offerView" destination="0ck-bS-88O" id="tMT-8Y-nlf"/>
                 <outlet property="payPal_btn" destination="aWp-5u-imD" id="fr6-wt-R0s"/>
                 <outlet property="payselView" destination="uUt-QJ-dJM" id="50O-Er-7jf"/>
-                <outlet property="promoCodeBtn" destination="hnE-WE-VDy" id="urs-ZU-6jq"/>
-                <outlet property="promoTxt" destination="YZ7-Ei-at5" id="F2q-dw-GpN"/>
+                <outlet property="promoCodeBtn" destination="enJ-HD-5hj" id="rSR-bM-Bjy"/>
+                <outlet property="promoTxt" destination="LI7-YY-9yu" id="EUz-1G-aia"/>
                 <outlet property="promoType_order" destination="Zll-kl-w8I" id="k2Z-NV-0iO"/>
-                <outlet property="remainLbl" destination="4p7-AB-oLc" id="BhB-5P-WTE"/>
+                <outlet property="promoView" destination="PYk-bY-ON2" id="bDv-d2-0Cr"/>
+                <outlet property="remainLbl" destination="ZRQ-WJ-Vd3" id="3W4-dn-Mq5"/>
                 <outlet property="scrollView" destination="0G4-NU-x53" id="jSV-2H-tJH"/>
-                <outlet property="splPromo_btn" destination="hnE-WE-VDy" id="OAB-4v-QHs"/>
+                <outlet property="tipLabel" destination="Jym-TX-zgx" id="nca-79-kvu"/>
                 <outlet property="totalView" destination="z8Z-en-mgZ" id="hIh-rL-Cyg"/>
                 <outlet property="txtAddrs" destination="TmK-a6-aIR" id="Ftg-Cm-Gme"/>
                 <outlet property="txtAdrs" destination="L7F-tK-SrB" id="LTf-QH-YIj"/>
@@ -318,20 +320,12 @@
                                     <rect key="frame" x="0.0" y="225" width="320" height="343"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qgW-mu-Wj2">
-                                            <rect key="frame" x="8" y="227" width="304" height="1"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" red="0.90711805555555558" green="0.90711805555555558" blue="0.90711805555555558" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <view contentMode="scaleToFill" id="z8Z-en-mgZ">
-                                            <rect key="frame" x="0.0" y="247" width="320" height="96"/>
+                                            <rect key="frame" x="0.0" y="206" width="320" height="85"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JeV-YN-2Cq">
-                                                    <rect key="frame" x="68" y="31" width="184" height="33"/>
+                                                    <rect key="frame" x="68" y="47" width="184" height="33"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.57647058823529407" green="0.74117647058823533" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -344,111 +338,118 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$13.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oEE-gA-8nX">
-                                                    <rect key="frame" x="158" y="0.0" width="82" height="26"/>
+                                                    <rect key="frame" x="158" y="16" width="82" height="26"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hdG-E2-4Y2">
-                                                    <rect key="frame" x="102" y="2" width="48" height="21"/>
+                                                    <rect key="frame" x="102" y="18" width="48" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qgW-mu-Wj2">
+                                                    <rect key="frame" x="8" y="1" width="304" height="1"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.90711805555555558" green="0.90711805555555558" blue="0.90711805555555558" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose offer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sS7-fm-3lc">
-                                            <rect key="frame" x="21" y="20" width="278" height="21"/>
+                                        <view clipsSubviews="YES" contentMode="scaleToFill" id="PYk-bY-ON2">
+                                            <rect key="frame" x="0.0" y="36" width="320" height="152"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" tag="40" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xy0-XO-EOb">
-                                            <rect key="frame" x="21" y="50" width="178" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <state key="normal" title="None" image="checked.png">
-                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="Promo_offerBtn_Clicked:" destination="-1" eventType="touchUpInside" id="dDa-ym-3qU"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9HP-gJ-EAe">
-                                            <rect key="frame" x="21" y="75" width="178" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <state key="normal" title="Apply $5 credit" image="unchecked.png">
-                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="Promo_offerBtn_Clicked:" destination="-1" eventType="touchUpInside" id="CaB-db-kds"/>
-                                            </connections>
-                                        </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(you have 0 remaining)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4p7-AB-oLc">
-                                            <rect key="frame" x="135" y="77" width="145" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <color key="textColor" red="0.56543955180000005" green="0.56543955180000005" blue="0.56543955180000005" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hnE-WE-VDy">
-                                            <rect key="frame" x="21" y="102" width="178" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <state key="normal" title="Special promo code" image="unchecked.png">
-                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="Promo_offerBtn_Clicked:" destination="-1" eventType="touchUpInside" id="SGv-sV-V4V"/>
-                                            </connections>
-                                        </button>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" clearButtonMode="whileEditing" id="YZ7-Ei-at5">
-                                            <rect key="frame" x="48" y="133" width="138" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="QB1-nW-eyK"/>
-                                            </connections>
-                                        </textField>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Gom-Mt-VGt">
-                                            <rect key="frame" x="197" y="133" width="55" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" red="0.34509803921568627" green="0.34509803921568627" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                            <state key="normal" title="APPLY">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="applyPromo:" destination="-1" eventType="touchUpInside" id="EWQ-OF-64z"/>
-                                            </connections>
-                                        </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cqq-e8-4qg">
-                                            <rect key="frame" x="21" y="170" width="75" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HyG-BF-RJU">
-                                            <rect key="frame" x="21" y="193" width="80" height="26"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <inset key="titleEdgeInsets" minX="-24" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                            <inset key="imageEdgeInsets" minX="61" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                            <state key="normal" title="0%" image="Dropdown.png">
-                                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="showTipsView" destination="-1" eventType="touchUpInside" id="G9d-iE-qvI"/>
-                                            </connections>
-                                        </button>
+                                            <subviews>
+                                                <button opaque="NO" tag="40" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gX9-uR-WlO">
+                                                    <rect key="frame" x="20" y="31" width="178" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <state key="normal" title="None" image="checked.png">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="Promo_offerBtn_Clicked:" destination="-1" eventType="touchUpInside" id="BBA-0h-vbP"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xAp-LU-Z0y">
+                                                    <rect key="frame" x="20" y="56" width="178" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <state key="normal" title="Apply $5 credit" image="unchecked.png">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="Promo_offerBtn_Clicked:" destination="-1" eventType="touchUpInside" id="x0R-FA-mam"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(you have 0 remaining)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZRQ-WJ-Vd3">
+                                                    <rect key="frame" x="134" y="58" width="145" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" red="0.56543955180000005" green="0.56543955180000005" blue="0.56543955180000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="enJ-HD-5hj">
+                                                    <rect key="frame" x="20" y="83" width="178" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <state key="normal" title="Special promo code" image="unchecked.png">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="Promo_offerBtn_Clicked:" destination="-1" eventType="touchUpInside" id="NG3-Ka-ec3"/>
+                                                    </connections>
+                                                </button>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" clearButtonMode="whileEditing" id="LI7-YY-9yu">
+                                                    <rect key="frame" x="47" y="114" width="138" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="-1" id="APX-DD-LS9"/>
+                                                    </connections>
+                                                </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hAk-lE-6bu">
+                                                    <rect key="frame" x="196" y="114" width="55" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.34509803919999998" green="0.34509803919999998" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                    <state key="normal" title="APPLY">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="applyPromo:" destination="-1" eventType="touchUpInside" id="NsK-8H-sTE"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose offer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sS7-fm-3lc">
+                                                    <rect key="frame" x="20" y="5" width="278" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="DbS-jF-RZj">
+                                                    <rect key="frame" x="20" y="-1" width="286" height="29"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <inset key="imageEdgeInsets" minX="250" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <state key="normal" image="arrow-2.png">
+                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <state key="selected" image="arrow-3.png"/>
+                                                    <connections>
+                                                        <action selector="expandPromoView:" destination="-1" eventType="touchUpInside" id="R2A-z6-feM"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
@@ -610,7 +611,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="uUt-QJ-dJM">
-                            <rect key="frame" x="0.0" y="342" width="320" height="165"/>
+                            <rect key="frame" x="0.0" y="390" width="320" height="165"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="uYh-u2-yXM">
@@ -799,6 +800,30 @@
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ao8-gB-oAk">
+                            <rect key="frame" x="33" y="352" width="80" height="24"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <inset key="imageEdgeInsets" minX="61" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="0%">
+                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="showTipsView" destination="-1" eventType="touchUpInside" id="XCR-kR-gwJ"/>
+                            </connections>
+                        </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dropdown.png" id="1R8-Th-h40">
+                            <rect key="frame" x="94" y="359" width="12" height="8"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jym-TX-zgx">
+                            <rect key="frame" x="33" y="334" width="68" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -811,6 +836,8 @@
     <resources>
         <image name="Dish_Placeholder.png" width="300" height="211"/>
         <image name="Dropdown.png" width="18" height="10"/>
+        <image name="arrow-2.png" width="15" height="15"/>
+        <image name="arrow-3.png" width="15" height="15"/>
         <image name="checked.png" width="25" height="20"/>
         <image name="unchecked.png" width="25" height="25"/>
         <image name="xclose.png" width="30" height="30"/>
