@@ -97,6 +97,10 @@
     NSArray *arrayDate;
     int selectedIndx;
     UIScrollView *tipsView;
+    
+    IBOutlet UIView *promoView;
+    IBOutlet UILabel *tipLabel;
+    IBOutlet UIButton *choseOfferBtn;
 
 }
 @property(nonatomic,retain) NSArray *states;

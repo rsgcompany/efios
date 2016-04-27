@@ -90,7 +90,8 @@ NSMutableDictionary *dict=nil;
     AddToBag_Btn.titleLabel.font=[UIFont fontWithName:Bold size:15.0f];
     self.apply_btn.titleLabel.font=[UIFont fontWithName:Bold size:13.0f];
     self.cancelBtn.titleLabel.font=[UIFont fontWithName:Bold size:15.0f];
-    
+    self.btnTips.titleLabel.font=[UIFont fontWithName:Bold size:13.0f];
+
     
     Refer_Btn.titleLabel.font=[UIFont fontWithName:Medium size:12];
     First_Btn.titleLabel.font=[UIFont fontWithName:Medium size:12];
@@ -99,7 +100,8 @@ NSMutableDictionary *dict=nil;
     self.remainLbl.font=[UIFont fontWithName:Medium size:12];
     AvileOfferPromo.font=[UIFont fontWithName:Bold size:16.0f];
     self.btnAddnewAddr.titleLabel.font=[UIFont fontWithName:SemiBold size:10];
-    
+    tipLabel.font=[UIFont fontWithName:Bold size:16.0f];
+
     splPromo_btn.titleLabel.font=[UIFont fontWithName:Medium size:12];
     credit_btn.titleLabel.font=[UIFont fontWithName:Medium size:12];
     
@@ -377,17 +379,23 @@ NSMutableDictionary *dict=nil;
         UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
         btn.tag=33;
         [self buttonAction:btn];
+        choseOfferBtn.selected=YES;
+
     }
     if ([[Item_details valueForKey:@"is_dinein"]integerValue] ==1) {
         
         UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
         btn.tag=22;
+        choseOfferBtn.selected=YES;
+
         [self buttonAction:btn];
     }
     if ([[Item_details valueForKey:@"is_delivery"] integerValue] ==1){
         UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
         btn.tag=11;
+        choseOfferBtn.selected=NO;
         [self buttonAction:btn];
+        [self expandPromoView:choseOfferBtn];
         
     }
 
@@ -677,7 +685,9 @@ NSMutableDictionary *dict=nil;
         TaxAmt_Order.center=discountAmt_Order.center;
         promoType_order.center=Tax_Order_left.center;
         PromoTypeValue.center=TaxAmt_Order.center;
-        self.payselView.frame=CGRectMake(0,promoType_order.center.y+20, 320, 165);
+        tipLabel.frame=CGRectMake(tipLabel.frame.origin.x, promoType_order.frame.origin.y+30, tipLabel.frame.size.width, tipLabel.frame.size.height);
+        self.btnTips.frame=CGRectMake(self.btnTips.frame.origin.x, tipLabel.frame.origin.y+30, self.btnTips.frame.size.width, self.btnTips.frame.size.height);
+        self.payselView.frame=CGRectMake(0,self.btnTips.center.y+50, 320, 165);
     }
     NSString *subString = Quantity.text;//[Quantity.text substringWithRange: NSMakeRange(0, [Quantity.text rangeOfString: @"/"].location)];
     parseInt=2;
@@ -778,6 +788,11 @@ NSMutableDictionary *dict=nil;
 
 - (IBAction)showDineOpts:(id)sender {
     if (optsView == nil) {
+        //Disabling button action when there is single item
+        if ((([[Item_details valueForKey:@"is_delivery"] integerValue]==1 &&[[Item_details valueForKey:@"is_dinein"]integerValue] ==0 &&[[Item_details valueForKey:@"is_pickup"] integerValue]==0)||([[Item_details valueForKey:@"is_delivery"] integerValue]==0 &&[[Item_details valueForKey:@"is_dinein"]integerValue] ==1 &&[[Item_details valueForKey:@"is_pickup"] integerValue]==0)||([[Item_details valueForKey:@"is_delivery"] integerValue]==0 &&[[Item_details valueForKey:@"is_dinein"]integerValue] ==0 &&[[Item_details valueForKey:@"is_pickup"] integerValue]==1))) {
+            
+            return;
+        }
         optsView=[[UIView alloc]initWithFrame:CGRectMake(self.btnDineOpt.frame.origin.x, self.btnDineOpt.frame.origin.y+24, self.btnDineOpt.frame.size.width, 64)];
         optsView.backgroundColor=[UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1.0f];
         [self.scrollView addSubview:optsView];
@@ -1053,9 +1068,9 @@ NSMutableDictionary *dict=nil;
 -(IBAction)showTipsView{
     
     if (tipsView == nil) {
-        tipsView=[[UIScrollView alloc]initWithFrame:CGRectMake(self.btnTips.frame.origin.x,self.offerView.frame.origin.y+self.btnTips.frame.origin.y+24, self.btnTips.frame.size.width, 100)];
+        tipsView=[[UIScrollView alloc]initWithFrame:CGRectMake(self.btnTips.frame.origin.x,self.btnTips.frame.origin.y+24, self.btnTips.frame.size.width, 100)];
         tipsView.backgroundColor=[UIColor whiteColor];
-        [self.scrollView addSubview:tipsView];
+        [checkOutVw addSubview:tipsView];
         float Yaxis=1;
         
         for (int i=0; i<5; i++) {
@@ -1078,8 +1093,6 @@ NSMutableDictionary *dict=nil;
         [tipsView removeFromSuperview];
         tipsView=nil;
     }
-
-    
 }
 -(void)tipbuttonAction:(UIButton*)sender{
         
@@ -1087,9 +1100,17 @@ NSMutableDictionary *dict=nil;
     appDel.tipPercent=[[self.tipsArray objectAtIndex:sender.tag] integerValue];
     float tipPrice=0;
     float tipvalue=(float)appDel.tipPercent;
-    tipPrice = (tipvalue/100)*price;
+    float price1=[[checkOutArr valueForKey:@"price"] floatValue];
+    if (price1*0.20 > 5) {
+        price1=price1+5;
+    }
+    else{
+        price1=(price1*0.20)+price1;
+    }
 
-    Price_lbl.text=[NSString stringWithFormat:@"$ %.2f",price+tipvalue];
+    tipPrice = (tipvalue/100)*price1;
+    price1=[[checkOutArr valueForKey:@"price_with_tax"] floatValue];
+    TotalAmt_Order.text=[NSString stringWithFormat:@"$ %.2f",price1+tipPrice];
 
     if (tipsView!=nil) {
         
@@ -1097,6 +1118,22 @@ NSMutableDictionary *dict=nil;
         tipsView=nil;
 
     }
+}
+-(IBAction)expandPromoView:(UIButton*)sender{
+
+    if (sender.selected) {
+        promoView.frame=CGRectMake(promoView.frame.origin.x, promoView.frame.origin.y, promoView.frame.size.width, 150);
+        self.totalView.frame=CGRectMake(0,promoView.frame.origin.y+promoView.frame.size.height+10, 320, self.totalView.frame.size.height);
+
+        sender.selected=NO;
+    }else{
+        sender.selected=YES;
+        promoView.frame=CGRectMake(promoView.frame.origin.x, promoView.frame.origin.y, promoView.frame.size.width, 35);
+        self.totalView.frame=CGRectMake(0,promoView.frame.origin.y+promoView.frame.size.height+10, 320, self.totalView.frame.size.height);
+
+    }
+    
+    
 }
 #pragma mark -
 #pragma mark - datasource

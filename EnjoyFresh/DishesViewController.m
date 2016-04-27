@@ -4186,7 +4186,7 @@ BOOL clearClick=NO;
             }else{
                 controller.selectedDateInExplore=selectedDate;
                 
-            }            appDel.currentDishId=nil;
+            }
         }
         
     }
