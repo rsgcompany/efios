@@ -98,9 +98,11 @@
     int selectedIndx;
     UIScrollView *tipsView;
     
-    IBOutlet UIView *promoView;
+    IBOutlet UIView *promoView,*tipSubView;
     IBOutlet UILabel *tipLabel;
     IBOutlet UIButton *choseOfferBtn;
+    
+    IBOutlet UIImageView *deliveryImage;
 
 }
 @property(nonatomic,retain) NSArray *states;

@@ -3733,6 +3733,12 @@ BOOL clearClick=NO;
         NSString *userID=[[[NSUserDefaults standardUserDefaults]valueForKey:@"UserProfile"]valueForKey:@"user_id"];
         float price=[[productDict valueForKey:@"price"] floatValue];
         price=(price*0.20)+price;
+        
+        float tipPrice=0;
+        float tipvalue=(float)appDel.tipPercent;
+
+        tipPrice = (tipvalue/100)*price;
+
         NSString *STRPRI=[NSString stringWithFormat:@"%.2f",price];
         if (hud==nil)
         {
@@ -3759,7 +3765,7 @@ BOOL clearClick=NO;
         
         NSString *ordertype=[address valueForKey:@"delivery_type"];
         parseInt=5;
-        NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:userID,@"userId",[productDict valueForKey:@"restaurant_id"],@"restaurantId",[productDict valueForKey:@"dish_id"],@"dishId",STRPRI,@"dishPrice",[productDict valueForKey:@"price_with_tax"],@"amountPaid",qtyStr,@"qty",[productDict valueForKey:@"order_by_date"],@"orderByDate",[productDict valueForKey:@"tax_total"],@"salesTax",pyId,@"transactionId",[NSString stringWithFormat:@"%@",appDel.dateSelectedId],@"availabilityId",[address valueForKey:@"delivery_address"],@"delivery_address",[address valueForKey:@"delivery_city"],@"delivery_city",[address valueForKey:@"delivery_state"],@"delivery_state",[address valueForKey:@"delivery_zip"],@"delivery_zip",[address valueForKey:@"delivery_phone"],@"delivery_phone",[address valueForKey:@"address_id"],@"delivery_address_id",[address valueForKey:@"delivery_suiteNo"],@"delivery_suite",[address valueForKey:@"delivery_instructions"],@"delivery_instructions",[NSString stringWithFormat:@"%@",ordertype],@"order_type",isShopping,@"isShoppingPromo",[NSString stringWithFormat:@"%@",promoType],@"promoType",nil];
+        NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:userID,@"userId",[productDict valueForKey:@"restaurant_id"],@"restaurantId",[productDict valueForKey:@"dish_id"],@"dishId",STRPRI,@"dishPrice",[productDict valueForKey:@"price_with_tax"],@"amountPaid",qtyStr,@"qty",[productDict valueForKey:@"order_by_date"],@"orderByDate",[productDict valueForKey:@"tax_total"],@"salesTax",pyId,@"transactionId",[NSString stringWithFormat:@"%@",appDel.dateSelectedId],@"availabilityId",[address valueForKey:@"delivery_address"],@"delivery_address",[address valueForKey:@"delivery_city"],@"delivery_city",[address valueForKey:@"delivery_state"],@"delivery_state",[address valueForKey:@"delivery_zip"],@"delivery_zip",[address valueForKey:@"delivery_phone"],@"delivery_phone",[address valueForKey:@"address_id"],@"delivery_address_id",[address valueForKey:@"delivery_suiteNo"],@"delivery_suite",[address valueForKey:@"delivery_instructions"],@"delivery_instructions",[NSString stringWithFormat:@"%@",ordertype],@"order_type",isShopping,@"isShoppingPromo",[NSString stringWithFormat:@"%@",promoType],@"promoType",tipvalue,@"tip", nil];
         [parser parseAndGetDataForPostMethod:params withUlr:@"paypalPayment"];
         
     }
