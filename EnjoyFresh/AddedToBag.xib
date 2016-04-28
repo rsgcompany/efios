@@ -58,6 +58,7 @@
                 <outlet property="cancelBtn" destination="uYh-u2-yXM" id="zFI-bW-OLY"/>
                 <outlet property="checkOutVw" destination="ya4-UI-3rc" id="xCh-6q-cod"/>
                 <outlet property="choseOfferBtn" destination="DbS-jF-RZj" id="mfq-iA-LqQ"/>
+                <outlet property="deliveryImage" destination="a2b-ij-bmo" id="uXi-gH-RMM"/>
                 <outlet property="discountAmt_Order" destination="d90-70-cyD" id="TnQ-Wn-8NT"/>
                 <outlet property="discountamt_order_Left" destination="410-Tn-4mK" id="oDV-ff-uAQ"/>
                 <outlet property="dishImage2" destination="9mb-Wt-DzR" id="BnO-yM-CWL"/>
@@ -78,7 +79,8 @@
                 <outlet property="promoView" destination="PYk-bY-ON2" id="bDv-d2-0Cr"/>
                 <outlet property="remainLbl" destination="ZRQ-WJ-Vd3" id="3W4-dn-Mq5"/>
                 <outlet property="scrollView" destination="0G4-NU-x53" id="jSV-2H-tJH"/>
-                <outlet property="tipLabel" destination="Jym-TX-zgx" id="nca-79-kvu"/>
+                <outlet property="tipLabel" destination="4Q6-5l-Vig" id="b0j-ZD-Lg4"/>
+                <outlet property="tipSubView" destination="NJ6-Dr-UiT" id="f8O-Gw-rQ9"/>
                 <outlet property="totalView" destination="z8Z-en-mgZ" id="hIh-rL-Cyg"/>
                 <outlet property="txtAddrs" destination="TmK-a6-aIR" id="Ftg-Cm-Gme"/>
                 <outlet property="txtAdrs" destination="L7F-tK-SrB" id="LTf-QH-YIj"/>
@@ -438,7 +440,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="DbS-jF-RZj">
                                                     <rect key="frame" x="20" y="-1" width="286" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <inset key="imageEdgeInsets" minX="250" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <inset key="imageEdgeInsets" minX="-60" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <state key="normal" image="arrow-2.png">
                                                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
@@ -623,7 +625,7 @@
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="Cancel_Btn_Clicked:" destination="-1" eventType="touchUpInside" id="opF-Z5-s5a"/>
+                                        <action selector="Cancel_Btn_ClickedCheckoutAcreen:" destination="-1" eventType="touchUpInside" id="9ok-Jo-2A1"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FSm-Mx-QHs">
@@ -748,13 +750,13 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Zll-kl-w8I">
-                            <rect key="frame" x="33" y="306" width="120" height="20"/>
+                            <rect key="frame" x="33" y="342" width="120" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IQz-Yu-gMC">
-                            <rect key="frame" x="200" y="306" width="100" height="20"/>
+                            <rect key="frame" x="200" y="342" width="100" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="highlightedColor"/>
@@ -800,30 +802,37 @@
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ao8-gB-oAk">
-                            <rect key="frame" x="33" y="352" width="80" height="24"/>
+                        <view contentMode="scaleToFill" id="NJ6-Dr-UiT">
+                            <rect key="frame" x="33" y="300" width="268" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
-                            <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <inset key="imageEdgeInsets" minX="61" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="0%">
-                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="showTipsView" destination="-1" eventType="touchUpInside" id="XCR-kR-gwJ"/>
-                            </connections>
-                        </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dropdown.png" id="1R8-Th-h40">
-                            <rect key="frame" x="94" y="359" width="12" height="8"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jym-TX-zgx">
-                            <rect key="frame" x="33" y="334" width="68" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <subviews>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Q6-5l-Vig">
+                                    <rect key="frame" x="0.0" y="8" width="120" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ao8-gB-oAk">
+                                    <rect key="frame" x="188" y="5" width="80" height="24"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                    <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <inset key="imageEdgeInsets" minX="61" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="0%">
+                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="showTipsView" destination="-1" eventType="touchUpInside" id="XCR-kR-gwJ"/>
+                                    </connections>
+                                </button>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dropdown.png" id="1R8-Th-h40">
+                                    <rect key="frame" x="249" y="12" width="12" height="8"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
