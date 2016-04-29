@@ -1080,7 +1080,7 @@ int posit=0;
             
             [GlobalMethods showAlertwithString: @"Restaurant unmarked as favorite"];
             [appDel.objDBClass UpdateRestaurantFavorite:appDel.CurrentRestaurantID : @"N"];
-            [self.btnFav setImage:[UIImage imageNamed:@"favoriterbl.png"] forState:UIControlStateNormal];
+            [self.btnFav setImage:[UIImage imageNamed:@"favoritebl.png"] forState:UIControlStateNormal];
 
         }
         [[NSUserDefaults standardUserDefaults] setObject:favarr forKey:@"FAVCount"];

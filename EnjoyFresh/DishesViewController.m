@@ -4168,15 +4168,25 @@ BOOL clearClick=NO;
                 NSArray *req=[dishesArr filteredArrayUsingPredicate:pred];
                 NSMutableDictionary *required=[req objectAtIndex:0];
                 controller.Dish_Details_dic=required;
+                
                 if (datePickerSelIndex) {
                     controller.selectedDateInExplore=drpSelectedDate;
+
+
                     datePickerSelIndex=nil;
 
                 }else{
+                    if (appDel.dateSelected!=nil) {
+
+                        controller.selectedDateInExplore=appDel.dateStringForGuest;
+
+                    }else
                     controller.selectedDateInExplore=selectedDate;
 
                 }
                 appDel.currentDishId=nil;
+                appDel.dateStringForGuest=nil;
+
             }
 
         }
@@ -4187,11 +4197,14 @@ BOOL clearClick=NO;
             controller.Dish_Details_dic=required;
             if (datePickerSelIndex) {
                 controller.selectedDateInExplore=drpSelectedDate;
+                appDel.dateStringForGuest=drpSelectedDate;
+
                 datePickerSelIndex=nil;
                 
             }else{
                 controller.selectedDateInExplore=selectedDate;
-                
+                appDel.dateStringForGuest=selectedDate;
+
             }
         }
         
