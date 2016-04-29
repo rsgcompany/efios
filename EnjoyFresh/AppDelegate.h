@@ -83,4 +83,5 @@
 @property(nonatomic, strong)    NSString *oauthToken;
 @property(nonatomic, strong)    NSString *oauthTokenSecret;
 @property(nonatomic,assign) NSInteger tipPercent;
+@property(nonatomic,strong) NSString *dateStringForGuest;
 @end
