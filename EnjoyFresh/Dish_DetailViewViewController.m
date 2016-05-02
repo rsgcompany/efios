@@ -1252,7 +1252,7 @@ currentDishTweet, currentDishRestaurant, currentDishDescription, currentDishName
         datesView.backgroundColor= [UIColor whiteColor];        
         
 
-        datesTable.separatorColor = [UIColor colorWithRed:235/255.0f green:235/255.0f blue:235/255.0f alpha:1.0f];
+        datesTable.separatorColor = [UIColor clearColor];
         datesView.layer.borderWidth=1.0f;
         datesView.layer.borderColor=[UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1.0f].CGColor;
         [datesView addSubview:datesTable];

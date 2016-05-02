@@ -776,7 +776,7 @@ NSMutableDictionary *dict=nil;
         datesTable.backgroundColor= [UIColor whiteColor];
         datesView.backgroundColor= [UIColor whiteColor];
 
-        datesTable.separatorColor = [UIColor colorWithRed:235/255.0f green:235/255.0f blue:235/255.0f alpha:1.0f];
+        datesTable.separatorColor = [UIColor clearColor];
         datesView.layer.borderWidth=1.0f;
         datesView.layer.borderColor=[UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1.0f].CGColor;
         [datesView addSubview:datesTable];
@@ -793,9 +793,13 @@ NSMutableDictionary *dict=nil;
         [datesView removeFromSuperview];
         datesView=nil;
     }
+    
+    [self removeAllpopView:datesView];
+
 }
 
 - (IBAction)showDineOpts:(id)sender {
+    
     if (optsView == nil) {
         //Disabling button action when there is single item
         if ((([[Item_details valueForKey:@"is_delivery"] integerValue]==1 &&[[Item_details valueForKey:@"is_dinein"]integerValue] ==0 &&[[Item_details valueForKey:@"is_pickup"] integerValue]==0)||([[Item_details valueForKey:@"is_delivery"] integerValue]==0 &&[[Item_details valueForKey:@"is_dinein"]integerValue] ==1 &&[[Item_details valueForKey:@"is_pickup"] integerValue]==0)||([[Item_details valueForKey:@"is_delivery"] integerValue]==0 &&[[Item_details valueForKey:@"is_dinein"]integerValue] ==0 &&[[Item_details valueForKey:@"is_pickup"] integerValue]==1))) {
@@ -880,15 +884,14 @@ NSMutableDictionary *dict=nil;
         [optsView removeFromSuperview];
         optsView=nil;
     }
+    
+    [self removeAllpopView:optsView];
+
 }
 
 -(void)buttonAction:(id)sender{
     
-    if (addressView1!=nil) {
-        
-        [addressView1 removeFromSuperview];
-        addressView1=nil;
-    }
+    //[self removeAllpopView];
     if ([sender tag] == 11) {
         [self.btnDineOpt setTitle:@"Delivery" forState:UIControlStateNormal];
         
@@ -988,7 +991,6 @@ NSMutableDictionary *dict=nil;
     
 //    NSMutableDictionary *dic=[[NSMutableDictionary alloc]init];
 //    [dict setValue:@"Add new" forKey:@"address"];
-    
     if (addressView1==nil) {
         long height=0;
         if ([addrssArray count] >3) {
@@ -1018,7 +1020,8 @@ NSMutableDictionary *dict=nil;
         [addressView1 removeFromSuperview];
         addressView1=nil;
     }
-    
+    [self removeAllpopView:addressView1];
+
 }
 
 - (IBAction)showBillingAddr:(id)sender {
@@ -1094,7 +1097,7 @@ NSMutableDictionary *dict=nil;
 -(IBAction)showTipsView{
     
     if (tipsView == nil) {
-        tipsView=[[UIScrollView alloc]initWithFrame:CGRectMake(self.btnTips.frame.origin.x,tipSubView.frame.origin.y+self.btnTips.frame.origin.y+24, self.btnTips.frame.size.width, 100)];
+        tipsView=[[UIScrollView alloc]initWithFrame:CGRectMake(self.btnTips.frame.origin.x+tipSubView.frame.origin.x,tipSubView.frame.origin.y+self.btnTips.frame.origin.y+24, self.btnTips.frame.size.width, 100)];
         tipsView.backgroundColor=[UIColor whiteColor];
         [checkOutVw addSubview:tipsView];
         float Yaxis=1;
@@ -1109,7 +1112,7 @@ NSMutableDictionary *dict=nil;
             bt1.titleLabel.font=[UIFont systemFontOfSize:11];
             bt1.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
             [bt1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            bt1.backgroundColor=[UIColor redColor];
+            bt1.backgroundColor=[UIColor whiteColor];
             [tipsView addSubview:bt1];
             Yaxis+=21;
 
@@ -1148,17 +1151,8 @@ NSMutableDictionary *dict=nil;
 }
 -(IBAction)expandPromoView:(UIButton*)sender{
 
-    if (optsView!=nil) {
-        
-        [optsView removeFromSuperview];
-        optsView=nil;
-    }
-    if (datesView!=nil) {
-        
-        [datesView removeFromSuperview];
-        datesView=nil;
+    [self removeAllpopView:nil];
 
-    }
     if (sender.selected) {
         promoView.frame=CGRectMake(promoView.frame.origin.x, promoView.frame.origin.y, promoView.frame.size.width, 150);
         self.totalView.frame=CGRectMake(0,promoView.frame.origin.y+promoView.frame.size.height+10, 320, self.totalView.frame.size.height);
@@ -1171,6 +1165,70 @@ NSMutableDictionary *dict=nil;
 
     }
     
+    
+}
+-(void)removeAllpopView:(UIView*)sender{
+    
+    if (sender == optsView) {
+       
+        if (datesView!=nil) {
+            
+            [datesView removeFromSuperview];
+            datesView=nil;
+            
+        }
+        if (addressView1!=nil) {
+            
+            [addressView1 removeFromSuperview];
+            addressView1=nil;
+        }
+
+    }else if (sender==datesView){
+        if (optsView!=nil) {
+            
+            [optsView removeFromSuperview];
+            optsView=nil;
+        }
+        
+        if (addressView1!=nil) {
+            
+            [addressView1 removeFromSuperview];
+            addressView1=nil;
+        }
+
+    }else if (sender==addressView1){
+        
+        if (optsView!=nil) {
+            
+            [optsView removeFromSuperview];
+            optsView=nil;
+        }
+        if (datesView!=nil) {
+            
+            [datesView removeFromSuperview];
+            datesView=nil;
+            
+        }
+        
+    }else{
+        
+        if (optsView!=nil) {
+            
+            [optsView removeFromSuperview];
+            optsView=nil;
+        }
+        if (datesView!=nil) {
+            
+            [datesView removeFromSuperview];
+            datesView=nil;
+            
+        }
+        if (addressView1!=nil) {
+            
+            [addressView1 removeFromSuperview];
+            addressView1=nil;
+        }
+    }
     
 }
 #pragma mark -
