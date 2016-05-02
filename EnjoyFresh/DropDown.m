@@ -195,6 +195,12 @@ int rows;
         [cell.contentView addSubview:count_lbl];
         lbl.highlightedTextColor = [UIColor whiteColor];
 
+        
+        NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:lbl.text];
+        [attributeString addAttribute:NSUnderlineStyleAttributeName
+                                value:[NSNumber numberWithInt:1]
+                                range:(NSRange){0,[attributeString length]}];
+        lbl.attributedText=attributeString;
 
     }
    

@@ -53,11 +53,11 @@
                 <outlet property="btnPopCancel" destination="M0Y-L6-hAU" id="ljn-a6-HFG"/>
                 <outlet property="btnPopSubmit" destination="yQx-W1-ecA" id="JPo-Sj-zzZ"/>
                 <outlet property="btnStates" destination="MNc-wt-hPs" id="zgp-ZJ-rNz"/>
-                <outlet property="btnTips" destination="ao8-gB-oAk" id="RKR-dr-wgK"/>
+                <outlet property="btnTips" destination="jXT-VZ-gFi" id="q5L-10-PCG"/>
                 <outlet property="btndropDown" destination="Hhf-Rb-OAA" id="vif-pF-lVX"/>
                 <outlet property="cancelBtn" destination="uYh-u2-yXM" id="zFI-bW-OLY"/>
                 <outlet property="checkOutVw" destination="ya4-UI-3rc" id="xCh-6q-cod"/>
-                <outlet property="choseOfferBtn" destination="DbS-jF-RZj" id="mfq-iA-LqQ"/>
+                <outlet property="choseOfferBtn" destination="fPD-m8-qN0" id="9nN-i6-NLQ"/>
                 <outlet property="deliveryImage" destination="a2b-ij-bmo" id="uXi-gH-RMM"/>
                 <outlet property="discountAmt_Order" destination="d90-70-cyD" id="TnQ-Wn-8NT"/>
                 <outlet property="discountamt_order_Left" destination="410-Tn-4mK" id="oDV-ff-uAQ"/>
@@ -323,7 +323,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" id="z8Z-en-mgZ">
-                                            <rect key="frame" x="0.0" y="206" width="320" height="85"/>
+                                            <rect key="frame" x="0.0" y="183" width="320" height="85"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JeV-YN-2Cq">
@@ -364,7 +364,7 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <view clipsSubviews="YES" contentMode="scaleToFill" id="PYk-bY-ON2">
-                                            <rect key="frame" x="0.0" y="36" width="320" height="152"/>
+                                            <rect key="frame" x="0.0" y="19" width="320" height="152"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <button opaque="NO" tag="40" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gX9-uR-WlO">
@@ -437,16 +437,20 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="DbS-jF-RZj">
-                                                    <rect key="frame" x="20" y="-1" width="286" height="29"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fPD-m8-qN0">
+                                                    <rect key="frame" x="20" y="3" width="124" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <inset key="imageEdgeInsets" minX="-60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                    <state key="normal" image="arrow-2.png">
-                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <inset key="titleEdgeInsets" minX="-8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <inset key="imageEdgeInsets" minX="104" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <state key="normal" title="Choose offer" image="newdropdown.png">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <state key="selected" image="arrow-3.png"/>
+                                                    <state key="selected" image="newdropup.png"/>
                                                     <connections>
-                                                        <action selector="expandPromoView:" destination="-1" eventType="touchUpInside" id="R2A-z6-feM"/>
+                                                        <action selector="expandPromoView:" destination="-1" eventType="touchUpInside" id="p0u-Yx-5zp"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -609,7 +613,7 @@
                     </subviews>
                 </scrollView>
                 <view contentMode="scaleToFill" id="ya4-UI-3rc" userLabel="Check out screen">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <rect key="frame" x="-320" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="uUt-QJ-dJM">
@@ -812,22 +816,21 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ao8-gB-oAk">
-                                    <rect key="frame" x="188" y="5" width="80" height="24"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jXT-VZ-gFi">
+                                    <rect key="frame" x="210" y="6" width="58" height="23"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
-                                    <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                    <inset key="imageEdgeInsets" minX="61" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
                                     <state key="normal" title="0%">
-                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="showTipsView" destination="-1" eventType="touchUpInside" id="XCR-kR-gwJ"/>
+                                        <action selector="showTipsView" destination="-1" eventType="touchUpInside" id="vYB-eY-y4h"/>
                                     </connections>
                                 </button>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dropdown.png" id="1R8-Th-h40">
-                                    <rect key="frame" x="249" y="12" width="12" height="8"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dropdown.png" id="DbK-Hs-9ai">
+                                    <rect key="frame" x="252" y="14" width="12" height="8"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
                             </subviews>
@@ -845,9 +848,9 @@
     <resources>
         <image name="Dish_Placeholder.png" width="300" height="211"/>
         <image name="Dropdown.png" width="18" height="10"/>
-        <image name="arrow-2.png" width="15" height="15"/>
-        <image name="arrow-3.png" width="15" height="15"/>
         <image name="checked.png" width="25" height="20"/>
+        <image name="newdropdown.png" width="12" height="8"/>
+        <image name="newdropup.png" width="12" height="8"/>
         <image name="unchecked.png" width="25" height="25"/>
         <image name="xclose.png" width="30" height="30"/>
     </resources>

@@ -2786,6 +2786,12 @@ BOOL clearClick=NO;
     [layerView addSubview:pickerview];
     [pickerview selectRow:pickerSelIndex inComponent:0 animated:YES];
     
+    if (arrayDates.count && uniqueDatesArray.count) {
+        drpSelectedDate=[[arrayDates objectAtIndex:0] valueForKey:@"avail_by_date"];
+        drpSelDate=[uniqueDatesArray objectAtIndex:0];
+        datePickerSelIndex=(int)0;
+    }
+    
     searchActionSheet=[UIAlertController alertControllerWithTitle:@"\n\n\n\n\n\n\n\n" message:@"\n\n\n\n\n\n" preferredStyle:UIAlertControllerStyleActionSheet];
     searchActionSheet.view.backgroundColor = [UIColor blueColor];
     [searchActionSheet.view addSubview:layerView];
