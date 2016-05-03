@@ -311,6 +311,12 @@ currentDishTweet, currentDishRestaurant, currentDishDescription, currentDishName
             futureDateString=[NSString stringWithFormat:@"%@ %@,%@ @ %.2ld:%.2ld %@ - %.2ld:%.2ld %@",[weekDay stringFromDate:date],[calMonth stringFromDate:date],[date1 objectAtIndex:2],(long)[[dic valueForKey:@"avail_by_hr"] integerValue],(long)[[dic valueForKey:@"avail_by_min"] integerValue],[dic valueForKey:@"avail_by_ampm"],(long)[[dic valueForKey:@"avail_till_hr"] integerValue],(long)[[dic valueForKey:@"avail_till_min"] integerValue],[dic valueForKey:@"avail_till_ampm"]];
             [datesArray addObject:futureDateString];
         }
+        
+        if (appDel.didSelectedDate==YES) {
+            
+            [self Order_Btn_Clicked:nil];
+        }
+        
     }else{
         self.btnDropDown.hidden=YES;
         avail_by_lbl.hidden=YES;
@@ -924,7 +930,8 @@ currentDishTweet, currentDishRestaurant, currentDishDescription, currentDishName
 
 - (IBAction)Order_Btn_Clicked:(id)sender
 {
-   
+    appDel.didSelectedDate=NO;
+
     if ([[_Dish_Details_dic valueForKey:@"soldout"] integerValue]==1){
         notify =[[NotifyMeView alloc]init];
         notify.dishID=[_Dish_Details_dic valueForKey:@"dish_id"];
@@ -941,13 +948,13 @@ currentDishTweet, currentDishRestaurant, currentDishDescription, currentDishName
         [UIView commitAnimations];
     }
     else{
+
         if ([appDel.accessToken isEqualToString:@""])
         {
             
             UIAlertView *alert= [[UIAlertView alloc]initWithTitle:AppTitle message:@"Login to Order your dish" delegate:self cancelButtonTitle:nil otherButtonTitles:@"NO",@"YES", nil];
             alert.tag=20;
             [alert show];
-            
             //[[[UIAlertView alloc]initWithTitle:AppTitle message:@"Login to Order your dish" delegate:self cancelButtonTitle:nil otherButtonTitles:@"NO",@"YES", nil]show]        ;
             return;
         }

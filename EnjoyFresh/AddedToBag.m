@@ -1386,13 +1386,14 @@ NSMutableDictionary *dict=nil;
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    [self animateTextField: textField up: YES];
+   // [self animateTextField: textField up: YES];
 }
 
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    [self animateTextField: textField up: NO];
+    //[self animateTextField: textField up: NO];
+    [self.scrollView setContentOffset:CGPointMake(0, 0)];
 }
 
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up

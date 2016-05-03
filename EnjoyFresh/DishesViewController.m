@@ -2717,6 +2717,8 @@ BOOL clearClick=NO;
     appDel.currentTagID = [NSString stringWithFormat:@"%li", (long) tagVal];
 
     NSDictionary *dic=[dishesArr objectAtIndex:tagVal];
+    appDel.currentDishId=[dic valueForKey:@"dish_id"];
+
    // NSArray *date=[[dic valueForKey:@"avail_by_date"] componentsSeparatedByString:@"-"];
     NSIndexPath *Indexp = [NSIndexPath indexPathForRow:tagVal inSection:0];
 
@@ -3404,6 +3406,7 @@ BOOL clearClick=NO;
         drpSelectedDate=[[arrayDates objectAtIndex:row] valueForKey:@"avail_by_date"];
         drpSelDate=[uniqueDatesArray objectAtIndex:row];
         datePickerSelIndex=(int)row;
+        
     }
     else {
         selCat=[[categoryArr objectAtIndex:row]valueForKey:@"title"];
@@ -3485,6 +3488,9 @@ BOOL clearClick=NO;
     pickerview.dataSource=nil;
     
     [searchActionSheet dismissViewControllerAnimated: YES completion:nil];
+    appDel.didSelectedDate=YES;
+    [self performSegueWithIdentifier:@"DishDetailSegue" sender:self];
+
 }
 #pragma mark -
 #pragma mark - Slider Delegates
