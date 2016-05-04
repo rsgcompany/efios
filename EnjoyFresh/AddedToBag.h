@@ -12,7 +12,7 @@
 #import "MBProgressHUD.h"
 #import "UIImageView+WebCache.h"
 #import <CoreLocation/CoreLocation.h>
-
+#import "TPKeyboardAvoidingScrollView.h"
 
 @interface AddedToBag : UIViewController<parseAndGetDataDelegate,MBProgressHUDDelegate,UIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate >
 {
@@ -158,7 +158,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *zipText;
 - (IBAction)submitForNotification:(id)sender;
 - (IBAction)removeZipPopup:(id)sender;
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *addressView;
 @property (strong, nonatomic) IBOutlet UIButton *btnAddress;
 - (IBAction)showAddress:(id)sender;

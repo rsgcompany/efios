@@ -47,6 +47,8 @@
 		041899A5199006B900893DF3 /* GlobalMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 041899A4199006B900893DF3 /* GlobalMethods.m */; };
 		041899AA1990071D00893DF3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041899A81990071D00893DF3 /* HomeViewController.m */; };
 		041899AF1990076900893DF3 /* ParseAndGetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 041899AE1990076900893DF3 /* ParseAndGetData.m */; };
+		043362661CD901E200493C24 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 043362631CD901E200493C24 /* TPKeyboardAvoidingScrollView.m */; };
+		043362671CD901E200493C24 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 043362651CD901E200493C24 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		0434777D1996053F00B04ABE /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 043477721996053F00B04ABE /* NSObject+SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0434777E1996053F00B04ABE /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 043477741996053F00B04ABE /* NSString+SBJSON.m */; };
 		0434777F1996053F00B04ABE /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 043477761996053F00B04ABE /* SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -419,6 +421,10 @@
 		041899A81990071D00893DF3 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		041899AD1990076900893DF3 /* ParseAndGetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseAndGetData.h; sourceTree = "<group>"; };
 		041899AE1990076900893DF3 /* ParseAndGetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseAndGetData.m; sourceTree = "<group>"; };
+		043362621CD901E200493C24 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		043362631CD901E200493C24 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		043362641CD901E200493C24 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		043362651CD901E200493C24 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		043477701996053F00B04ABE /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		043477711996053F00B04ABE /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		043477721996053F00B04ABE /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -1126,6 +1132,10 @@
 		0418996E198FFDCF00893DF3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				043362621CD901E200493C24 /* TPKeyboardAvoidingScrollView.h */,
+				043362631CD901E200493C24 /* TPKeyboardAvoidingScrollView.m */,
+				043362641CD901E200493C24 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				043362651CD901E200493C24 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
 				47363EF31BDFBA13005B73F9 /* images.xcassets */,
 				47D5FFE71B1F27B30006CDA3 /* images */,
 				0414DB7719A3D9F00027CE58 /* Slider */,
@@ -2139,6 +2149,7 @@
 				0404EAEE199A91C700C056AA /* SDWebImageManager.m in Sources */,
 				0434779D1996056D00B04ABE /* AFImageRequestOperation.m in Sources */,
 				044956D619A7F2EE00D204D5 /* STTwitterOS.m in Sources */,
+				043362671CD901E200493C24 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				04EC1D1519B2240A00545A97 /* addNewCard.m in Sources */,
 				043477A11996056D00B04ABE /* AFURLConnectionOperation.m in Sources */,
 				0468FF9C19A108890018C40B /* Find_me_custom.m in Sources */,
@@ -2188,6 +2199,7 @@
 				4715E9E21BBED028000932A3 /* HowItWorksViewController.m in Sources */,
 				5EA0343F19E41EC10064EC3B /* FMDatabaseAdditions.m in Sources */,
 				043477801996053F00B04ABE /* SBJsonBase.m in Sources */,
+				043362661CD901E200493C24 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				B18651B6199CEA5B006793D7 /* FavouriteViewController.m in Sources */,
 				0404EAF5199A91C700C056AA /* UIImageView+WebCache.m in Sources */,
 				4716E31D1B6F740B006514F6 /* AddedToBag.m in Sources */,
