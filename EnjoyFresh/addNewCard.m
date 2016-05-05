@@ -654,12 +654,12 @@ int zipp=5;
         [GlobalMethods showAlertwithString:@"Please enter cvv"];
                 return;
     }
-    else if (![cardZipCode.text length]||[GlobalMethods checkWhiteSpace:cardZipCode.text])
-    {
-        cardZipCode.text=nil;
-        [GlobalMethods showAlertwithString:@"Please enter Zipcode"];
-                return;
-    }
+//    else if (![cardZipCode.text length]||[GlobalMethods checkWhiteSpace:cardZipCode.text])
+//    {
+//        cardZipCode.text=nil;
+//        [GlobalMethods showAlertwithString:@"Please enter Zipcode"];
+//                return;
+//    }
    
     else if (![month_lbl.text length] || [GlobalMethods checkWhiteSpace:month_lbl.text])
     {
@@ -684,20 +684,21 @@ int zipp=5;
         return;
     }
 
-    else if (![cardAddress.text length]||[GlobalMethods checkWhiteSpace:cardAddress.text]){
-        cardAddress.text=nil;
-        [GlobalMethods showAlertwithString:@"Please enter address"];
-                return;
-    }else if (![selectedState length] || selectedState.length < 1)
-    {
-        [GlobalMethods showAlertwithString:@"Please enter State"];
-        return;
-    }
-    else if (![cardCity.text length]||[GlobalMethods checkWhiteSpace:cardCity.text]){
-        cardCity.text=nil;
-        [GlobalMethods showAlertwithString:@"Please enter city"];
-                return;
-    }else if ([cardNumber.text length]<cardno){
+//    else if (![cardAddress.text length]||[GlobalMethods checkWhiteSpace:cardAddress.text]){
+//        cardAddress.text=nil;
+//        [GlobalMethods showAlertwithString:@"Please enter address"];
+//                return;
+//    }else if (![selectedState length] || selectedState.length < 1)
+//    {
+//        [GlobalMethods showAlertwithString:@"Please enter State"];
+//        return;
+//    }
+//    else if (![cardCity.text length]||[GlobalMethods checkWhiteSpace:cardCity.text]){
+//        cardCity.text=nil;
+//        [GlobalMethods showAlertwithString:@"Please enter city"];
+//                return;
+//    }
+else if ([cardNumber.text length]<cardno){
         [GlobalMethods showAlertwithString:@"Please enter valid card number"];
                 return;
     }
@@ -711,11 +712,11 @@ int zipp=5;
         [GlobalMethods showAlertwithString:@"Please enter valid cvv"];
         return;
     }
-    else if ([cardZipCode.text length]<5)
-    {
-        [GlobalMethods showAlertwithString:@"Please enter valid zipcode"];
-                return;
-    }
+//    else if ([cardZipCode.text length]<5)
+//    {
+//        [GlobalMethods showAlertwithString:@"Please enter valid zipcode"];
+//                return;
+//    }
     
     NSMutableString *MonthString = [[NSMutableString alloc] init];
     
@@ -735,9 +736,9 @@ int zipp=5;
     [dict setObject:[NSString stringWithFormat:@"20%@",year_lbl.text] forKey:@"YearOfExpire"];
     [dict setObject:MonthString forKey:@"MonthOfExpire"];
     [dict setObject:cVV.text forKey:@"CVV"];
-    [dict setObject:cardAddress.text forKey:@"address"];
-    [dict setObject:cardCity.text forKey:@"city"];
-    [dict setObject:selectedState forKey:@"state"];
+    //[dict setObject:cardAddress.text forKey:@"address"];
+    //[dict setObject:cardCity.text forKey:@"city"];
+    //[dict setObject:selectedState forKey:@"state"];
  //   cardType(Visa, Mastercard, Amex, Discover)
     if ([[master_card_btn currentImage] isEqual:[UIImage imageNamed:@"checked"]])
     {
@@ -770,10 +771,10 @@ int zipp=5;
     CurrenCardDetails.card_month = [dict objectForKey:@"MonthOfExpire"];
     CurrenCardDetails.card_year = [dict objectForKey:@"YearOfExpire"];
     CurrenCardDetails.card_cvv = [dict objectForKey:@"CVV"];
-    CurrenCardDetails.card_address = [dict objectForKey:@"address"];
-    CurrenCardDetails.card_city = [dict objectForKey:@"city"];
-    CurrenCardDetails.card_state = [dict objectForKey:@"state"];
-    CurrenCardDetails.card_zip = [dict objectForKey:@"zipcode"];
+    //CurrenCardDetails.card_address = [dict objectForKey:@"address"];
+    //CurrenCardDetails.card_city = [dict objectForKey:@"city"];
+    //CurrenCardDetails.card_state = [dict objectForKey:@"state"];
+    //CurrenCardDetails.card_zip = [dict objectForKey:@"zipcode"];
     CurrenCardDetails.card_display = [dict objectForKey:@"display"];
 
     [self addNewCardDetails: CurrenCardDetails];
@@ -856,10 +857,10 @@ int zipp=5;
     card.cvc = [cardDeatails valueForKey:@"cardCVV"];
     NSMutableString *name=[NSMutableString stringWithFormat:@"%@",[cardDeatails valueForKey:@"firstName"]];
     card.name=name;
-    card.addressLine1=[cardDeatails valueForKey:@"address"];
-    card.addressCity=[cardDeatails valueForKey:@"city"];
-    card.addressState=[cardDeatails valueForKey:@"state"];
-    card.addressZip=[cardDeatails valueForKey:@"zipcode"];
+    //card.addressLine1=[cardDeatails valueForKey:@"address"];
+    //card.addressCity=[cardDeatails valueForKey:@"city"];
+    //card.addressState=[cardDeatails valueForKey:@"state"];
+    //card.addressZip=[cardDeatails valueForKey:@"zipcode"];
     card.addressCountry=@"US";
     
     [[STPAPIClient sharedClient] createTokenWithCard:card
