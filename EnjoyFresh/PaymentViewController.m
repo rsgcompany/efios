@@ -350,10 +350,10 @@ BOOL cardFlag=YES;
         self.txtMonth.text=MonthString;
         self.txtYear.text=[NSString stringWithFormat:@"%ld",[[dict valueForKey:@"exp_year"] integerValue]%100 ];
     }
-    self.txtAddress.text=[dict valueForKey:@"address_line1"];
-    self.txtCity.text=[dict valueForKey:@"address_city"] ;
-    self.txtState.text=[dict valueForKey:@"address_state"] ;
-    self.txtZip.text=[dict valueForKey:@"address_zip"];
+   // self.txtAddress.text=[dict valueForKey:@"address_line1"];
+   // self.txtCity.text=[dict valueForKey:@"address_city"] ;
+    //self.txtState.text=[dict valueForKey:@"address_state"] ;
+    //self.txtZip.text=[dict valueForKey:@"address_zip"];
 
     
     [UIView animateWithDuration:0.3
@@ -977,10 +977,10 @@ BOOL cardFlag=YES;
         self.txtMonth.text=MonthString;
         self.txtYear.text=[NSString stringWithFormat:@"%ld",[[card valueForKey:@"exp_year"] integerValue]%100 ];
     }
-    self.txtAddress.text=[card valueForKey:@"address_line1"];
-    self.txtCity.text=[card valueForKey:@"address_city"] ;
-    self.txtState.text=[card valueForKey:@"address_state"] ;
-    self.txtZip.text=[card valueForKey:@"address_zip"];
+    //self.txtAddress.text=[card valueForKey:@"address_line1"];
+    //self.txtCity.text=[card valueForKey:@"address_city"] ;
+    //self.txtState.text=[card valueForKey:@"address_state"] ;
+    //self.txtZip.text=[card valueForKey:@"address_zip"];
     currentCardNumber=[card valueForKey:@"id"];
 }
 #pragma mark
@@ -1283,7 +1283,7 @@ BOOL cardFlag=YES;
         return;
     }*/
     
-    else if (![self.txtAddress.text length]){
+   /* else if (![self.txtAddress.text length]){
         [GlobalMethods showAlertwithString:@"Please enter address"];
         return;
     }else if (![self.txtState.text length])
@@ -1299,7 +1299,7 @@ BOOL cardFlag=YES;
     {
         [GlobalMethods showAlertwithString:@"Please enter valid zipcode"];
         return;
-    }
+    }*/
     
     NSMutableString *MonthString = [[NSMutableString alloc] init];
     
@@ -1320,8 +1320,9 @@ BOOL cardFlag=YES;
         [self.view addSubview:hud];
     }
     parseInt=12;
-    NSDictionary *params=[NSDictionary dictionaryWithObjectsAndKeys:appDel.accessToken,@"accessToken",[selectedCardDetails valueForKey:@"id"],@"cardId",self.txtNameOnCard.text,@"firstName",self.txtAddress.text,@"address",self.txtCity.text,@"city",self.txtState.text,@"state",self.txtZip.text,@"zip",MonthString,@"cardExpMonth",self.txtYear.text,@"cardExpYear", nil];
-    
+    //NSDictionary *params=[NSDictionary dictionaryWithObjectsAndKeys:appDel.accessToken,@"accessToken",[selectedCardDetails valueForKey:@"id"],@"cardId",self.txtNameOnCard.text,@"firstName",self.txtAddress.text,@"address",self.txtCity.text,@"city",self.txtState.text,@"state",self.txtZip.text,@"zip",MonthString,@"cardExpMonth",self.txtYear.text,@"cardExpYear", nil];
+    NSDictionary *params=[NSDictionary dictionaryWithObjectsAndKeys:appDel.accessToken,@"accessToken",[selectedCardDetails valueForKey:@"id"],@"cardId",self.txtNameOnCard.text,@"firstName",MonthString,@"cardExpMonth",self.txtYear.text,@"cardExpYear", nil];
+
     [parser parseAndGetDataForPostMethod:params withUlr:@"updateStripeCard"];
 
 }
@@ -1356,11 +1357,15 @@ BOOL cardFlag=YES;
     
         if ([_promoType  isEqualToString:@""])
         {
-            params = [NSDictionary dictionaryWithObjectsAndKeys:appDel.accessToken,@"accessToken",[cardDetails valueForKey:@"name"],@"firstname",[cardDetails valueForKey:@"address_zip"],@"zip",[cardDetails valueForKey:@"address_line1"],@"address",[cardDetails valueForKey:@"address_city"],@"city",[cardDetails  valueForKey:@"address_state"],@"state",[cardDetails valueForKey:@"id"],@"cardId",[NSString stringWithFormat:@"%@",dishId],@"dishId",[NSString stringWithFormat:@"%@",appDel.dateSelectedId],@"availability_id",[NSString stringWithFormat:@"%@",quantity],@"quantity",@"0",@"newCardPayment",[NSString stringWithFormat:@"%@",isShopping], @"isShoppingPromo",[address valueForKey:@"delivery_address"],@"delivery_address",[address valueForKey:@"delivery_city"],@"delivery_city",[address valueForKey:@"delivery_state"],@"delivery_state",[address valueForKey:@"delivery_zip"],@"delivery_zip",[address valueForKey:@"delivery_phone"],@"delivery_phone",[address valueForKey:@"address_id"],@"delivery_address_id",[address valueForKey:@"delivery_suiteNo"],@"delivery_suite",[address valueForKey:@"delivery_instructions"],@"delivery_instructions",[address valueForKey:@"delivery_type"],@"order_type",appDel.tipPercent,@"tip",nil];
+           // params = [NSDictionary dictionaryWithObjectsAndKeys:appDel.accessToken,@"accessToken",[cardDetails valueForKey:@"name"],@"firstname",[cardDetails valueForKey:@"address_zip"],@"zip",[cardDetails valueForKey:@"address_line1"],@"address",[cardDetails valueForKey:@"address_city"],@"city",[cardDetails  valueForKey:@"address_state"],@"state",[cardDetails valueForKey:@"id"],@"cardId",[NSString stringWithFormat:@"%@",dishId],@"dishId",[NSString stringWithFormat:@"%@",appDel.dateSelectedId],@"availability_id",[NSString stringWithFormat:@"%@",quantity],@"quantity",@"0",@"newCardPayment",[NSString stringWithFormat:@"%@",isShopping], @"isShoppingPromo",[address valueForKey:@"delivery_address"],@"delivery_address",[address valueForKey:@"delivery_city"],@"delivery_city",[address valueForKey:@"delivery_state"],@"delivery_state",[address valueForKey:@"delivery_zip"],@"delivery_zip",[address valueForKey:@"delivery_phone"],@"delivery_phone",[address valueForKey:@"address_id"],@"delivery_address_id",[address valueForKey:@"delivery_suiteNo"],@"delivery_suite",[address valueForKey:@"delivery_instructions"],@"delivery_instructions",[address valueForKey:@"delivery_type"],@"order_type",appDel.tipPercent,@"tip",nil];
+            params = [NSDictionary dictionaryWithObjectsAndKeys:appDel.accessToken,@"accessToken",[cardDetails valueForKey:@"name"],@"firstname",[cardDetails valueForKey:@"id"],@"cardId",[NSString stringWithFormat:@"%@",dishId],@"dishId",[NSString stringWithFormat:@"%@",appDel.dateSelectedId],@"availability_id",[NSString stringWithFormat:@"%@",quantity],@"quantity",@"0",@"newCardPayment",[NSString stringWithFormat:@"%@",isShopping], @"isShoppingPromo",[address valueForKey:@"delivery_address"],@"delivery_address",[address valueForKey:@"delivery_city"],@"delivery_city",[address valueForKey:@"delivery_state"],@"delivery_state",[address valueForKey:@"delivery_zip"],@"delivery_zip",[address valueForKey:@"delivery_phone"],@"delivery_phone",[address valueForKey:@"address_id"],@"delivery_address_id",[address valueForKey:@"delivery_suiteNo"],@"delivery_suite",[address valueForKey:@"delivery_instructions"],@"delivery_instructions",[address valueForKey:@"delivery_type"],@"order_type",[NSString stringWithFormat:@"%d",appDel.tipPercent],@"tip",nil];
+
         }
         else
         {
-            params = [NSDictionary dictionaryWithObjectsAndKeys:appDel.accessToken,@"accessToken",[cardDetails valueForKey:@"name"],@"firstname",[cardDetails  valueForKey:@"address_zip"],@"zip",[cardDetails  valueForKey:@"address_line1"],@"address",[cardDetails valueForKey:@"address_city"],@"city",[cardDetails  valueForKey:@"address_state"],@"state",[cardDetails valueForKey:@"id"],@"cardId",[NSString stringWithFormat:@"%@",dishId],@"dishId",[NSString stringWithFormat:@"%@",appDel.dateSelectedId],@"availability_id",[NSString stringWithFormat:@"%@",quantity],@"quantity",@"0",@"newCardPayment",[NSString stringWithFormat:@"%@",_promoType],@"promoType",[NSString stringWithFormat:@"%@",isShopping],@"isShoppingPromo",[address valueForKey:@"delivery_address"],@"delivery_address",[address valueForKey:@"delivery_city"],@"delivery_city",[address valueForKey:@"delivery_state"],@"delivery_state",[address valueForKey:@"delivery_zip"],@"delivery_zip",[address valueForKey:@"delivery_phone"],@"delivery_phone",[address valueForKey:@"address_id"],@"delivery_address_id",[address valueForKey:@"delivery_suiteNo"],@"delivery_suite",[address valueForKey:@"delivery_instructions"],@"delivery_instructions",[address valueForKey:@"delivery_type"],@"order_type",appDel.tipPercent,@"tip",nil];
+            //params = [NSDictionary dictionaryWithObjectsAndKeys:appDel.accessToken,@"accessToken",[cardDetails valueForKey:@"name"],@"firstname",[cardDetails  valueForKey:@"address_zip"],@"zip",[cardDetails  valueForKey:@"address_line1"],@"address",[cardDetails valueForKey:@"address_city"],@"city",[cardDetails  valueForKey:@"address_state"],@"state",[cardDetails valueForKey:@"id"],@"cardId",[NSString stringWithFormat:@"%@",dishId],@"dishId",[NSString stringWithFormat:@"%@",appDel.dateSelectedId],@"availability_id",[NSString stringWithFormat:@"%@",quantity],@"quantity",@"0",@"newCardPayment",[NSString stringWithFormat:@"%@",_promoType],@"promoType",[NSString stringWithFormat:@"%@",isShopping],@"isShoppingPromo",[address valueForKey:@"delivery_address"],@"delivery_address",[address valueForKey:@"delivery_city"],@"delivery_city",[address valueForKey:@"delivery_state"],@"delivery_state",[address valueForKey:@"delivery_zip"],@"delivery_zip",[address valueForKey:@"delivery_phone"],@"delivery_phone",[address valueForKey:@"address_id"],@"delivery_address_id",[address valueForKey:@"delivery_suiteNo"],@"delivery_suite",[address valueForKey:@"delivery_instructions"],@"delivery_instructions",[address valueForKey:@"delivery_type"],@"order_type",appDel.tipPercent,@"tip",nil];
+            params = [NSDictionary dictionaryWithObjectsAndKeys:appDel.accessToken,@"accessToken",[cardDetails valueForKey:@"name"],@"firstname",[cardDetails valueForKey:@"id"],@"cardId",[NSString stringWithFormat:@"%@",dishId],@"dishId",[NSString stringWithFormat:@"%@",appDel.dateSelectedId],@"availability_id",[NSString stringWithFormat:@"%@",quantity],@"quantity",@"0",@"newCardPayment",[NSString stringWithFormat:@"%@",_promoType],@"promoType",[NSString stringWithFormat:@"%@",isShopping],@"isShoppingPromo",[address valueForKey:@"delivery_address"],@"delivery_address",[address valueForKey:@"delivery_city"],@"delivery_city",[address valueForKey:@"delivery_state"],@"delivery_state",[address valueForKey:@"delivery_zip"],@"delivery_zip",[address valueForKey:@"delivery_phone"],@"delivery_phone",[address valueForKey:@"address_id"],@"delivery_address_id",[address valueForKey:@"delivery_suiteNo"],@"delivery_suite",[address valueForKey:@"delivery_instructions"],@"delivery_instructions",[address valueForKey:@"delivery_type"],@"order_type",[NSString stringWithFormat:@"%d",appDel.tipPercent],@"tip",nil];
+
         }
     
     

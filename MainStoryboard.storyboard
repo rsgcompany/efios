@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="faX-2E-pCk">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -3917,11 +3918,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" id="2Fa-Ya-NPa">
-                                        <rect key="frame" x="11" y="120" width="301" height="358"/>
+                                        <rect key="frame" x="11" y="120" width="301" height="207"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rHF-5I-GSx">
-                                                <rect key="frame" x="51" y="266" width="204" height="35"/>
+                                                <rect key="frame" x="51" y="115" width="204" height="35"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <color key="backgroundColor" red="0.57647058823529407" green="0.74117647058823533" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -3934,7 +3935,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qEe-2t-w14">
-                                                <rect key="frame" x="101" y="309" width="100" height="35"/>
+                                                <rect key="frame" x="101" y="158" width="100" height="35"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <color key="backgroundColor" red="0.82745098039215681" green="0.46274509803921571" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -3947,7 +3948,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6h5-zZ-1bZ">
-                                                <rect key="frame" x="101" y="266" width="100" height="35"/>
+                                                <rect key="frame" x="101" y="115" width="100" height="35"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <color key="backgroundColor" red="0.57647058823529407" green="0.74117647058823533" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -3993,7 +3994,7 @@
                                                     <outlet property="delegate" destination="XCO-OR-HRu" id="FAu-TF-4H0"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.89999997615814209" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" textAlignment="center" minimumFontSize="17" background="nf_transparent_layer_small.png" id="MPK-Ud-ZhR" userLabel="add - Txt Fld">
+                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.89999997615814209" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" textAlignment="center" minimumFontSize="17" background="nf_transparent_layer_small.png" id="MPK-Ud-ZhR" userLabel="add - Txt Fld">
                                                 <rect key="frame" x="9" y="107" width="280" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -4003,7 +4004,7 @@
                                                     <outlet property="delegate" destination="XCO-OR-HRu" id="idP-0n-BeJ"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.89999997615814209" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City" textAlignment="center" minimumFontSize="17" background="nf_transparent_layer_small.png" id="zIs-9U-uLO" userLabel="city - Txt Fld">
+                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.89999997615814209" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City" textAlignment="center" minimumFontSize="17" background="nf_transparent_layer_small.png" id="zIs-9U-uLO" userLabel="city - Txt Fld">
                                                 <rect key="frame" x="9" y="159" width="137" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -4013,7 +4014,7 @@
                                                     <outlet property="delegate" destination="XCO-OR-HRu" id="msD-9U-9wG"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.89999997615814209" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ZipCode" textAlignment="center" minimumFontSize="17" background="nf_transparent_layer_small.png" id="S1H-ZZ-8Z8" userLabel="zipcode - Txt Fld">
+                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.89999997615814209" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ZipCode" textAlignment="center" minimumFontSize="17" background="nf_transparent_layer_small.png" id="S1H-ZZ-8Z8" userLabel="zipcode - Txt Fld">
                                                 <rect key="frame" x="9" y="213" width="280" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -4023,14 +4024,14 @@
                                                     <outlet property="delegate" destination="XCO-OR-HRu" id="Gmc-YN-drR"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.89999997615814209" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="State" textAlignment="center" minimumFontSize="17" background="nf_transparent_layer_small.png" id="VN9-8B-xfE" userLabel="city - Txt Fld">
+                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.89999997615814209" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="State" textAlignment="center" minimumFontSize="17" background="nf_transparent_layer_small.png" id="VN9-8B-xfE" userLabel="city - Txt Fld">
                                                 <rect key="frame" x="152" y="159" width="137" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <button opaque="NO" userInteractionEnabled="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8TX-2O-iCw">
+                                            <button hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8TX-2O-iCw">
                                                 <rect key="frame" x="152" y="159" width="137" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal">
@@ -4238,17 +4239,17 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view alpha="0.85000002384185791" contentMode="scaleToFill" id="rvB-rB-QQP">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="418"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" alpha="0.89999997615814209" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="State" textAlignment="center" minimumFontSize="17" background="nf_transparent_layer_small.png" id="QtT-Ql-lb6" userLabel="Exp - Txt Fld">
+                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.89999997615814209" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="State" textAlignment="center" minimumFontSize="17" background="nf_transparent_layer_small.png" id="QtT-Ql-lb6" userLabel="Exp - Txt Fld">
                                                 <rect key="frame" x="168" y="300" width="132" height="45"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
-                                            <button opaque="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MnP-VW-BHm">
+                                            <button hidden="YES" opaque="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MnP-VW-BHm">
                                                 <rect key="frame" x="163" y="300" width="137" height="46"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -4320,7 +4321,7 @@
                                                     <outlet property="delegate" destination="qU4-YW-HCC" id="Jz5-ac-hu2"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" alpha="0.89999997615814209" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" textAlignment="center" minimumFontSize="17" background="nf_transparent_layer_small.png" id="odR-Mn-BGV" userLabel="add - Txt Fld">
+                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.89999997615814209" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" textAlignment="center" minimumFontSize="17" background="nf_transparent_layer_small.png" id="odR-Mn-BGV" userLabel="add - Txt Fld">
                                                 <rect key="frame" x="20" y="248" width="280" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -4330,7 +4331,7 @@
                                                     <outlet property="delegate" destination="qU4-YW-HCC" id="B0Q-wo-z9c"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" alpha="0.89999997615814209" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City" textAlignment="center" minimumFontSize="17" background="nf_transparent_layer_small.png" id="JTl-bs-Ffn" userLabel="city - Txt Fld">
+                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.89999997615814209" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City" textAlignment="center" minimumFontSize="17" background="nf_transparent_layer_small.png" id="JTl-bs-Ffn" userLabel="city - Txt Fld">
                                                 <rect key="frame" x="20" y="300" width="137" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -4340,7 +4341,7 @@
                                                     <outlet property="delegate" destination="qU4-YW-HCC" id="ADq-nw-EJi"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" alpha="0.89999997615814209" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ZipCode" textAlignment="center" minimumFontSize="17" background="nf_transparent_layer_small.png" id="5gI-DK-Boo" userLabel="zipcode - Txt Fld">
+                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.89999997615814209" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ZipCode" textAlignment="center" minimumFontSize="17" background="nf_transparent_layer_small.png" id="5gI-DK-Boo" userLabel="zipcode - Txt Fld">
                                                 <rect key="frame" x="20" y="354" width="280" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -4351,8 +4352,8 @@
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="UWl-1w-KKI">
-                                                <rect key="frame" x="20" y="407" width="280" height="40"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <rect key="frame" x="20" y="257" width="280" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <color key="backgroundColor" red="0.57647058823529407" green="0.74117647058823533" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal" title="SAVE CARD">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4363,8 +4364,8 @@
                                                 </connections>
                                             </button>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ZgI-fa-xuq">
-                                                <rect key="frame" x="20" y="406" width="137" height="40"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <rect key="frame" x="20" y="256" width="137" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <color key="backgroundColor" red="0.83137254900000002" green="0.21960784310000001" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal" title="Done">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4375,8 +4376,8 @@
                                                 </connections>
                                             </button>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gAN-TW-jBW">
-                                                <rect key="frame" x="163" y="407" width="137" height="40"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <rect key="frame" x="163" y="257" width="137" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <color key="backgroundColor" red="0.05349042339" green="0.1764705882" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal" title="Delete">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -11456,6 +11457,14 @@ Afg
         <segue reference="cBz-ci-oC2"/>
         <segue reference="dvI-Sc-pEv"/>
         <segue reference="sUj-6j-tdY"/>
-        <segue reference="kK0-ma-1qU"/>
+        <segue reference="cBz-ci-oC2"/>
+        <segue reference="LWU-58-OKE"/>
+        <segue reference="IVF-JY-bl4"/>
+        <segue reference="sbA-mU-3LE"/>
+        <segue reference="GoC-r7-cWV"/>
+        <segue reference="Awm-ey-FEB"/>
+        <segue reference="KoD-Rt-b0T"/>
+        <segue reference="0lG-p5-dWd"/>
+        <segue reference="IQu-mL-eh5"/>
     </inferredMetricsTieBreakers>
 </document>
