@@ -555,7 +555,14 @@ typedef void(^Completion)(NSDictionary*);
 //        
 //    }
 
-    
+    if (hud==nil)
+    {
+        hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        hud.delegate = self;
+        [hud show:YES];
+        [self.view addSubview:hud];
+    }
+    appDel.CurrentRestaurantID=[currentFavdict valueForKey:@"restaurant_id"];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:appDel.accessToken, @"accessToken",[currentFavdict valueForKey:@"restaurant_id"],@"dishId",nil];
     parseInt=10;
     parser=[[ParseAndGetData alloc]init];
@@ -1006,6 +1013,9 @@ typedef void(^Completion)(NSDictionary*);
             
         case 10:
         {
+            [hud hide:YES];
+            [hud removeFromSuperview];
+            hud=nil;
             if ([[result valueForKey:@"message"] isEqualToString:@"Dish marked as a favorite"]  ||
                 [[result valueForKey:@"message"] isEqualToString:@"Dish marked as favorite"])
             {
@@ -1046,13 +1056,17 @@ typedef void(^Completion)(NSDictionary*);
                 
                 
                 [GlobalMethods showAlertwithString: @"Restaurant marked as favorite"];
+                
                 [appDel.objDBClass UpdateRestaurantFavorite:appDel.CurrentRestaurantID : @"Y"];
+
+                
             }
             else{
                 favFlag=0;
                 [favarr removeObject:[currentFavdict valueForKey:@"restaurant_id"]];
                 
                 [GlobalMethods showAlertwithString: @"Restaurant unmarked as favorite"];
+                
                 [appDel.objDBClass UpdateRestaurantFavorite:appDel.CurrentRestaurantID : @"N"];
                 
             }

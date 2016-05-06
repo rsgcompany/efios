@@ -771,7 +771,7 @@ NSMutableDictionary *dict=nil;
         else{
             height=height+[datesArray count]*31;
         }
-        datesView=[[UIView alloc]initWithFrame:CGRectMake(self.btndropDown.frame.origin.x, self.btndropDown.frame.origin.y+25, self.btndropDown.frame.size.width, height)];
+        datesView=[[UIView alloc]initWithFrame:CGRectMake(self.btndropDown.frame.origin.x, self.btndropDown.frame.origin.y+20, self.btndropDown.frame.size.width, height)];
         datesTable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, datesView.frame.size.width, height)];
         datesTable.backgroundColor= [UIColor whiteColor];
         datesView.backgroundColor= [UIColor whiteColor];
@@ -921,6 +921,11 @@ NSMutableDictionary *dict=nil;
              self.txtState.text=[addrFromLocation valueForKey:@"State"];
              self.txtCity.text=[addrFromLocation valueForKey:@"City"];
              self.txtPhoneNum.text=[dict valueForKey:@"mobile"];
+             
+             
+             choseOfferBtn.selected=NO;
+             [self expandPromoView:choseOfferBtn];
+
          }];
     }
     else if ([sender tag] == 22){
@@ -951,6 +956,9 @@ NSMutableDictionary *dict=nil;
              
          }];
         [self newAddress:self];
+        
+        choseOfferBtn.selected=YES;
+        [self expandPromoView:choseOfferBtn];
 
     }
     else {
@@ -982,6 +990,10 @@ NSMutableDictionary *dict=nil;
              
          }];
         [self newAddress:self];
+        
+        choseOfferBtn.selected=YES;
+        [self expandPromoView:choseOfferBtn];
+
 
     }
     [optsView removeFromSuperview];
@@ -1056,7 +1068,7 @@ NSMutableDictionary *dict=nil;
                      }
                      completion:^(BOOL finished){
                          
-                         [checkOutVw removeFromSuperview];
+                         [checkOutVw setHidden:YES];
                          
                      }
      ];
@@ -1099,6 +1111,9 @@ NSMutableDictionary *dict=nil;
     if (tipsView == nil) {
         tipsView=[[UIScrollView alloc]initWithFrame:CGRectMake(self.btnTips.frame.origin.x+tipSubView.frame.origin.x,tipSubView.frame.origin.y+self.btnTips.frame.origin.y+24, self.btnTips.frame.size.width, 100)];
         tipsView.backgroundColor=[UIColor whiteColor];
+        tipsView.layer.borderWidth=1.0f;
+        tipsView.layer.borderColor=[UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1.0f].CGColor;
+
         [checkOutVw addSubview:tipsView];
         float Yaxis=1;
         
@@ -1543,11 +1558,14 @@ NSMutableDictionary *dict=nil;
             checkOutArr=[result valueForKey:@"details"];
             CGRect check=checkOutVw.frame;
             check.origin.x=0;
+            check.origin.y=0;
             CGRect first=firstScren.frame;
             //first.origin.x=320;
             
             [UIView animateWithDuration:0.5
                              animations:^{
+                                 [checkOutVw setHidden:NO];
+
                                  checkOutVw.frame=check;
                              }
                              completion:^(BOOL finished){
@@ -1656,10 +1674,6 @@ NSMutableDictionary *dict=nil;
 }
 - (IBAction)newAddress:(id)sender {
     
-    if (addressView1!=nil) {
-        [addressView1 removeFromSuperview];
-        addressView1=nil;
-    }
     
     self.txtAddrs.text=nil;
     self.txtAdrs.text=nil;
@@ -1691,6 +1705,8 @@ NSMutableDictionary *dict=nil;
     self.btnAddnewAddr.hidden=YES;
     
     self.addressId=@"";
+    [self removeZipPopup:addressView1];
+
 }
 
 - (IBAction)showStates:(id)sender {

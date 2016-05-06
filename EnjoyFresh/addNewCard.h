@@ -12,7 +12,7 @@
 #import "CardDetails.h"
 #import "ParseAndGetData.h"
 #import "MBProgressHUD.h"
-
+#import "TPKeyboardAvoidingScrollView.h"
 @interface addNewCard : UIViewController<UITextFieldDelegate,DropDownDelegate, UIPickerViewDelegate,UIPickerViewDataSource, MBProgressHUDDelegate>
 {
     
@@ -45,7 +45,7 @@
 
     IBOutlet UITextField *cardState;
     UIDatePicker *datePicker;
-    IBOutlet UIScrollView *scroll;
+    IBOutlet TPKeyboardAvoidingScrollView *scroll;
     
     IBOutlet UIButton *btnStates;
     IBOutlet UIButton *done_Btn_full;
