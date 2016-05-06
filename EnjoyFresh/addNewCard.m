@@ -636,13 +636,14 @@ int zipp=5;
 {
     NSString *yearstr=[NSString stringWithFormat:@"%ld",(long)compo.year];
     yearstr =[yearstr substringFromIndex:2];
-     if (![nameOnCard.text length] || [GlobalMethods checkWhiteSpace:nameOnCard.text] )
-    {
-        nameOnCard.text=nil;
-        [GlobalMethods showAlertwithString:@"Please enter name on card"];
-        return;
-    }
-    else if (![cardNumber.text length] || [GlobalMethods checkWhiteSpace:cardNumber.text])
+//     if (![nameOnCard.text length] || [GlobalMethods checkWhiteSpace:nameOnCard.text] )
+//    {
+//        nameOnCard.text=nil;
+//        [GlobalMethods showAlertwithString:@"Please enter name on card"];
+//        return;
+//    }
+//    else
+        if (![cardNumber.text length] || [GlobalMethods checkWhiteSpace:cardNumber.text])
     {
         cardNumber.text=nil;
         [GlobalMethods showAlertwithString:@"Please enter card number"];
@@ -731,7 +732,7 @@ else if ([cardNumber.text length]<cardno){
     }
     
     NSMutableDictionary *dict=[[NSMutableDictionary alloc]init];
-    [dict setObject:nameOnCard.text forKey:@"NameOnCard"];
+    //[dict setObject:nameOnCard.text forKey:@"NameOnCard"];
     [dict setObject:cardNumber.text forKey:@"CardNumber"];
     [dict setObject:[NSString stringWithFormat:@"20%@",year_lbl.text] forKey:@"YearOfExpire"];
     [dict setObject:MonthString forKey:@"MonthOfExpire"];
@@ -757,7 +758,7 @@ else if ([cardNumber.text length]<cardno){
         [dict setObject:@"Discover" forKey:@"cardType"];
     }
 
-    [dict setObject:cardZipCode.text forKey:@"zipcode"];
+    //[dict setObject:cardZipCode.text forKey:@"zipcode"];
     NSString *displayName=[NSString stringWithFormat:@"xxxx%@",[cardNumber.text  substringFromIndex:12]];
     [dict setObject:displayName  forKey:@"display"];
 
@@ -766,7 +767,7 @@ else if ([cardNumber.text length]<cardno){
     
     CurrenCardDetails = [[CardDetails alloc] init];
     CurrenCardDetails.card_type = [dict objectForKey:@"cardType"];
-    CurrenCardDetails.card_name = [dict objectForKey:@"NameOnCard"];
+    //CurrenCardDetails.card_name = [dict objectForKey:@"NameOnCard"];
     CurrenCardDetails.card_number = [dict objectForKey:@"CardNumber"];
     CurrenCardDetails.card_month = [dict objectForKey:@"MonthOfExpire"];
     CurrenCardDetails.card_year = [dict objectForKey:@"YearOfExpire"];
@@ -816,12 +817,12 @@ else if ([cardNumber.text length]<cardno){
      //appDel.CurrentCustomerDetails.user_auth_id, @"customerProfileId",
      appDel.accessToken, @"accessToken",
      //appDel.accessToken, @"customerProfileId",
-     CurrentCard.card_name,@"firstName",
-     CurrentCard.card_name,@"lastName",
-     CurrentCard.card_address,@"address",
-     CurrentCard.card_city,@"city",
-     CurrentCard.card_state,@"state",
-     CurrentCard.card_zip,@"zipcode",
+     //CurrentCard.card_name,@"firstName",
+     //CurrentCard.card_name,@"lastName",
+     //CurrentCard.card_address,@"address",
+     //CurrentCard.card_city,@"city",
+     //CurrentCard.card_state,@"state",
+     //CurrentCard.card_zip,@"zipcode",
      CurrentCard.card_type,@"cardType",
      CurrentCard.card_number,@"cardNumber",
      CurrentCard.card_month,@"cardExpMonth",

@@ -196,11 +196,11 @@ int rows;
         lbl.highlightedTextColor = [UIColor whiteColor];
 
         
-        NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:lbl.text];
-        [attributeString addAttribute:NSUnderlineStyleAttributeName
-                                value:[NSNumber numberWithInt:1]
-                                range:(NSRange){0,[attributeString length]}];
-        lbl.attributedText=attributeString;
+//        NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:lbl.text];
+//        [attributeString addAttribute:NSUnderlineStyleAttributeName
+//                                value:[NSNumber numberWithInt:1]
+//                                range:(NSRange){0,[attributeString length]}];
+//        lbl.attributedText=attributeString;
 
     }
    

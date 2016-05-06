@@ -1253,7 +1253,7 @@ currentDishTweet, currentDishRestaurant, currentDishDescription, currentDishName
         else{
             height=height+[datesArray count]*31;
         }
-        datesView=[[UIView alloc]initWithFrame:CGRectMake(self.btnDropDown.frame.origin.x, self.btnDropDown.frame.origin.y+27, self.btnDropDown.frame.size.width, height)];
+        datesView=[[UIView alloc]initWithFrame:CGRectMake(self.btnDropDown.frame.origin.x, self.btnDropDown.frame.origin.y+23, self.btnDropDown.frame.size.width, height)];
         datesTable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, datesView.frame.size.width, height)];
         datesTable.backgroundColor= [UIColor whiteColor];
         datesView.backgroundColor= [UIColor whiteColor];        
