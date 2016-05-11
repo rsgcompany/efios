@@ -116,11 +116,13 @@ NSMutableDictionary *dict=nil;
     
     Chef_Name.text=[NSString stringWithFormat:@"%@",[[Item_details valueForKey:@"restaurant_details"]valueForKey:@"restaurant_title"]];
     price=[[Item_details valueForKey:@"price"] floatValue];
-    if (price*0.20 > 5) {
+    float commision=[Item_details[@"comm_percent"] floatValue];
+
+    if ((price*(commision/100)) > 5) {
         price=price+5;
     }
     else{
-     price=(price*0.20)+price;
+     price=(price*(commision/100))+price;
     }
     
     Price_lbl.text=[NSString stringWithFormat:@"$ %.2f",price];
@@ -1146,14 +1148,16 @@ NSMutableDictionary *dict=nil;
     float tipPrice=0;
     float tipvalue=(float)appDel.tipPercent;
     float price1=[[checkOutArr valueForKey:@"price"] floatValue];
-    if (price1*0.20 > 5) {
+    float commision=[Item_details[@"comm_percent"] floatValue];
+
+    if ((price1*(commision/100)) > 5) {
         price1=price1+5;
     }
     else{
-        price1=(price1*0.20)+price1;
+        price1=(price1*(commision/100))+price1;
     }
 
-    tipPrice = (tipvalue/100)*price1;
+    tipPrice =((tipvalue/100)*price1);
     price1=[[checkOutArr valueForKey:@"price_with_tax"] floatValue];
     TotalAmt_Order.text=[NSString stringWithFormat:@"$ %.2f",price1+tipPrice];
 
@@ -1596,15 +1600,16 @@ NSMutableDictionary *dict=nil;
 {
     DishName_Order.text=Dish_Name.text;
     DishRestaurant_order.text=Chef_Name.text;
-    
+
+    float commision=[Item_details[@"comm_percent"] floatValue];
     float price1=[[checkOutArr valueForKey:@"price"] floatValue];
-    if (price1*0.20 > 5) {
+    if ((price1*(commision/100)) > 5) {
         price1=price1+5;
     }
     else{
-    price1=(price1*0.20)+price1;
-    }
     
+        price1=(price1*(commision/100))+price1;
+    }
     ActualDishAmt_Order.text=[NSString stringWithFormat:@"$ %.2f",price1];
     Qty_Order.text=[NSString stringWithFormat:@"%ld",(long)[[checkOutArr valueForKey:@"order_quantity"] integerValue]];
     discountAmt_Order.text=[NSString stringWithFormat:@"%@",[checkOutArr valueForKey:@"discount_amount"]];
@@ -1705,7 +1710,7 @@ NSMutableDictionary *dict=nil;
     self.btnAddnewAddr.hidden=YES;
     
     self.addressId=@"";
-    [self removeZipPopup:addressView1];
+    [self removeAllpopView:nil];
 
 }
 

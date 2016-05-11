@@ -653,9 +653,6 @@ typedef void(^Completion)(NSDictionary*);
                 appDel.orderHistroy_count=[[result  valueForKey:@"ordeHistory"] count];
                 [dict setObject:[NSString stringWithFormat:@"%lu",(unsigned long)[Favarr count]] forKey:@"FAVCount"];
                 
-                 //[[NSUserDefaults standardUserDefaults] setObject:dict12 forKey:@"UserProfile"];
-                //                [[NSUserDefaults standardUserDefaults] setObject:Favarr forKey:@"FAVCount"];
-                //[[NSUserDefaults standardUserDefaults ] synchronize];
                 
                 [self performSelector:@selector(getDishes) withObject:nil afterDelay:.1f];
             }
@@ -3720,7 +3717,7 @@ BOOL clearClick=NO;
         PayPalPaymentViewController *paymentViewController = [[PayPalPaymentViewController alloc] initWithPayment:payment
                                                                                                     configuration:self.payPalConfig
                                                                                                          delegate:self];
-        
+
         NSLog(@"self.payPalConfig %@", self.payPalConfig);
         
         [self presentViewController:paymentViewController animated:YES completion:nil];
@@ -3752,13 +3749,14 @@ BOOL clearClick=NO;
     NSDictionary *dict=[completedPayment.confirmation valueForKey:@"response"];
     NSString *stat=[dict valueForKey:@"state"];
     NSDictionary *address=appDel.deliveryAddr;
-    
+    float commision=[productDict[@"comm_percent"] floatValue];
+
     if ([stat isEqualToString:@"approved"])
     {
         NSString *pyId=[dict valueForKey:@"id"];
         NSString *userID=[[[NSUserDefaults standardUserDefaults]valueForKey:@"UserProfile"]valueForKey:@"user_id"];
         float price=[[productDict valueForKey:@"price"] floatValue];
-        price=(price*0.20)+price;
+        price=(price*(commision/100))+price;
         
         float tipPrice=0;
         float tipvalue=(float)appDel.tipPercent;
