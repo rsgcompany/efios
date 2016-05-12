@@ -3673,7 +3673,7 @@ BOOL clearClick=NO;
         float tipPrice=0;
 
         float price=[[proctdict valueForKey:@"price_with_tax"] floatValue];
-        float price_dish=[[proctdict valueForKey:@"price"] floatValue];
+        float price_dish=[[proctdict valueForKey:@"price"] floatValue]*[[proctdict valueForKey:@"order_quantity"] integerValue];
 
         float commision=[proctdict[@"comm_percent"] floatValue];
         float tipvalue=(float)appDel.tipPercent;

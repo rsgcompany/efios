@@ -1147,15 +1147,16 @@ NSMutableDictionary *dict=nil;
     appDel.tipPercent=[[self.tipsArray objectAtIndex:sender.tag] integerValue];
     float tipPrice=0;
     float tipvalue=(float)appDel.tipPercent;
-    float price1=[[checkOutArr valueForKey:@"price"] floatValue];
+    float price1=[[checkOutArr valueForKey:@"price"] floatValue]*[[checkOutArr valueForKey:@"order_quantity"] integerValue];
     float commision=[Item_details[@"comm_percent"] floatValue];
+    price1=(price1*(commision/100))+price1;
 
-    if ((price1*(commision/100)) > 5) {
+    /*if ((price1*(commision/100)) > 5) {
         price1=price1+5;
     }
     else{
         price1=(price1*(commision/100))+price1;
-    }
+    }*/
 
     tipPrice =((tipvalue/100)*price1);
     price1=[[checkOutArr valueForKey:@"price_with_tax"] floatValue];
