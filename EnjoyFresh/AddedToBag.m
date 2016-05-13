@@ -118,13 +118,14 @@ NSMutableDictionary *dict=nil;
     price=[[Item_details valueForKey:@"price"] floatValue];
     float commision=[Item_details[@"comm_percent"] floatValue];
 
-    if ((price*(commision/100)) > 5) {
+   /* if ((price*(commision/100)) > 5) {
         price=price+5;
     }
     else{
      price=(price*(commision/100))+price;
-    }
-    
+    }*/
+    price=(price*(commision/100))+price;
+
     Price_lbl.text=[NSString stringWithFormat:@"$ %.2f",price];
     Dish_Name.text=[NSString stringWithFormat:@"%@",[Item_details valueForKey:@"dish_title"]];
     
@@ -1605,13 +1606,15 @@ NSMutableDictionary *dict=nil;
     appDel.tipPercent=0;
     float commision=[Item_details[@"comm_percent"] floatValue];
     float price1=[[checkOutArr valueForKey:@"price"] floatValue];
-    if ((price1*(commision/100)) > 5) {
+    price1=(price1*(commision/100))+price1;
+
+    /*if ((price1*(commision/100)) > 5) {
         price1=price1+5;
     }
     else{
     
         price1=(price1*(commision/100))+price1;
-    }
+    }*/
     ActualDishAmt_Order.text=[NSString stringWithFormat:@"$ %.2f",price1];
     Qty_Order.text=[NSString stringWithFormat:@"%ld",(long)[[checkOutArr valueForKey:@"order_quantity"] integerValue]];
     discountAmt_Order.text=[NSString stringWithFormat:@"%@",[checkOutArr valueForKey:@"discount_amount"]];

@@ -1155,14 +1155,18 @@ typedef void(^Completion)(NSDictionary*);
     NSDictionary *dict=[dishesArr objectAtIndex:indexPath.row];
     [cell.contentView.superview setClipsToBounds:YES];
 
+    float commision=[dict[@"comm_percent"] floatValue];
+    
     
     float price=[[dict valueForKey:@"price"] floatValue];
-    if (price*0.20 >5) {
-        price=price+5;
-    }
-    else{
-     price=(price*0.20)+price;
-    }
+    price=(price*(commision/100))+price;
+
+//    if (price*0.20 >5) {
+//        price=price+5;
+//    }
+//    else{
+//     price=(price*0.20)+price;
+//    }
     cell.priceLbl.text=[NSString stringWithFormat:@"$ %.2f",price];
 
     if([[dict valueForKey:@"soldout"] integerValue] == 1)

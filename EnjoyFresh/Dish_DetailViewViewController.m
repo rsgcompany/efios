@@ -201,14 +201,18 @@ currentDishTweet, currentDishRestaurant, currentDishDescription, currentDishName
     self.btnReadMore.titleLabel.font=[UIFont fontWithName:SemiBold size:10];
     Dish_price_lbl.font=[UIFont fontWithName:SemiBold size:16];
     price_lbl2.font=[UIFont fontWithName:SemiBold size:18];
+    float commision=[_Dish_Details_dic[@"comm_percent"] floatValue];
     
+
     float price=[[_Dish_Details_dic valueForKey:@"price"] floatValue];
-    if (price*0.20 >5) {
-        price=price+5;
-    }
-    else{
-        price=(price*0.20)+price;
-    }
+    price=(price*(commision/100))+price;
+
+//    if (price*0.20 >5) {
+//        price=price+5;
+//    }
+//    else{
+//        price=(price*0.20)+price;
+//    }
     
     Dish_price_lbl.text=[NSString stringWithFormat:@"$ %.2f",price];
     order_by_lbl.font=[UIFont fontWithName:Bold size:10.0f];
