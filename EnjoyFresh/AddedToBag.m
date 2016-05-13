@@ -1600,7 +1600,8 @@ NSMutableDictionary *dict=nil;
 {
     DishName_Order.text=Dish_Name.text;
     DishRestaurant_order.text=Chef_Name.text;
-
+    [self.btnTips setTitle:@"0%" forState:UIControlStateNormal];
+    appDel.tipPercent=0;
     float commision=[Item_details[@"comm_percent"] floatValue];
     float price1=[[checkOutArr valueForKey:@"price"] floatValue];
     if ((price1*(commision/100)) > 5) {

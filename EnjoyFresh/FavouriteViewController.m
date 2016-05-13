@@ -41,6 +41,11 @@ static UIColor *favcolor, *unfavcolor;
 //    parser.delegate=self;
         favsArray = [appDel.objDBClass GetAllUserFavorites];
     
+    if (favsArray.count==0) {
+        
+        [GlobalMethods showAlertwithString:@"No favorites available"];
+
+    }
     //favsArray=[[NSUserDefaults standardUserDefaults] objectForKey:@"favorites"];
     self.backBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 20);
 

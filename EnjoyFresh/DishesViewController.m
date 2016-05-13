@@ -3670,10 +3670,18 @@ BOOL clearClick=NO;
         // Otherwise, you can leave payment.items and/or payment.paymentDetails nil,
         // and simply set payment.amount to your total charge.
         // Optional: include multiple items
-        
+        float tipPrice=0;
+
         float price=[[proctdict valueForKey:@"price_with_tax"] floatValue];
-        //price=(price*0.20)+price;
-        NSString *STRPRI=[NSString stringWithFormat:@"%.2f",price];
+        float price_dish=[[proctdict valueForKey:@"price"] floatValue];
+
+        float commision=[proctdict[@"comm_percent"] floatValue];
+        float tipvalue=(float)appDel.tipPercent;
+        price_dish=(price_dish*(commision/100))+price_dish;
+
+        tipPrice =((tipvalue/100)*price_dish);
+        NSString *STRPRI=[NSString stringWithFormat:@"%.2f",price+tipPrice];
+        
         PayPalItem *item3 = [PayPalItem itemWithName:[proctdict valueForKey:@"title"]
                                         withQuantity:1
                                            withPrice:[NSDecimalNumber decimalNumberWithString:STRPRI]
@@ -3762,6 +3770,7 @@ BOOL clearClick=NO;
         float tipvalue=(float)appDel.tipPercent;
 
         tipPrice = (tipvalue/100)*price;
+        price=price+tipPrice;
 
         NSString *STRPRI=[NSString stringWithFormat:@"%.2f",price];
         if (hud==nil)

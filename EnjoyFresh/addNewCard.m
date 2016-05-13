@@ -13,7 +13,7 @@
 
 @interface addNewCard ()
 @end
-int cvv=3;
+int cvv=4;
 int cardno=16;
 int zipp=5;
 
@@ -857,7 +857,7 @@ else if ([cardNumber.text length]<cardno){
     card.expYear = [[cardDeatails valueForKey:@"cardExpYear"] integerValue];
     card.cvc = [cardDeatails valueForKey:@"cardCVV"];
     NSMutableString *name=[NSMutableString stringWithFormat:@"%@",[cardDeatails valueForKey:@"firstName"]];
-    card.name=name;
+    //card.name=name;
     //card.addressLine1=[cardDeatails valueForKey:@"address"];
     //card.addressCity=[cardDeatails valueForKey:@"city"];
     //card.addressState=[cardDeatails valueForKey:@"state"];

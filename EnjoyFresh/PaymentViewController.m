@@ -326,7 +326,7 @@ BOOL cardFlag=YES;
     
     self.lblCardNumber.text=[NSString stringWithFormat:@"XXXX %@", [dict valueForKey:@"last4"]];
     
-    self.txtNameOnCard.text=[dict valueForKey:@"name"];
+    //self.txtNameOnCard.text=[dict valueForKey:@"name"];
     
     if (_fromCheckOut){
         
@@ -951,7 +951,7 @@ BOOL cardFlag=YES;
     self.lblCardNumber.text=[NSString stringWithFormat:@"XXXX %@", [card valueForKey:@"last4"]];
     [self.lblCardNumber setTextColor:[UIColor blackColor]];
     
-    self.txtNameOnCard.text=[card valueForKey:@"name"];
+    //self.txtNameOnCard.text=[card valueForKey:@"name"];
     self.dopDownImg.hidden=NO;
     self.lblSaveCard.hidden=NO;
     self.lblOr.hidden=NO;
@@ -1258,7 +1258,7 @@ BOOL cardFlag=YES;
 //        [GlobalMethods showAlertwithString:@"Please enter cvv"];
 //        return;
 //    }
-     if (![self.txtZip.text length])
+  /*   if (![self.txtZip.text length])
     {
         [GlobalMethods showAlertwithString:@"Please enter Zipcode"];
         return;
@@ -1268,7 +1268,7 @@ BOOL cardFlag=YES;
         [GlobalMethods showAlertwithString:@"Please enter name on card"];
         return;
     }
-   /* else if (![self.txtMonth.text length])
+    else if (![self.txtMonth.text length])
     {
         [GlobalMethods showAlertwithString:@"Please enter month of card expiry"];
         return;
@@ -1329,7 +1329,7 @@ BOOL cardFlag=YES;
     }
     parseInt=12;
     //NSDictionary *params=[NSDictionary dictionaryWithObjectsAndKeys:appDel.accessToken,@"accessToken",[selectedCardDetails valueForKey:@"id"],@"cardId",self.txtNameOnCard.text,@"firstName",self.txtAddress.text,@"address",self.txtCity.text,@"city",self.txtState.text,@"state",self.txtZip.text,@"zip",MonthString,@"cardExpMonth",self.txtYear.text,@"cardExpYear", nil];
-    NSDictionary *params=[NSDictionary dictionaryWithObjectsAndKeys:appDel.accessToken,@"accessToken",[selectedCardDetails valueForKey:@"id"],@"cardId",self.txtNameOnCard.text,@"firstName",MonthString,@"cardExpMonth",self.txtYear.text,@"cardExpYear", nil];
+    NSDictionary *params=[NSDictionary dictionaryWithObjectsAndKeys:appDel.accessToken,@"accessToken",[selectedCardDetails valueForKey:@"id"],@"cardId",MonthString,@"cardExpMonth",self.txtYear.text,@"cardExpYear", nil];
 
     [parser parseAndGetDataForPostMethod:params withUlr:@"updateStripeCard"];
 

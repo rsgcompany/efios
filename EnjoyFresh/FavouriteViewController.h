@@ -14,10 +14,11 @@
 #import "FavoritesClass.h"
 #import "DBClass.h"
 #import "RestaurantDetailViewController.h"
-@interface FavouriteViewController : UIViewController<parseAndGetDataDelegate,DropDownDelegate>
+@interface FavouriteViewController : UIViewController<MBProgressHUDDelegate,parseAndGetDataDelegate,DropDownDelegate>
 {
     ParseAndGetData *parser;
     DropDown *drp;
+    MBProgressHUD *hud;
 
     NSArray *favoritsArr;
     NSMutableArray *favsArray;
