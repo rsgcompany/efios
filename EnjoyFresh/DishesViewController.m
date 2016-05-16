@@ -1,3 +1,4 @@
+
 //
 //  DishesViewController.m
 //  EnjoyFresh
@@ -3772,9 +3773,10 @@ BOOL clearClick=NO;
         
         float tipPrice=0;
         float tipvalue=(float)appDel.tipPercent;
+        float totalprice=[[productDict valueForKey:@"price_with_tax"] floatValue];
 
-        tipPrice = (tipvalue/100)*price;
-        price=price+tipPrice;
+        tipPrice = (tipvalue/100)*totalprice;
+        totalprice=totalprice+tipPrice;
 
         NSString *STRPRI=[NSString stringWithFormat:@"%.2f",price];
         if (hud==nil)
@@ -3802,7 +3804,7 @@ BOOL clearClick=NO;
         
         NSString *ordertype=[address valueForKey:@"delivery_type"];
         parseInt=5;
-        NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:userID,@"userId",[productDict valueForKey:@"restaurant_id"],@"restaurantId",[productDict valueForKey:@"dish_id"],@"dishId",STRPRI,@"dishPrice",[productDict valueForKey:@"price_with_tax"],@"amountPaid",qtyStr,@"qty",[productDict valueForKey:@"order_by_date"],@"orderByDate",[productDict valueForKey:@"tax_total"],@"salesTax",pyId,@"transactionId",[NSString stringWithFormat:@"%@",appDel.dateSelectedId],@"availabilityId",[address valueForKey:@"delivery_address"],@"delivery_address",[address valueForKey:@"delivery_city"],@"delivery_city",[address valueForKey:@"delivery_state"],@"delivery_state",[address valueForKey:@"delivery_zip"],@"delivery_zip",[address valueForKey:@"delivery_phone"],@"delivery_phone",[address valueForKey:@"address_id"],@"delivery_address_id",[address valueForKey:@"delivery_suiteNo"],@"delivery_suite",[address valueForKey:@"delivery_instructions"],@"delivery_instructions",[NSString stringWithFormat:@"%@",ordertype],@"order_type",isShopping,@"isShoppingPromo",[NSString stringWithFormat:@"%@",promoType],@"promoType",[NSString stringWithFormat:@"%.2f",tipvalue],@"tip", nil];
+        NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:userID,@"userId",[productDict valueForKey:@"restaurant_id"],@"restaurantId",[productDict valueForKey:@"dish_id"],@"dishId",STRPRI,@"dishPrice",[NSString stringWithFormat:@"%.2f",totalprice],@"amountPaid",qtyStr,@"qty",[productDict valueForKey:@"order_by_date"],@"orderByDate",[productDict valueForKey:@"tax_total"],@"salesTax",pyId,@"transactionId",[NSString stringWithFormat:@"%@",appDel.dateSelectedId],@"availabilityId",[address valueForKey:@"delivery_address"],@"delivery_address",[address valueForKey:@"delivery_city"],@"delivery_city",[address valueForKey:@"delivery_state"],@"delivery_state",[address valueForKey:@"delivery_zip"],@"delivery_zip",[address valueForKey:@"delivery_phone"],@"delivery_phone",[address valueForKey:@"address_id"],@"delivery_address_id",[address valueForKey:@"delivery_suiteNo"],@"delivery_suite",[address valueForKey:@"delivary_instructions"],@"delivery_instructions",[NSString stringWithFormat:@"%@",ordertype],@"order_type",isShopping,@"isShoppingPromo",[NSString stringWithFormat:@"%@",promoType],@"promoType",[NSString stringWithFormat:@"%.2f",tipvalue],@"tip", nil];
         [parser parseAndGetDataForPostMethod:params withUlr:@"paypalPayment"];
         
     }

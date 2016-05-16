@@ -637,7 +637,7 @@ NSMutableDictionary *dict=nil;
         [addressDict setValue:self.txtState.text forKey:@"delivery_state"];
         [addressDict setValue:self.txtZip.text forKey:@"delivery_zip"];
         [addressDict setValue:self.txtSuiteNo.text forKey:@"delivery_suiteNo"];
-        [addressDict setValue:self.txtInstructions.text forKey:@"delivery_instructions"];
+        [addressDict setValue:self.txtInstructions.text forKey:@"delivary_instructions"];
         [addressDict setValue:self.addressId forKey:@"address_id"];
         [addressDict setValue:self.txtPhoneNum.text forKey:@"delivery_phone"];
         [addressDict setValue:@"2" forKey:@"delivery_type"];
@@ -648,7 +648,7 @@ NSMutableDictionary *dict=nil;
         [addressDict setValue:@"" forKey:@"delivery_state"];
         [addressDict setValue:@"" forKey:@"delivery_zip"];
         [addressDict setValue:@"" forKey:@"delivery_suiteNo"];
-        [addressDict setValue:@"" forKey:@"delivery_instructions"];
+        [addressDict setValue:@"" forKey:@"delivary_instructions"];
         
         [addressDict setValue:self.txtPhoneNum.text forKey:@"delivery_phone"];
         [addressDict setValue:self.addressId forKey:@"address_id"];
