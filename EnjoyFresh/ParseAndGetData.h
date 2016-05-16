@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AFNetworking.h"
 @protocol parseAndGetDataDelegate<NSObject>
 -(void)dataDidFinishLoadingwithResult:(NSDictionary*)result;
 -(void)dataDidFailedLoadingWithError:(NSString*)err;
 @end
-@interface ParseAndGetData : NSObject
+@interface ParseAndGetData : AFHTTPSessionManager
 @property(nonatomic,strong)id <parseAndGetDataDelegate> delegate;
 
 -(void)parseAndGetDataForGetMethod:(NSString*)gerUrlStr;
