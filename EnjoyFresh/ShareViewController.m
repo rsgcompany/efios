@@ -68,7 +68,9 @@
             if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
                 SLComposeViewController *fbSheetOBJ = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
                 
-                [fbSheetOBJ setInitialText:[NSString stringWithFormat:@"Explore a marketplace of culinary experiences. Get access to exclusive foodie events and personalized restaurant dining. $5 off your first order.\n"]];
+                //[fbSheetOBJ setInitialText:[NSString stringWithFormat:@"Explore a marketplace of culinary experiences. Get access to exclusive foodie events and personalized restaurant dining. $5 off your first order.\n"]];
+                [fbSheetOBJ setInitialText:[NSString stringWithFormat:@"Enjoy fresh, amazing and unique food prepared to order by the best local chefs.  $5 off your first order.  Delivery available.\n"]];
+
                 [fbSheetOBJ addURL:url];
                 [fbSheetOBJ addImage:[UIImage imageNamed:@"ef-logo.png"]];
                 [self presentViewController:fbSheetOBJ animated:YES completion:Nil];
@@ -85,7 +87,10 @@
                 {
                     SLComposeViewController *tweetSheetOBJ = [SLComposeViewController
                                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
-                    [tweetSheetOBJ setInitialText:[NSString stringWithFormat:@"Having a blast exploring off menu dishes with EnjoyFresh! Signup & get $5 off on first order."]];
+                   // [tweetSheetOBJ setInitialText:[NSString stringWithFormat:@"Having a blast exploring off menu dishes with EnjoyFresh! Signup & get $5 off on first order."]];
+                    [tweetSheetOBJ setInitialText:[NSString stringWithFormat:@"I just discovered @Enjoy_Fresh! Amazing freshly prepared #food by local chefs with $5 off your first order."]];
+
+                    
                     [tweetSheetOBJ addURL:url];
 
                     [self presentViewController:tweetSheetOBJ animated:YES completion:nil];
@@ -110,8 +115,9 @@
             @try {
                 NSString *message =[[NSString alloc] init]; //[NSString stringWithFormat:@"Hi there! \n I’ve been having a blast, exploring off menu dishes and culinary events with EnjoyFresh! \n EnjoyFresh connects you to inspired chefs and restaurants in your area. From dive bars to Michelin Stars, you can find amazing meals prepared just for you. Order ahead of time and enjoy at the restaurant, it’s time to go off-menu! \n If you become a member and use this promo code, EnjoyFresh will give you $5 off your first order! \n My invite code: %@ \n\n Happy Dining! http://www.enjoyfresh.com/share/signup/%@",promoCode];
                 
-                message = [NSString stringWithFormat:@"Having a blast exploring off menu dishes with EnjoyFresh! Signup & get $5 off on first order. %@", url];
-                
+                //message = [NSString stringWithFormat:@"Having a blast exploring off menu dishes with EnjoyFresh! Signup & get $5 off on first order. %@", url];
+                message = [NSString stringWithFormat:@"Give EnjoyFresh a try and get $5 off your first order!. %@", url];
+
                 
                 MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
                 messageController.messageComposeDelegate = self;
@@ -139,7 +145,10 @@
                 [comp setSubject:AppTitle];
                 NSString *message = [NSString stringWithFormat:@"Hi there! \n\n I’ve been having a blast, exploring off menu dishes and culinary events with EnjoyFresh! \n\n EnjoyFresh connects you to inspired chefs and restaurants in your area. From dive bars to Michelin Stars, you can find amazing meals prepared just for you. Order ahead of time and enjoy at the restaurant, it’s time to go off-menu! \n\n If you become a member and use this promo code, EnjoyFresh will give you $5 off your first order! \n\n My invite code: %@ \n\n Happy Dining! ",promoCode];
                 
-                            message = [NSString stringWithFormat:@"Have you tried EnjoyFresh? From dive bars to Michelin Stars, you can find exclusive off-menu dishes at your favorite places.\n\n Become a member and use this promo code to get $5 off your first order! %@", url];
+                
+               // message = [NSString stringWithFormat:@"Have you tried EnjoyFresh? From dive bars to Michelin Stars, you can find exclusive off-menu dishes at your favorite places.\n\n Become a member and use this promo code to get $5 off your first order! %@", url];
+                message = [NSString stringWithFormat:@"Give EnjoyFresh a try and get $5 off your first order! %@", url];
+
 
                 [comp setMessageBody:message isHTML:NO];
                 [comp setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
