@@ -14,7 +14,7 @@
 #import  "FavouriteViewController.h"
 #import "NotificationViewController.h"
 #import "JSON.h"
-#import "AFHTTPClient.h"
+//#import "AFHTTPClient.h"
 #import "AFHTTPRequestOperation.h"
 #import "UIImageView+WebCache.h"
 

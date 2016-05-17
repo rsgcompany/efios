@@ -10,7 +10,7 @@
 #import "AFNetworking.h"
 #import "Global.h"
 #import "Reachability.h"
-#import "AFHTTPClient.h"
+#import "AFNetworking.h"
 #import "JSON.h"
 
 @implementation ParseAndGetData
@@ -25,7 +25,7 @@
         NSURL *url=[NSURL URLWithString:[urlstr stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
         
         NSLog(@"parseAndGetDataForGetMethod %@", gerUrlStr);
-        NSURLRequest *request=nil;
+       /* NSURLRequest *request=nil;
         request = [NSURLRequest requestWithURL:url];
         AFJSONRequestOperation *operation =
         [AFJSONRequestOperation JSONRequestOperationWithRequest:request
@@ -36,7 +36,15 @@
                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                             [delegate dataDidFailedLoadingWithError:[NSString stringWithFormat:@"%@",[error localizedDescription]]];
                                                         }];
-        [operation start];
+        [operation start];*/
+        
+        [self GET:[urlstr stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            [delegate dataDidFinishLoadingwithResult:responseObject];
+
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            [delegate dataDidFailedLoadingWithError:[NSString stringWithFormat:@"%@",[error localizedDescription]]];
+
+        }];
     }
     else {
         [delegate dataDidFailedLoadingWithError:@"Please check your Network Connection."];
@@ -45,10 +53,11 @@
 -(void)parseAndGetDataForPostMethod:(NSDictionary*)paramters withUlr:(NSString*)ulris
 {
     NSURL *url = [NSURL URLWithString:BaseURL];
-    
+    NSString *urlstr=[NSString stringWithFormat:@"%@%@",BaseURL,ulris];
+
     NSLog(@"parseAndGetDataForPostMethod %@", ulris);
     
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    /*AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
     [httpClient postPath:ulris parameters:paramters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSDictionary *dict=[responseStr JSONValue];
@@ -57,6 +66,16 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [delegate dataDidFailedLoadingWithError:[NSString stringWithFormat:@"%@",[error localizedDescription]]];
         
+    }];*/
+    
+    [self POST:urlstr parameters:paramters success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        [delegate dataDidFinishLoadingwithResult:responseObject];
+
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+        [delegate dataDidFailedLoadingWithError:[NSString stringWithFormat:@"%@",[error localizedDescription]]];
+
     }];
 }
 @end

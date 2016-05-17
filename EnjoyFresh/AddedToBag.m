@@ -118,13 +118,14 @@ NSMutableDictionary *dict=nil;
     price=[[Item_details valueForKey:@"price"] floatValue];
     float commision=[Item_details[@"comm_percent"] floatValue];
 
-   /* if ((price*(commision/100)) > 5) {
+    if (commision==20.00 && (price*(commision/100))>5) {
+        
         price=price+5;
+        
+    }else{
+        price=(price*(commision/100))+price;
+        
     }
-    else{
-     price=(price*(commision/100))+price;
-    }*/
-    price=(price*(commision/100))+price;
 
     Price_lbl.text=[NSString stringWithFormat:@"$ %.2f",price];
     Dish_Name.text=[NSString stringWithFormat:@"%@",[Item_details valueForKey:@"dish_title"]];
@@ -1150,14 +1151,16 @@ NSMutableDictionary *dict=nil;
     float tipvalue=(float)appDel.tipPercent;
     float price1=[[checkOutArr valueForKey:@"price"] floatValue]*[[checkOutArr valueForKey:@"order_quantity"] integerValue];
     float commision=[Item_details[@"comm_percent"] floatValue];
-    price1=(price1*(commision/100))+price1;
+    //price1=(price1*(commision/100))+price1;
 
-    /*if ((price1*(commision/100)) > 5) {
+    if (commision==20.00 && (price1*(commision/100))>5) {
+        
         price1=price1+5;
-    }
-    else{
+        
+    }else{
         price1=(price1*(commision/100))+price1;
-    }*/
+        
+    }
 
     tipPrice =((tipvalue/100)*price1);
     price1=[[checkOutArr valueForKey:@"price_with_tax"] floatValue];
@@ -1369,7 +1372,10 @@ NSMutableDictionary *dict=nil;
     self.txtPhoneNum.text=[[addrssArray objectAtIndex:indexPath.row] valueForKey:@"phone"];
     self.txtSuiteNo.text=[[addrssArray objectAtIndex:indexPath.row] valueForKey:@"suite"];
     self.txtInstructions.text=[[addrssArray objectAtIndex:indexPath.row] valueForKey:@"delivary_instructions"];
-        
+        NSLog(@"---->%@",[[addrssArray objectAtIndex:indexPath.row] valueForKey:@"phone"]);
+        if(![[[addrssArray objectAtIndex:indexPath.row] valueForKey:@"phone"] length]){
+            self.txtPhoneNum.text=@"";
+        }
         for (UIView *i in self.addressView.subviews) {
             if([i isKindOfClass:[UITextField class]]){
                 UITextField *newtxt = (UITextField *)i;
@@ -1606,15 +1612,14 @@ NSMutableDictionary *dict=nil;
     appDel.tipPercent=0;
     float commision=[Item_details[@"comm_percent"] floatValue];
     float price1=[[checkOutArr valueForKey:@"price"] floatValue];
-    price1=(price1*(commision/100))+price1;
-
-    /*if ((price1*(commision/100)) > 5) {
+    if (commision==20.00 && (price1*(commision/100))>5) {
+        
         price1=price1+5;
-    }
-    else{
-    
+        
+    }else{
         price1=(price1*(commision/100))+price1;
-    }*/
+        
+    }
     ActualDishAmt_Order.text=[NSString stringWithFormat:@"$ %.2f",price1];
     Qty_Order.text=[NSString stringWithFormat:@"%ld",(long)[[checkOutArr valueForKey:@"order_quantity"] integerValue]];
     discountAmt_Order.text=[NSString stringWithFormat:@"%@",[checkOutArr valueForKey:@"discount_amount"]];

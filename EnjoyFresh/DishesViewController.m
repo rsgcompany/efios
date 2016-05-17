@@ -992,7 +992,28 @@ typedef void(^Completion)(NSDictionary*);
                     }
                     appDel.IsProcessComplete = YES;
                     
+                if ([address valueForKey:@"address_id"] != nil && [dict valueForKey:@"deliveryAddresses"] != nil){
                     
+                    NSMutableArray *addressarray=[[NSMutableArray alloc]initWithArray:[dict valueForKey:@"deliveryAddresses"]];
+                    NSPredicate *predicate=[NSPredicate predicateWithFormat:@"SELF contains[c] %@",[address valueForKey:@"address_id"]];
+                    ;
+                    NSArray *filtered = [[addressarray filteredArrayUsingPredicate:predicate] mutableCopy];
+                    
+                    if (filtered.count>0) {
+                        NSInteger index=[addressarray indexOfObject:filtered[0]];
+                        if (index<[addressarray count]) {
+                            NSMutableDictionary *addr=(NSMutableDictionary*)[[result valueForKey:@"deliveryAddress"] mutableCopy];
+                            if (addr!=nil) {
+                                [addressarray replaceObjectAtIndex:index withObject:addr];
+                                [dict setObject:addressarray forKey:@"deliveryAddresses"];
+                            }
+                            
+                            
+                        }
+                        
+                    }
+                }
+
                     // count = [[dict valueForKey:@"ref_promo_count"] integerValue];
                     @try {
                     [[NSUserDefaults standardUserDefaults ] setObject:dict forKey:@"UserProfile"];
@@ -1160,7 +1181,15 @@ typedef void(^Completion)(NSDictionary*);
     
     
     float price=[[dict valueForKey:@"price"] floatValue];
-    price=(price*(commision/100))+price;
+    
+    if (commision==20.00 && (price*(commision/100))>5) {
+        
+        price=price+5;
+        
+    }else{
+        price=(price*(commision/100))+price;
+        
+    }
 
 //    if (price*0.20 >5) {
 //        price=price+5;
@@ -3681,9 +3710,18 @@ BOOL clearClick=NO;
         float price_dish=[[proctdict valueForKey:@"price"] floatValue]*[[proctdict valueForKey:@"order_quantity"] integerValue];
 
         float commision=[proctdict[@"comm_percent"] floatValue];
+        
+        if (commision==20.00 && (price_dish*(commision/100))>5) {
+            
+            price_dish=price_dish+5;
+            
+        }else{
+            price_dish=(price_dish*(commision/100))+price_dish;
+            
+        }
         float tipvalue=(float)appDel.tipPercent;
-        price_dish=(price_dish*(commision/100))+price_dish;
 
+        
         tipPrice =((tipvalue/100)*price_dish);
         NSString *STRPRI=[NSString stringWithFormat:@"%.2f",price+tipPrice];
         
@@ -3769,13 +3807,20 @@ BOOL clearClick=NO;
         NSString *pyId=[dict valueForKey:@"id"];
         NSString *userID=[[[NSUserDefaults standardUserDefaults]valueForKey:@"UserProfile"]valueForKey:@"user_id"];
         float price=[[productDict valueForKey:@"price"] floatValue];
-        price=(price*(commision/100))+price;
-        
+        if (commision==20.00 && (price*(commision/100))>5) {
+            
+            price=price+5;
+            
+        }else{
+            price=(price*(commision/100))+price;
+            
+        }
         float tipPrice=0;
         float tipvalue=(float)appDel.tipPercent;
         float totalprice=[[productDict valueForKey:@"price_with_tax"] floatValue];
 
         tipPrice = (tipvalue/100)*totalprice;
+        
         totalprice=totalprice+tipPrice;
 
         NSString *STRPRI=[NSString stringWithFormat:@"%.2f",price];

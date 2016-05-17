@@ -205,7 +205,15 @@ currentDishTweet, currentDishRestaurant, currentDishDescription, currentDishName
     
 
     float price=[[_Dish_Details_dic valueForKey:@"price"] floatValue];
-    price=(price*(commision/100))+price;
+    
+    if (commision==20.00 && (price*(commision/100))>5) {
+        
+        price=price+5;
+        
+    }else{
+        price=(price*(commision/100))+price;
+
+    }
 
 //    if (price*0.20 >5) {
 //        price=price+5;
