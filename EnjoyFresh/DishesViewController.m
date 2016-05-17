@@ -469,7 +469,8 @@ typedef void(^Completion)(NSDictionary*);
 {
     NSLog(@"Access Token: %@", appDel.accessToken);
     parseInt=2;
-    
+    switchTag=0;
+    [self clearRefineFilters:nil];
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
     
     SDImageCache *imageCache = [SDImageCache sharedImageCache];
