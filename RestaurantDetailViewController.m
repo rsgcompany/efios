@@ -615,12 +615,25 @@ int favFlag;
             [cell.dishDetail setTag:indexPath.row+222];
 
             float price=[[dish valueForKey:@"price"] floatValue];
-            if (price*0.20 >5) {
+            
+            float commision=[dish[@"comm_percent"] floatValue];
+            
+            
+            if (commision==20.00 && (price*(commision/100))>5) {
+                
                 price=price+5;
+                
+            }else{
+                price=(price*(commision/100))+price;
+                
             }
-            else{
-                price=(price*0.20)+price;
-            }
+
+//            if (price*0.20 >5) {
+//                price=price+5;
+//            }
+//            else{
+//                price=(price*0.20)+price;
+//            }
             
             cell.priceLabel.text=[NSString stringWithFormat:@"$ %.2f",price];
             if([[dish valueForKey:@"soldout"] integerValue] == 1)
@@ -1552,7 +1565,7 @@ CLLocationCoordinate2D sampleLoc;
     if ([segue.identifier isEqualToString:@"DishDetailSegue"]) {
         Dish_DetailViewViewController *controller = ([segue.destinationViewController isKindOfClass:[Dish_DetailViewViewController class]]) ? segue.destinationViewController : nil;
             
-        controller.Dish_Details_dic=[dishes objectAtIndex:[sender tag]-222];
+        controller.Dish_Details_dic=[NSMutableDictionary dictionaryWithDictionary:[dishes objectAtIndex:[sender tag]-222]];
     
         controller.restArray=self.restaurantArray;
         controller.pageFlag=@"yes";
