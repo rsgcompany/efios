@@ -69,7 +69,7 @@
                 SLComposeViewController *fbSheetOBJ = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
                 
                 //[fbSheetOBJ setInitialText:[NSString stringWithFormat:@"Explore a marketplace of culinary experiences. Get access to exclusive foodie events and personalized restaurant dining. $5 off your first order.\n"]];
-                [fbSheetOBJ setInitialText:[NSString stringWithFormat:@"Enjoy fresh, amazing and unique food prepared to order by the best local chefs.  $5 off your first order.  Delivery available.\n"]];
+                [fbSheetOBJ setInitialText:[NSString stringWithFormat:@"Enjoy fresh, amazing and unique food prepared to order by the best local chefs.  $5 off your first order.  Delivery available in #Orlando only.\n"]];
 
                 [fbSheetOBJ addURL:url];
                 [fbSheetOBJ addImage:[UIImage imageNamed:@"ef-logo.png"]];
