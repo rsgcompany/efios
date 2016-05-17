@@ -115,8 +115,8 @@
             @try {
                 NSString *message =[[NSString alloc] init]; //[NSString stringWithFormat:@"Hi there! \n I’ve been having a blast, exploring off menu dishes and culinary events with EnjoyFresh! \n EnjoyFresh connects you to inspired chefs and restaurants in your area. From dive bars to Michelin Stars, you can find amazing meals prepared just for you. Order ahead of time and enjoy at the restaurant, it’s time to go off-menu! \n If you become a member and use this promo code, EnjoyFresh will give you $5 off your first order! \n My invite code: %@ \n\n Happy Dining! http://www.enjoyfresh.com/share/signup/%@",promoCode];
                 
-                //message = [NSString stringWithFormat:@"Having a blast exploring off menu dishes with EnjoyFresh! Signup & get $5 off on first order. %@", url];
-                message = [NSString stringWithFormat:@"Give EnjoyFresh a try and get $5 off your first order!. %@", url];
+                message = [NSString stringWithFormat:@"Having a blast exploring off menu dishes with EnjoyFresh! Signup & get $5 off on first order. %@", url];
+                //message = [NSString stringWithFormat:@"Give EnjoyFresh a try and get $5 off your first order!. %@", url];
 
                 
                 MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
