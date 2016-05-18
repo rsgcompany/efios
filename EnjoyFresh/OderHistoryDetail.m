@@ -316,6 +316,9 @@ UIColor *Star_selected,*Star_Unselected;
         
     }
     
+    //Setting default rating to 5
+    dish_Rating = 5;
+
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
