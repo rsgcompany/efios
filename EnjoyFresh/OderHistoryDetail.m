@@ -307,7 +307,10 @@ UIColor *Star_selected,*Star_Unselected;
     
     [Star1 setTitleColor:Star_selected forState:UIControlStateNormal];
     [star2 setTitleColor:Star_selected forState:UIControlStateNormal];
-    
+    [Star3 setTitleColor:Star_selected forState:UIControlStateNormal];
+    [Star4 setTitleColor:Star_selected forState:UIControlStateNormal];
+    [Star5 setTitleColor:Star_selected forState:UIControlStateNormal];
+
     if (![dishAvailble count]) {
 //        NSLog(@" no availble");
         
