@@ -138,7 +138,7 @@ typedef void(^Completion)(NSDictionary*);
     self.refreshControl.backgroundColor = [UIColor lightGrayColor];
     self.refreshControl.tintColor = [UIColor colorWithRed:138/255.0 green:188/255.0 blue:105/255.0 alpha:1];
     [self.refreshControl addTarget:self
-                            action:@selector(getDishes)
+                            action:@selector(refreshDishes)
                   forControlEvents:UIControlEventValueChanged];
     [self.scrollView addSubview:self.refreshControl];
 
@@ -463,14 +463,73 @@ typedef void(^Completion)(NSDictionary*);
     }
 }
 
+-(void)refreshDishes{
+   
+    parseInt=2;
+    switchTag=0;
+
+    [self performSelector:@selector(showHUD) withObject:nil afterDelay:1];
+    
+    selectedDate=nil;
+    withRatingCount=0;
+    withoutRatingCount=0;
+    refineflag=NO;
+    allflag=NO;
+    clearClick=YES;
+    dishesArr=dishesCopyArr;
+    self.btnSearchNear.hidden=NO;
+    [self SetUnderScore:self.btnCategory];
+    
+    
+    self.btnClearAll.hidden=YES;
+    [dishes_Tbl setFrame:CGRectMake(0, 89, 320, 480)];
+
+    //[dishes_Tbl setFrame:CGRectMake(0.0f, 89.0f, 320.0f,Cell_height*withRatingCount+390*withoutRatingCount)];
+    [self.scrollView setContentSize:CGSizeMake(320,Cell_height*withRatingCount+390*withoutRatingCount+90)];
+    //[dishes_Tbl reloadData];
+
+    
+
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    
+    SDImageCache *imageCache = [SDImageCache sharedImageCache];
+    [imageCache clearMemory];
+    [imageCache clearDisk];
+    
+    NSString *zipCd=[[[NSUserDefaults standardUserDefaults]valueForKey:@"UserProfile"]valueForKey:@"zipcode"];
+    
+    zipCd = appDel.CurrentCustomerDetails.user_zipcode;
+    
+    NSString *urlquerystring;
+    
+    NSString *locationZIp=[addrFromLocation valueForKey:@"ZIP"];
+    
+    
+    if([CLLocationManager locationServicesEnabled] &&
+       [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied && locationZIp!=nil)
+    {
+        urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=%@&min=0&max=75&findNearMe=1",locationZIp];
+    }
+    else{
+        if([zipCd length])
+            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?accessToken=%@&zip=%@&min=%@&max=%@",appDel.accessToken,zipCd,lowerLabel.text,upperLabel.text];
+        else
+            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=94101&min=0&max=25"];
+    }
+    
+    
+    [parser parseAndGetDataForGetMethod:urlquerystring];
+    urlquerystring=nil;
+
+    
+}
 
 
 -(void)getDishes
 {
     NSLog(@"Access Token: %@", appDel.accessToken);
     parseInt=2;
-    switchTag=0;
-    [self clearRefineFilters:nil];
+
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
     
     SDImageCache *imageCache = [SDImageCache sharedImageCache];
