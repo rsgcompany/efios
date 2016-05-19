@@ -487,6 +487,13 @@
         
          NSDictionary *dict=[[NSUserDefaults standardUserDefaults]valueForKey:@"UserProfile"];
          [profileDict setObject:[dict valueForKey:@"password"] forKey:@"password"];
+         NSMutableDictionary *addr=nil;
+         if([result valueForKey:@"deliveryAddresses"] != nil){
+             addr= [result valueForKey:@"deliveryAddresses"];
+             [profileDict setObject:addr forKey:@"deliveryAddresses"];
+
+         }
+         
          for (NSString * key in [dict allKeys])
          {
              if ([[profileDict objectForKey:key] isKindOfClass:[NSNull class]])
