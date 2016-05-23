@@ -1,6 +1,6 @@
 //
-//  MGTwitterEngine+TH.m
-//  TwitHunter
+//  STTwitterOS.m
+//  STTwitter
 //
 //  Created by Nicolas Seriot on 5/1/10.
 //  Copyright 2010 seriot.ch. All rights reserved.
@@ -8,27 +8,28 @@
 
 #import "STTwitterOS.h"
 #import "NSString+STTwitter.h"
+#import "STTwitterOSRequest.h"
 #import <Social/Social.h>
 #import <Accounts/Accounts.h>
+#import "NSError+STTwitter.h"
 #if TARGET_OS_IPHONE
 #import <Twitter/Twitter.h> // iOS 5
 #endif
 
-typedef void (^completionBlock_t)(id request, NSDictionary *requestHeaders, NSDictionary *responseHeaders, id response);
-typedef void (^errorBlock_t)(id request, NSDictionary *requestHeaders, NSDictionary *responseHeaders, NSError *error);
+const NSString *STTwitterOSInvalidatedAccount = @"STTwitterOSInvalidatedAccount";
+
+@interface ACAccount (STTwitterOS)
+- (NSString *)st_userID; // private API
+@end
 
 @interface STTwitterOS ()
-@property (nonatomic, retain) ACAccountStore *accountStore; // the ACAccountStore must be kept alive for as long as we need an ACAccount instance, see WWDC 2011 Session 124 for more info
-@property (nonatomic, retain) ACAccount *account; // if nil, will be set to first account available
-
-@property (copy) completionBlock_t completionBlock; // only used with streaming API
-@property (copy) errorBlock_t errorBlock; // only used with streaming API
-@property (nonatomic, retain) NSHTTPURLResponse *httpURLResponse; // only used with streaming API
+@property (nonatomic, strong) ACAccountStore *accountStore; // the ACAccountStore must be kept alive for as long as we need an ACAccount instance, see WWDC 2011 Session 124 for more info
+@property (nonatomic, strong) ACAccount *account; // if nil, will be set to first account available
 @end
 
 @implementation STTwitterOS
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     
     self.accountStore = [[ACAccountStore alloc] init];
@@ -55,6 +56,10 @@ typedef void (^errorBlock_t)(id request, NSDictionary *requestHeaders, NSDiction
     return self.account.username;
 }
 
+- (NSString *)userID {
+    return [self.account st_userID];
+}
+
 - (NSString *)consumerName {
 #if TARGET_OS_IPHONE
     return @"iOS";
@@ -67,18 +72,58 @@ typedef void (^errorBlock_t)(id request, NSDictionary *requestHeaders, NSDiction
     return @"System";
 }
 
-- (BOOL)canVerifyCredentials {
-    return YES;
+- (void)verifyCredentialsRemotelyWithSuccessBlock:(void(^)(NSString *username, NSString *userID))successBlock
+                                       errorBlock:(void(^)(NSError *error))errorBlock {
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [self fetchResource:@"account/verify_credentials.json"
+             HTTPMethod:@"GET"
+          baseURLString:@"https://api.twitter.com/1.1"
+             parameters:nil
+    uploadProgressBlock:nil
+  downloadProgressBlock:nil
+           successBlock:^(NSObject<STTwitterRequestProtocol> *request, NSDictionary *requestHeaders, NSDictionary *responseHeaders, id response) {
+               
+               __strong typeof(weakSelf) strongSelf = weakSelf;
+               if(strongSelf == nil) return;
+               
+               if([response isKindOfClass:[NSDictionary class]] == NO) {
+                   NSString *errorDescription = [NSString stringWithFormat:@"Expected dictionary, found %@", response];
+                   NSError *error = [NSError errorWithDomain:NSStringFromClass([strongSelf class]) code:0 userInfo:@{NSLocalizedDescriptionKey : errorDescription}];
+                   errorBlock(error);
+                   return;
+               }
+               
+               NSDictionary *dict = response;
+               successBlock(dict[@"screen_name"], dict[@"id_str"]);
+           } errorBlock:^(NSObject<STTwitterRequestProtocol> *request, NSDictionary *requestHeaders, NSDictionary *responseHeaders, NSError *error) {
+               
+               // add recovery suggestion if we can
+               if([[error domain] isEqualToString:kSTTwitterTwitterErrorDomain] && ([error code] == 220)) {
+                   NSMutableDictionary *extendedUserInfo = [[error userInfo] mutableCopy];
+                   extendedUserInfo[NSLocalizedRecoverySuggestionErrorKey] = @"Consider entering the Twitter credentials again in OS Settings.";
+                   NSError *extendedError = [NSError errorWithDomain:[error domain] code:[error code] userInfo:extendedUserInfo];
+                   errorBlock(extendedError);
+                   return;
+               }
+               
+               errorBlock(error);
+           }];
 }
 
 - (BOOL)hasAccessToTwitter {
     
-#if TARGET_API_MAC_OSX
+#if !TARGET_OS_IPHONE
     return YES;
 #else
     
-#if TARGET_OS_IPHONE &&  (__IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0)
-    return [TWTweetComposeViewController canSendTweet]; // iOS 5
+#if (__IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0)
+    if (floor(NSFoundationVersionNumber) < NSFoundationVersionNumber_iOS_6_0) {
+        return [TWTweetComposeViewController canSendTweet]; // iOS 5
+    } else {
+        return [SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter];
+    }
 #else
     return [SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter];
 #endif
@@ -86,7 +131,8 @@ typedef void (^errorBlock_t)(id request, NSDictionary *requestHeaders, NSDiction
 #endif
 }
 
-- (void)verifyCredentialsWithSuccessBlock:(void(^)(NSString *username))successBlock errorBlock:(void(^)(NSError *error))errorBlock {
+- (void)verifyCredentialsLocallyWithSuccessBlock:(void(^)(NSString *username, NSString *userID))successBlock errorBlock:(void(^)(NSError *error))errorBlock {
+    
     if([self hasAccessToTwitter] == NO) {
         NSString *message = @"This system cannot access Twitter.";
         NSError *error = [NSError errorWithDomain:NSStringFromClass([self class]) code:STTwitterOSSystemCannotAccessTwitter userInfo:@{NSLocalizedDescriptionKey : message}];
@@ -103,8 +149,14 @@ typedef void (^errorBlock_t)(id request, NSDictionary *requestHeaders, NSDiction
         return;
     }
     
+    __weak typeof(self) weakSelf = self;
+    
     ACAccountStoreRequestAccessCompletionHandler accountStoreRequestCompletionHandler = ^(BOOL granted, NSError *error) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            
+            __strong typeof(self) strongSelf = weakSelf;
+            
+            if(strongSelf == nil) return;
             
             if(granted == NO) {
                 
@@ -114,32 +166,65 @@ typedef void (^errorBlock_t)(id request, NSDictionary *requestHeaders, NSDiction
                 }
                 
                 NSString *message = @"User denied access to their account(s).";
-                NSError *grantError = [NSError errorWithDomain:NSStringFromClass([self class]) code:STTwitterOSUserDeniedAccessToTheirAccounts userInfo:@{NSLocalizedDescriptionKey : message}];
+                NSError *grantError = [NSError errorWithDomain:NSStringFromClass([strongSelf class]) code:STTwitterOSUserDeniedAccessToTheirAccounts userInfo:@{NSLocalizedDescriptionKey : message}];
                 errorBlock(grantError);
                 return;
             }
             
-            if(self.account == nil) {
-                NSArray *accounts = [self.accountStore accountsWithAccountType:accountType];
+            ACAccount *formerAccount = strongSelf.account;
+            NSString *previouslyStoredUsername = strongSelf.account.username;
+            
+            NSArray *accounts = [strongSelf.accountStore accountsWithAccountType:accountType];
+            
+            if([accounts count] == 0) {
+                NSString *message = @"No Twitter account available.";
+                NSError *error = [NSError errorWithDomain:NSStringFromClass([strongSelf class]) code:STTwitterOSNoTwitterAccountIsAvailable userInfo:@{NSLocalizedDescriptionKey : message}];
+                errorBlock(error);
+                return;
+            }
+            
+            __block BOOL accountFound = NO;
+            [accounts enumerateObjectsUsingBlock:^(ACAccount *account, NSUInteger idx, BOOL *stop) {
                 
-                if([accounts count] == 0) {
-                    NSString *message = @"No Twitter account available.";
-                    NSError *error = [NSError errorWithDomain:NSStringFromClass([self class]) code:STTwitterOSNoTwitterAccountIsAvailable userInfo:@{NSLocalizedDescriptionKey : message}];
-                    errorBlock(error);
+                // ignore accounts that have no indentifier
+                // possible workaround for accounts with no password stored
+                // see https://twittercommunity.com/t/ios-6-twitter-accounts-with-no-password-stored/6183
+                if([[account identifier] length] == 0) {
+                    NSLog(@"-- ignore account %@ because identifier is empty", account);
                     return;
                 }
                 
-                self.account = [accounts objectAtIndex:0];
-            }
+                // see https://github.com/nst/STTwitter/issues/228
+                BOOL noAccountWasSetYet = previouslyStoredUsername == NULL;
+                BOOL canUseAccountWithSameUsernameAsBeforeAccountInvalidation = [account.username isEqualToString:previouslyStoredUsername];
+                if(noAccountWasSetYet || canUseAccountWithSameUsernameAsBeforeAccountInvalidation) {
+                    strongSelf.account = account;
+                    *stop = YES;
+                    accountFound = YES;
+                    successBlock(strongSelf.account.username, [strongSelf.account st_userID]);
+                    return;
+                }
+            }];
             
-            successBlock(self.account.username);
+            if(accountFound) return;
+            
+            NSString *message = [NSString stringWithFormat:@"Twitter account is invalid: %@", previouslyStoredUsername];
+            NSMutableDictionary *userInfo = [ @{NSLocalizedDescriptionKey:message} mutableCopy];
+            if(formerAccount) userInfo[STTwitterOSInvalidatedAccount] = formerAccount;
+            NSError *error = [NSError errorWithDomain:NSStringFromClass([strongSelf class]) code:STTwitterOSTwitterAccountInvalid userInfo:userInfo];
+            errorBlock(error);
         }];
     };
     
 #if TARGET_OS_IPHONE &&  (__IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0)
-    [self.accountStore requestAccessToAccountsWithType:accountType
-                                 withCompletionHandler:accountStoreRequestCompletionHandler];
-    
+    if (floor(NSFoundationVersionNumber) < NSFoundationVersionNumber_iOS_6_0) {
+        [self.accountStore requestAccessToAccountsWithType:accountType
+                                     withCompletionHandler:accountStoreRequestCompletionHandler];
+    } else {
+        [self.accountStore requestAccessToAccountsWithType:accountType
+                                                   options:NULL
+                                                completion:accountStoreRequestCompletionHandler];
+    }
 #else
     [self.accountStore requestAccessToAccountsWithType:accountType
                                                options:NULL
@@ -147,160 +232,71 @@ typedef void (^errorBlock_t)(id request, NSDictionary *requestHeaders, NSDiction
 #endif
 }
 
-- (NSDictionary *)requestHeadersForRequest:(id)request {
+- (NSDictionary *)OAuthEchoHeadersToVerifyCredentials {
     
-    if([request isKindOfClass:[NSURLRequest class]]) {
-        return [request allHTTPHeaderFields];
-    }
+    // https://api.twitter.com/1.1/account/verify_credentials.json
     
-#if TARGET_OS_IPHONE &&  (__IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0)
-    return [[request signedURLRequest] allHTTPHeaderFields];
-#else
-    return [[request preparedURLRequest] allHTTPHeaderFields];
-#endif
+    STTwitterOSRequest *r = [[STTwitterOSRequest alloc] initWithAPIResource:@"/account/verify_credentials.json"
+                                                              baseURLString:@"https://api.twitter.com/1.1"
+                                                                 httpMethod:SLRequestMethodGET
+                                                                 parameters:nil
+                                                                    account:_account
+                                                           timeoutInSeconds:0
+                                                        uploadProgressBlock:nil
+                                                                streamBlock:nil
+                                                            completionBlock:^(id request, NSDictionary *requestHeaders, NSDictionary *responseHeaders, id response) {
+                                                                //
+                                                            } errorBlock:^(id request, NSDictionary *requestHeaders, NSDictionary *responseHeaders, NSError *error) {
+                                                                //
+                                                            }];
+    
+    NSURLRequest *preparedURLRequest = [r preparedURLRequest];
+    
+    NSDictionary *headers = [preparedURLRequest allHTTPHeaderFields];
+    
+    NSString *authorization = [headers valueForKey:@"Authorization"];
+    
+    if(authorization == nil) return nil;
+    
+    /*
+     Please note that one should use the URL provided to them by X-Auth-Service-Provider to perform the look up,
+     not a hard coded value on your servers. Apple iOS5, for example, adds an additional application_id parameter
+     to all OAuth requests, and its existence should be maintained at each stage of OAuth Echo.
+     https://dev.twitter.com/oauth/echo
+     */
+    NSString *verifyCredentialsURLString = [[preparedURLRequest URL] description];//@"https://api.twitter.com/1.1/account/verify_credentials.json";
+    
+    return @{@"X-Auth-Service-Provider" : verifyCredentialsURLString,
+             @"X-Verify-Credentials-Authorization" : authorization};
+    
+    return headers;
 }
 
-- (id)fetchAPIResource:(NSString *)resource
-         baseURLString:(NSString *)baseURLString
-            httpMethod:(NSInteger)httpMethod
-            parameters:(NSDictionary *)params
-   uploadProgressBlock:(void(^)(NSInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite))uploadProgressBlock // ignored
-       completionBlock:(void (^)(id request, NSDictionary *requestHeaders, NSDictionary *responseHeaders, id response))completionBlock
-            errorBlock:(void (^)(id request, NSDictionary *requestHeaders, NSDictionary *responseHeaders, NSError *error))errorBlock {
-    
-    NSData *mediaData = [params valueForKey:@"media[]"];
-    
-    NSMutableDictionary *paramsWithoutMedia = [params mutableCopy];
-    [paramsWithoutMedia removeObjectForKey:@"media[]"];
-    
-    NSString *urlString = [baseURLString stringByAppendingString:resource];
-    NSURL *url = [NSURL URLWithString:urlString];
-    
-    id request = nil;
-    
-#if TARGET_OS_IPHONE &&  (__IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0)
-    TWRequestMethod method = (httpMethod == 0) ? TWRequestMethodGET : TWRequestMethodPOST;
-    request = [[TWRequest alloc] initWithURL:url parameters:paramsWithoutMedia requestMethod:method];
-#else
-    request = [SLRequest requestForServiceType:SLServiceTypeTwitter requestMethod:httpMethod URL:url parameters:paramsWithoutMedia];
-#endif
-    
-    [request setAccount:self.account];
-    
-    if(mediaData) {
-        [request addMultipartData:mediaData withName:@"media[]" type:@"application/octet-stream" filename:@"media.jpg"];
++ (SLRequestMethod)slRequestMethodForString:(NSString *)HTTPMethod {
+    if([HTTPMethod isEqualToString:@"POST"]) return SLRequestMethodPOST;
+    if([HTTPMethod isEqualToString:@"PUT"]) return SLRequestMethodPUT;
+    if([HTTPMethod isEqualToString:@"DELETE"]) return SLRequestMethodDELETE;
+    if([HTTPMethod isEqualToString:@"GET"] == NO) {
+        NSAssert(NO, @"Unsupported HTTP method");
     }
-
-    self.completionBlock = completionBlock;
-    self.errorBlock = errorBlock;
-    
-    // we use NSURLConnection because SLRequest doesn't play well with the streaming API
-    
-    NSURLRequest *preparedURLRequest = nil;
-#if TARGET_OS_IPHONE &&  (__IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0)
-    preparedURLRequest = [request signedURLRequest];
-#else
-    preparedURLRequest = [request preparedURLRequest];
-#endif
-    
-    NSURLConnection *connection = [NSURLConnection connectionWithRequest:preparedURLRequest delegate:self];
-    [connection start];
-    return connection;
+    return SLRequestMethodGET;
 }
 
-- (void)handleResponse:(NSHTTPURLResponse *)urlResponse request:(id)request data:(NSData *)responseData {
+- (NSObject<STTwitterRequestProtocol> *)fetchResource:(NSString *)resource
+                                           HTTPMethod:(NSString *)HTTPMethod
+                                        baseURLString:(NSString *)baseURLString
+                                           parameters:(NSDictionary *)params
+                                  uploadProgressBlock:(void(^)(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite))uploadProgressBlock
+                                downloadProgressBlock:(void (^)(NSObject<STTwitterRequestProtocol> *request, NSData *data))progressBlock // FIXME: how to handle progressBlock?
+                                         successBlock:(void (^)(NSObject<STTwitterRequestProtocol> *request, NSDictionary *requestHeaders, NSDictionary *responseHeaders, id response))successBlock
+                                           errorBlock:(void (^)(NSObject<STTwitterRequestProtocol> *request, NSDictionary *requestHeaders, NSDictionary *responseHeaders, NSError *error))errorBlock {
     
-    if(responseData == nil) {
-        self.errorBlock(request, [self requestHeadersForRequest:request], [urlResponse allHeaderFields], nil);
-        return;
-    }
-    
-    NSError *jsonError = nil;
-    NSJSONSerialization *json = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&jsonError];
-    
-    if(json == nil) {
-        // do our best to extract Twitter error message from responseString
-        
-        NSString *rawResponse = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-        
-        NSError *regexError = nil;
-        NSString *errorString = [rawResponse firstMatchWithRegex:@"<error.*?>(.*)</error>" error:&regexError];
-        
-        if(errorString) {
-            NSError *error = [NSError errorWithDomain:NSStringFromClass([self class]) code:0 userInfo:@{NSLocalizedDescriptionKey : errorString}];
-            self.errorBlock(request, [self requestHeadersForRequest:request], [urlResponse allHeaderFields], error);
-            return;
-        }
-        
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            self.completionBlock(request, [self requestHeadersForRequest:request], [urlResponse allHeaderFields], rawResponse);
-        }];
-        return;
-    }
-    
-    /**/
-    
-    if([json isKindOfClass:[NSArray class]] == NO && [json valueForKey:@"error"]) {
-        
-        NSString *message = [json valueForKey:@"error"];
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:message forKey:NSLocalizedDescriptionKey];
-        NSError *jsonErrorFromResponse = [NSError errorWithDomain:NSStringFromClass([self class]) code:0 userInfo:userInfo];
-        
-        self.errorBlock(request, [self requestHeadersForRequest:request], [urlResponse allHeaderFields], jsonErrorFromResponse);
-        
-        return;
-    }
-    
-    /**/
-    
-    id jsonErrors = [json valueForKey:@"errors"];
-    
-    if(jsonErrors != nil && [jsonErrors isKindOfClass:[NSArray class]] == NO) {
-        if(jsonErrors == nil) jsonErrors = @"";
-        jsonErrors = [NSArray arrayWithObject:@{@"message":jsonErrors, @"code" : @(0)}];
-    }
-    
-    if([jsonErrors count] > 0 && [jsonErrors lastObject] != [NSNull null]) {
-        
-        NSDictionary *jsonErrorDictionary = [jsonErrors lastObject];
-        NSString *message = jsonErrorDictionary[@"message"];
-        NSInteger code = [jsonErrorDictionary[@"code"] intValue];
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:message forKey:NSLocalizedDescriptionKey];
-        NSError *jsonErrorFromResponse = [NSError errorWithDomain:NSStringFromClass([self class]) code:code userInfo:userInfo];
-        
-        self.errorBlock(request, [self requestHeadersForRequest:request], [urlResponse allHeaderFields], jsonErrorFromResponse);
-        
-        return;
-    }
-    
-    /**/
-    
-    if(json) {
-        self.completionBlock(request, [self requestHeadersForRequest:request], [urlResponse allHeaderFields], (NSArray *)json);
-    } else {
-        self.errorBlock(request, [self requestHeadersForRequest:request], [urlResponse allHeaderFields], jsonError);
-    }
-
-}
-
-- (id)fetchResource:(NSString *)resource
-         HTTPMethod:(NSString *)HTTPMethod
-      baseURLString:(NSString *)baseURLString
-         parameters:(NSDictionary *)params
-uploadProgressBlock:(void(^)(NSInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite))uploadProgressBlock // ignored
-downloadProgressBlock:(void (^)(id request, id response))progressBlock // FIXME: how to handle progressBlock?
-       successBlock:(void (^)(id request, NSDictionary *requestHeaders, NSDictionary *responseHeaders, id response))successBlock
-         errorBlock:(void (^)(id request, NSDictionary *requestHeaders, NSDictionary *responseHeaders, NSError *error))errorBlock {
-    
-    NSAssert(([ @[@"GET", @"POST"] containsObject:HTTPMethod]), @"unsupported HTTP method");
-    
-    NSInteger slRequestMethod = SLRequestMethodGET;
+    NSInteger slRequestMethod = [[self class] slRequestMethodForString:HTTPMethod];
     
     NSDictionary *d = params;
     
-    if([HTTPMethod isEqualToString:@"POST"]) {
+    if([HTTPMethod isEqualToString:@"GET"] == NO) {
         if (d == nil) d = @{};
-        slRequestMethod = SLRequestMethodPOST;
     }
     
     NSString *baseURLStringWithTrailingSlash = baseURLString;
@@ -308,13 +304,19 @@ downloadProgressBlock:(void (^)(id request, id response))progressBlock // FIXME:
         baseURLStringWithTrailingSlash = [baseURLString stringByAppendingString:@"/"];
     }
     
-    return [self fetchAPIResource:resource
-                    baseURLString:baseURLStringWithTrailingSlash
-                       httpMethod:slRequestMethod
-                       parameters:d
-              uploadProgressBlock:uploadProgressBlock
-                  completionBlock:successBlock
-                       errorBlock:errorBlock];
+    STTwitterOSRequest *r = [[STTwitterOSRequest alloc] initWithAPIResource:resource
+                                                              baseURLString:baseURLStringWithTrailingSlash
+                                                                 httpMethod:slRequestMethod
+                                                                 parameters:d
+                                                                    account:_account
+                                                           timeoutInSeconds:_timeoutInSeconds
+                                                        uploadProgressBlock:uploadProgressBlock
+                                                                streamBlock:progressBlock
+                                                            completionBlock:successBlock
+                                                                 errorBlock:errorBlock];
+    [r startRequest];
+    
+    return r;
 }
 
 + (NSDictionary *)parametersDictionaryFromCommaSeparatedParametersString:(NSString *)s {
@@ -363,7 +365,7 @@ downloadProgressBlock:(void (^)(id request, id response))progressBlock // FIXME:
                                               successBlock:(void(^)(NSString *oAuthToken, NSString *oAuthTokenSecret, NSString *userID, NSString *screenName))successBlock
                                                 errorBlock:(void(^)(NSError *error))errorBlock {
     
-    NSAssert(self.account, @"no account is set, try to call -verifyCredentialsWithSuccessBlock:errorBlock: first");
+    NSAssert(self.account, @"no account is set, try to call -verifyCredentialsWithUserSuccessBlock:errorBlock: first");
     
     NSParameterAssert(authenticationHeader);
     
@@ -386,7 +388,7 @@ downloadProgressBlock:(void (^)(id request, id response))progressBlock // FIXME:
   downloadProgressBlock:nil
            successBlock:^(id request, NSDictionary *requestHeaders, NSDictionary *responseHeaders, id response) {
                
-               NSDictionary *d = [[self class] parametersDictionaryFromAmpersandSeparatedParameterString:response];
+               NSDictionary *d = [STTwitterOS parametersDictionaryFromAmpersandSeparatedParameterString:response];
                
                NSString *oAuthToken = [d valueForKey:@"oauth_token"];
                NSString *oAuthTokenSecret = [d valueForKey:@"oauth_token_secret"];
@@ -395,30 +397,16 @@ downloadProgressBlock:(void (^)(id request, id response))progressBlock // FIXME:
                
                successBlock(oAuthToken, oAuthTokenSecret, userID, screenName);
            } errorBlock:^(id request, NSDictionary *requestHeaders, NSDictionary *responseHeaders, NSError *error) {
-               errorBlock(error);
+               errorBlock(error); // in case of -1012 error, the Twitter account may lack the 'oauth_token' property and need to be setup again in iOS Settings, see http://stackoverflow.com/questions/30307062/access-users-ios-default-twitter-account-ios/30461959#30461959
            }];
 }
 
-#pragma mark NSURLConnectionDelegate
+@end
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    
-    if([response isKindOfClass:[NSHTTPURLResponse class]] == NO) return;
-    
-    self.httpURLResponse = (NSHTTPURLResponse *)response;
-}
+@implementation ACAccount (STTwitterOS)
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [self handleResponse:_httpURLResponse request:[connection currentRequest] data:data];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    
-    NSURLRequest *request = [connection currentRequest];
-    NSDictionary *requestHeaders = [request allHTTPHeaderFields];
-    NSDictionary *responseHeaders = [_httpURLResponse allHeaderFields];
-    
-    self.errorBlock(request, requestHeaders, responseHeaders, error);
+- (NSString *)st_userID {
+    return [self valueForKeyPath:@"properties.user_id"];
 }
 
 @end

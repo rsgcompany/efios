@@ -1071,7 +1071,15 @@ static NSString *consumerKey=@"yIPITPHBFJ7CuwN857MvtGwflwF0ViZa7D3YEa78VjW9z98tx
         //        NSLog(@"-- url: %@", url);
         //        NSLog(@"-- oauthToken: %@", oauthToken);
         
-        [[UIApplication sharedApplication] openURL:url];
+       // [[UIApplication sharedApplication] openURL:url];
+        
+        WebViewVC *webViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"WebViewVC"];
+        
+        [self presentViewController:webViewVC animated:YES completion:^{
+            NSURLRequest *request = [NSURLRequest requestWithURL:url];
+            [webViewVC.webView loadRequest:request];
+        }];
+
         
     } oauthCallback:@"com.enjoyfresh.EnjoyFresh://572122021-2VXAVL5uISZbcpZq80UF52S1AbLWmneKDDjtkCpR/&force_login=1"
                     errorBlock:^(NSError *error)
@@ -1083,7 +1091,9 @@ static NSString *consumerKey=@"yIPITPHBFJ7CuwN857MvtGwflwF0ViZa7D3YEa78VjW9z98tx
 - (void)setOAuthToken:(NSString *)token oauthVerifier:(NSString *)verifier {
     
     NSLog(@"verifier %@", verifier);
-    
+    [self dismissViewControllerAnimated:YES completion:^{
+        //
+    }];
     [_twitter postAccessTokenRequestWithPIN:verifier successBlock:^(NSString *oauthToken, NSString *oauthTokenSecret, NSString *userID, NSString *screenName)
      {
          appDel.twitterObj = _twitter;

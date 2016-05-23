@@ -279,7 +279,15 @@ NSString *dupEmail;
         //        NSLog(@"-- url: %@", url);
         //        NSLog(@"-- oauthToken: %@", oauthToken);
         
-        [[UIApplication sharedApplication] openURL:url];
+        //[[UIApplication sharedApplication] openURL:url];
+        
+        WebViewVC *webViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"WebViewVC"];
+        
+        [self presentViewController:webViewVC animated:YES completion:^{
+            NSURLRequest *request = [NSURLRequest requestWithURL:url];
+            [webViewVC.webView loadRequest:request];
+        }];
+
         
     } oauthCallback:@"com.enjoyfresh.EnjoyFresh://572122021-2VXAVL5uISZbcpZq80UF52S1AbLWmneKDDjtkCpR/"
                     errorBlock:^(NSError *error)
@@ -291,7 +299,9 @@ NSString *dupEmail;
 - (void)setOAuthToken:(NSString *)token oauthVerifier:(NSString *)verifier {
     
     NSLog(@"verifier %@", verifier);
-    
+    [self dismissViewControllerAnimated:YES completion:^{
+        //
+    }];
     [_twitter postAccessTokenRequestWithPIN:verifier successBlock:^(NSString *oauthToken, NSString *oauthTokenSecret, NSString *userID, NSString *screenName)
      {
          appDel.twitterObj = _twitter;

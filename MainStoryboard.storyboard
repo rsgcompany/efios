@@ -14,6 +14,11 @@
             <string>HelveticaNeue-Bold</string>
             <string>HelveticaNeue</string>
         </mutableArray>
+        <mutableArray key="Raleway-Medium.ttf">
+            <string>Raleway-Medium</string>
+            <string>Raleway-Medium</string>
+            <string>Raleway-Medium</string>
+        </mutableArray>
         <mutableArray key="Raleway-Regular.ttf">
             <string>Raleway-Regular</string>
             <string>Raleway-Regular</string>
@@ -23,6 +28,16 @@
             <string>Raleway-Regular</string>
         </mutableArray>
         <mutableArray key="Raleway-SemiBold.ttf">
+            <string>Raleway-SemiBold</string>
+            <string>Raleway-SemiBold</string>
+            <string>Raleway-SemiBold</string>
+            <string>Raleway-SemiBold</string>
+            <string>Raleway-SemiBold</string>
+            <string>Raleway-SemiBold</string>
+            <string>Raleway-SemiBold</string>
+            <string>Raleway-SemiBold</string>
+            <string>Raleway-SemiBold</string>
+            <string>Raleway-SemiBold</string>
             <string>Raleway-SemiBold</string>
             <string>Raleway-SemiBold</string>
             <string>Raleway-SemiBold</string>
@@ -5185,17 +5200,6 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bXy-y5-aMm" userLabel="twitter Btn">
-                                        <rect key="frame" x="99" y="142" width="46" height="46"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="Tweet_Icon.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="shareBtnsClicked:" destination="cqN-45-M0P" eventType="touchUpInside" id="jUG-ID-CwG"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TWEET" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WzD-fs-SmN">
                                         <rect key="frame" x="104" y="195" width="36" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -5214,20 +5218,168 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UNh-Bg-OEp" userLabel="facebook btn">
+                                    <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RW8-JZ-5ro" userLabel="facebook btn">
                                         <rect key="frame" x="32" y="142" width="46" height="46"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="15"/>
+                                        <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="FB_Icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="shareBtnsClicked:" destination="cqN-45-M0P" eventType="touchUpInside" id="LUm-lW-fWr"/>
+                                            <action selector="shareBtnsClicked:" destination="cqN-45-M0P" eventType="touchUpInside" id="fVE-zI-xFC"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ezf-iQ-VSi" userLabel="twitter Btn">
+                                        <rect key="frame" x="99" y="140" width="47" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="15"/>
+                                        <state key="normal" image="Tweet_Icon.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="shareBtnsClicked:" destination="cqN-45-M0P" eventType="touchUpInside" id="7Gc-6S-Jiv"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="2s0-Va-Tj9">
+                                <rect key="frame" x="-320" y="66" width="320" height="502"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="ibI-9p-JcW">
+                                        <rect key="frame" x="17" y="76" width="285" height="2"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.90980392156862744" green="0.90980392156862744" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Step 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fuT-Q9-k8T">
+                                        <rect key="frame" x="84" y="22" width="99" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="17"/>
+                                        <color key="textColor" red="0.5490196078431373" green="0.71764705882352942" blue="0.4823529411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send your friends invite to signup" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZAc-KF-JIQ">
+                                        <rect key="frame" x="84" y="47" width="236" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="13"/>
+                                        <color key="textColor" red="0.61176470588235299" green="0.61176470588235299" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" id="AUu-zz-YPg">
+                                        <rect key="frame" x="17" y="140" width="285" height="2"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Step 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZtH-x5-93N">
+                                        <rect key="frame" x="84" y="86" width="99" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="17"/>
+                                        <color key="textColor" red="0.54901960780000003" green="0.71764705880000002" blue="0.4823529412" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send your friends invite to signup" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bee-XZ-8Hb">
+                                        <rect key="frame" x="84" y="111" width="236" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="13"/>
+                                        <color key="textColor" red="0.61176470589999998" green="0.61176470589999998" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" id="GP2-QN-6fR">
+                                        <rect key="frame" x="17" y="204" width="285" height="2"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Step 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6yq-Wq-RI4">
+                                        <rect key="frame" x="84" y="150" width="99" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="17"/>
+                                        <color key="textColor" red="0.54901960780000003" green="0.71764705880000002" blue="0.4823529412" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send your friends invite to signup" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tdl-eq-o7j">
+                                        <rect key="frame" x="84" y="175" width="236" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="13"/>
+                                        <color key="textColor" red="0.61176470589999998" green="0.61176470589999998" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" id="Kg3-QZ-FW8">
+                                        <rect key="frame" x="17" y="225" width="285" height="149"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="URL TEXT" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="VeM-h6-heg">
+                                                <rect key="frame" x="22" y="30" width="174" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UNh-Bg-OEp" userLabel="facebook btn">
+                                                <rect key="frame" x="22" y="70" width="241" height="28"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.21568627450980393" green="0.34509803921568627" blue="0.58431372549019611" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="15"/>
+                                                <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="-23" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" title="Share on Facebook" image="facebook_share">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bXy-y5-aMm" userLabel="twitter Btn">
+                                                <rect key="frame" x="22" y="104" width="241" height="28"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.28235294117647058" green="0.67450980392156867" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="15"/>
+                                                <inset key="imageEdgeInsets" minX="-46" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" title="Share on Twitter" image="twitter_share">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share via link" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1tL-D5-1bx">
+                                                <rect key="frame" x="22" y="8" width="116" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="14"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xnO-G2-WaI">
+                                                <rect key="frame" x="204" y="32" width="59" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.31372549020000001" green="0.56078431370000004" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="14"/>
+                                                <state key="normal" title="COPY">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="lJd-JJ-lTS">
+                                        <rect key="frame" x="18" y="383" width="285" height="133"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share via email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LsH-9u-h5L">
+                                                <rect key="frame" x="22" y="8" width="116" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="14"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone" id="v0u-kf-mv0">
+                                        <rect key="frame" x="25" y="91" width="49" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mail" id="0PR-bI-05f">
+                                        <rect key="frame" x="22" y="18" width="54" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -5256,6 +5408,48 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eay-j2-d6c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4111" y="3108"/>
+        </scene>
+        <!--Web ViewVC-->
+        <scene sceneID="nUy-C6-JIU">
+            <objects>
+                <viewController storyboardIdentifier="WebViewVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="DnM-ff-sfj" customClass="WebViewVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bQh-Wi-bWK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" id="iRN-oi-mlf">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                            <navigationBar contentMode="scaleToFill" id="Hbr-CL-yok">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem id="vd8-sN-lns">
+                                        <barButtonItem key="leftBarButtonItem" style="plain" id="CuQ-5M-7pg">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="T7g-Z1-ndt">
+                                                <rect key="frame" x="16" y="7" width="71" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Cancel"/>
+                                                <connections>
+                                                    <action selector="cancel:" destination="DnM-ff-sfj" eventType="touchUpInside" id="czL-MU-nSu"/>
+                                                </connections>
+                                            </button>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="iRN-oi-mlf" id="LWx-92-pvq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sTt-7I-Tat" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4525" y="3193"/>
         </scene>
         <!--Notification View Controller-->
         <scene sceneID="Cnx-Wj-Z5Q">
@@ -11490,6 +11684,76 @@ AZ4BpgGzAbgBugG8AcEByQHMAdEB2QHcAe4B8QH2AAAAAAAAAgEAAAAAAAAAPwAAAAAAAAAAAAAAAAAA
 Afg
 </mutableData>
         </image>
+        <image name="8CA95DEC-0870-4332-B8CE-E426F5AFA00C" width="25" height="25">
+            <mutableData key="keyedArchiveRepresentation">
+YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
+GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz
+V05TQ29sb3KAAoAMEiTAAACAA4AKWHsyNSwgMjV90hUKFhhaTlMub2JqZWN0c6EXgASACdIVChoYohsc
+gAWABoAJEAXTIAohIiMkV05TLmJhc2VbTlMucmVsYXRpdmWAAIAIgAdfEHxmaWxlOi8vL0FwcGxpY2F0
+aW9ucy9YY29kZS5hcHAvQ29udGVudHMvUGx1Z0lucy9JREVJbnRlcmZhY2VCdWlsZGVyS2l0LmlkZXBs
+dWdpbi9Db250ZW50cy9SZXNvdXJjZXMvSUJNaXNzaW5nSW1hZ2VHbHlwaC50aWZm0icoKSpaJGNsYXNz
+bmFtZVgkY2xhc3Nlc1VOU1VSTKIpK1hOU09iamVjdNInKC0uV05TQXJyYXmiLSvTMDEKMjM0V05TV2hp
+dGVcTlNDb2xvclNwYWNlRDAgMAAQA4AL0icoNjdXTlNDb2xvcqI2K9InKDk6V05TSW1hZ2WiOStfEA9O
+U0tleWVkQXJjaGl2ZXLRPT5Ucm9vdIABAAgAEQAaACMALQAyADcARQBLAFYAXQBkAHEAeACAAIIAhACJ
+AIsAjQCWAJsApgCoAKoArACxALQAtgC4ALoAvADDAMsA1wDZANsA3QFcAWEBbAF1AXsBfgGHAYwBlAGX
+AZ4BpgGzAbgBugG8AcEByQHMAdEB2QHcAe4B8QH2AAAAAAAAAgEAAAAAAAAAPwAAAAAAAAAAAAAAAAAA
+Afg
+</mutableData>
+        </image>
+        <image name="9F78535F-1712-4907-ADCA-5C165FA50168" width="25" height="25">
+            <mutableData key="keyedArchiveRepresentation">
+YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
+GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz
+V05TQ29sb3KAAoAMEiTAAACAA4AKWHsyNSwgMjV90hUKFhhaTlMub2JqZWN0c6EXgASACdIVChoYohsc
+gAWABoAJEAXTIAohIiMkV05TLmJhc2VbTlMucmVsYXRpdmWAAIAIgAdfEHxmaWxlOi8vL0FwcGxpY2F0
+aW9ucy9YY29kZS5hcHAvQ29udGVudHMvUGx1Z0lucy9JREVJbnRlcmZhY2VCdWlsZGVyS2l0LmlkZXBs
+dWdpbi9Db250ZW50cy9SZXNvdXJjZXMvSUJNaXNzaW5nSW1hZ2VHbHlwaC50aWZm0icoKSpaJGNsYXNz
+bmFtZVgkY2xhc3Nlc1VOU1VSTKIpK1hOU09iamVjdNInKC0uV05TQXJyYXmiLSvTMDEKMjM0V05TV2hp
+dGVcTlNDb2xvclNwYWNlRDAgMAAQA4AL0icoNjdXTlNDb2xvcqI2K9InKDk6V05TSW1hZ2WiOStfEA9O
+U0tleWVkQXJjaGl2ZXLRPT5Ucm9vdIABAAgAEQAaACMALQAyADcARQBLAFYAXQBkAHEAeACAAIIAhACJ
+AIsAjQCWAJsApgCoAKoArACxALQAtgC4ALoAvADDAMsA1wDZANsA3QFcAWEBbAF1AXsBfgGHAYwBlAGX
+AZ4BpgGzAbgBugG8AcEByQHMAdEB2QHcAe4B8QH2AAAAAAAAAgEAAAAAAAAAPwAAAAAAAAAAAAAAAAAA
+Afg
+</mutableData>
+        </image>
+        <image name="A11C5A58-4C77-4A23-B852-35ED8FA21A03" width="25" height="25">
+            <mutableData key="keyedArchiveRepresentation">
+YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
+GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz
+V05TQ29sb3KAAoAMEiTAAACAA4AKWHsyNSwgMjV90hUKFhhaTlMub2JqZWN0c6EXgASACdIVChoYohsc
+gAWABoAJEAXTIAohIiMkV05TLmJhc2VbTlMucmVsYXRpdmWAAIAIgAdfEHxmaWxlOi8vL0FwcGxpY2F0
+aW9ucy9YY29kZS5hcHAvQ29udGVudHMvUGx1Z0lucy9JREVJbnRlcmZhY2VCdWlsZGVyS2l0LmlkZXBs
+dWdpbi9Db250ZW50cy9SZXNvdXJjZXMvSUJNaXNzaW5nSW1hZ2VHbHlwaC50aWZm0icoKSpaJGNsYXNz
+bmFtZVgkY2xhc3Nlc1VOU1VSTKIpK1hOU09iamVjdNInKC0uV05TQXJyYXmiLSvTMDEKMjM0V05TV2hp
+dGVcTlNDb2xvclNwYWNlRDAgMAAQA4AL0icoNjdXTlNDb2xvcqI2K9InKDk6V05TSW1hZ2WiOStfEA9O
+U0tleWVkQXJjaGl2ZXLRPT5Ucm9vdIABAAgAEQAaACMALQAyADcARQBLAFYAXQBkAHEAeACAAIIAhACJ
+AIsAjQCWAJsApgCoAKoArACxALQAtgC4ALoAvADDAMsA1wDZANsA3QFcAWEBbAF1AXsBfgGHAYwBlAGX
+AZ4BpgGzAbgBugG8AcEByQHMAdEB2QHcAe4B8QH2AAAAAAAAAgEAAAAAAAAAPwAAAAAAAAAAAAAAAAAA
+Afg
+</mutableData>
+        </image>
+        <image name="Backbutton.png" width="30" height="30"/>
+        <image name="Backbutton1.png" width="59" height="41"/>
+        <image name="Backgroundimage.png" width="637" height="1005"/>
+        <image name="Contact_icon.png" width="120" height="120"/>
+        <image name="Dish_Placeholder.png" width="300" height="211"/>
+        <image name="Dropdown.png" width="18" height="10"/>
+        <image name="EEAA9EB4-3D71-4DE3-AB11-EB8A23FEBEE9" width="25" height="25">
+            <mutableData key="keyedArchiveRepresentation">
+YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
+GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz
+V05TQ29sb3KAAoAMEiTAAACAA4AKWHsyNSwgMjV90hUKFhhaTlMub2JqZWN0c6EXgASACdIVChoYohsc
+gAWABoAJEAXTIAohIiMkV05TLmJhc2VbTlMucmVsYXRpdmWAAIAIgAdfEHxmaWxlOi8vL0FwcGxpY2F0
+aW9ucy9YY29kZS5hcHAvQ29udGVudHMvUGx1Z0lucy9JREVJbnRlcmZhY2VCdWlsZGVyS2l0LmlkZXBs
+dWdpbi9Db250ZW50cy9SZXNvdXJjZXMvSUJNaXNzaW5nSW1hZ2VHbHlwaC50aWZm0icoKSpaJGNsYXNz
+bmFtZVgkY2xhc3Nlc1VOU1VSTKIpK1hOU09iamVjdNInKC0uV05TQXJyYXmiLSvTMDEKMjM0V05TV2hp
+dGVcTlNDb2xvclNwYWNlRDAgMAAQA4AL0icoNjdXTlNDb2xvcqI2K9InKDk6V05TSW1hZ2WiOStfEA9O
+U0tleWVkQXJjaGl2ZXLRPT5Ucm9vdIABAAgAEQAaACMALQAyADcARQBLAFYAXQBkAHEAeACAAIIAhACJ
+AIsAjQCWAJsApgCoAKoArACxALQAtgC4ALoAvADDAMsA1wDZANsA3QFcAWEBbAF1AXsBfgGHAYwBlAGX
+AZ4BpgGzAbgBugG8AcEByQHMAdEB2QHcAe4B8QH2AAAAAAAAAgEAAAAAAAAAPwAAAAAAAAAAAAAAAAAA
+Afg
+</mutableData>
+        </image>
         <image name="Email.png" width="85" height="45"/>
         <image name="Email_03.png" width="560" height="93"/>
         <image name="Email_Icon.png" width="47" height="47"/>
@@ -11512,10 +11776,12 @@ Afg
         <image name="dine.png" width="160" height="55"/>
         <image name="dish_Pic.png" width="150" height="100"/>
         <image name="facebook-login_03.png" width="560" height="80"/>
+        <image name="facebook_share" width="15" height="15"/>
         <image name="favoritebl.png" width="500" height="500"/>
         <image name="favoritered.png" width="500" height="500"/>
         <image name="favs_icon.png" width="120" height="120"/>
         <image name="fwbutton.png" width="59" height="41"/>
+        <image name="mail" width="57" height="57"/>
         <image name="menu_icon.png" width="30" height="30"/>
         <image name="navigationbar_02.png" width="643" height="91"/>
         <image name="nf_placeholder_restaurant.png" width="80" height="80"/>
@@ -11526,6 +11792,7 @@ Afg
         <image name="offering-btn-4.png" width="223" height="55"/>
         <image name="order_histry_icon.png" width="120" height="120"/>
         <image name="paymnt_icon.png" width="120" height="120"/>
+        <image name="phone" width="34" height="57"/>
         <image name="pickup.png" width="160" height="55"/>
         <image name="profile_icon.png" width="121" height="120"/>
         <image name="refine_btn.png" width="185" height="63"/>
@@ -11534,6 +11801,7 @@ Afg
         <image name="signin_03.png" width="560" height="92"/>
         <image name="twitter-signin_03.png" width="559" height="80"/>
         <image name="twitter.png" width="85" height="45"/>
+        <image name="twitter_share" width="15" height="15"/>
         <image name="unchecked.png" width="25" height="25"/>
         <image name="user_pic.png" width="36" height="36"/>
     </resources>
@@ -11565,7 +11833,16 @@ Afg
         <segue reference="GHa-eM-BZY"/>
         <segue reference="vZR-8v-gqS"/>
         <segue reference="aPy-57-kok"/>
-        <segue reference="JE4-B4-0o0"/>
+        <segue reference="dGy-67-Eec"/>
         <segue reference="fQo-p2-pft"/>
+        <segue reference="ufm-5z-uk7"/>
+        <segue reference="XGs-Fs-dV4"/>
+        <segue reference="h2i-7t-p6X"/>
+        <segue reference="Vtj-Wf-LF2"/>
+        <segue reference="8no-UH-qWL"/>
+        <segue reference="8x1-bh-j2A"/>
+        <segue reference="Cta-wa-g7A"/>
+        <segue reference="sUj-6j-tdY"/>
+        <segue reference="cBz-ci-oC2"/>
     </inferredMetricsTieBreakers>
 </document>

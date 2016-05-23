@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "STTwitterProtocol.h"
 
-extern NSString * const kSTPOSTDataKey;
-
 /*
  Based on the following documentation
  http://oauth.net/core/1.0/
@@ -22,12 +20,14 @@ extern NSString * const kSTPOSTDataKey;
  ...
  */
 
-NS_ENUM(NSUInteger, STTwitterOAuthErrorCode) {
-    STTwitterOAuthCannotPostAccessTokenRequestWithoutPIN,
+extern NS_ENUM(NSUInteger, STTwitterOAuthErrorCode) {
+    STTwitterOAuthCannotPostAccessTokenRequestWithoutPIN = 0,
     STTwitterOAuthBadCredentialsOrConsumerTokensNotXAuthEnabled
 };
 
 @interface STTwitterOAuth : NSObject <STTwitterProtocol>
+
+@property (nonatomic) NSTimeInterval timeoutInSeconds;
 
 + (instancetype)twitterOAuthWithConsumerName:(NSString *)consumerName
                                  consumerKey:(NSString *)consumerKey
@@ -46,8 +46,19 @@ NS_ENUM(NSUInteger, STTwitterOAuthErrorCode) {
                                     password:(NSString *)password;
 
 - (void)postTokenRequest:(void(^)(NSURL *url, NSString *oauthToken))successBlock
+authenticateInsteadOfAuthorize:(BOOL)authenticateInsteadOfAuthorize
+              forceLogin:(NSNumber *)forceLogin // optional, default @(NO)
+              screenName:(NSString *)screenName // optional, default nil
            oauthCallback:(NSString *)oauthCallback
               errorBlock:(void(^)(NSError *error))errorBlock;
+
+- (void)signRequest:(STHTTPRequest *)r isMediaUpload:(BOOL)isMediaUpload oauthCallback:(NSString *)oauthCallback;
+
+// convenience
+- (void)postTokenRequest:(void(^)(NSURL *url, NSString *oauthToken))successBlock
+           oauthCallback:(NSString *)oauthCallback
+              errorBlock:(void(^)(NSError *error))errorBlock;
+
 
 - (void)postAccessTokenRequestWithPIN:(NSString *)pin
                          successBlock:(void(^)(NSString *oauthToken, NSString *oauthTokenSecret, NSString *userID, NSString *screenName))successBlock
@@ -62,9 +73,9 @@ NS_ENUM(NSUInteger, STTwitterOAuthErrorCode) {
 - (void)postReverseOAuthTokenRequest:(void(^)(NSString *authenticationHeader))successBlock
                           errorBlock:(void(^)(NSError *error))errorBlock;
 
-- (BOOL)canVerifyCredentials;
+// useful for the so-called 'OAuth Echo' https://dev.twitter.com/twitter-kit/ios/oauth-echo
 
-- (void)verifyCredentialsWithSuccessBlock:(void(^)(NSString *username))successBlock errorBlock:(void(^)(NSError *error))errorBlock;
+- (NSDictionary *)OAuthEchoHeadersToVerifyCredentials;
 
 @end
 
