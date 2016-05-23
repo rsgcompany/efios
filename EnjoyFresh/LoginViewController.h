@@ -14,7 +14,7 @@
 #import "FavoritesClass.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <QuartzCore/QuartzCore.h>
-
+#import "WebViewVC.h"
 @interface LoginViewController : UIViewController<UITextFieldDelegate,parseAndGetDataDelegate,MBProgressHUDDelegate,FBLoginViewDelegate,UIAlertViewDelegate,CLLocationManagerDelegate>
 {
     IBOutlet UITextField *emailFld;
