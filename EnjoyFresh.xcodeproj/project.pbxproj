@@ -89,6 +89,8 @@
 		0468FFAB19A108FD0018C40B /* PaymentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0468FFA619A108FD0018C40B /* PaymentCell.m */; };
 		0468FFAD19A108FD0018C40B /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0468FFA919A108FD0018C40B /* PaymentViewController.m */; };
 		0468FFB119A109450018C40B /* nf_map_callout.png in Resources */ = {isa = PBXBuildFile; fileRef = 0468FFB019A109450018C40B /* nf_map_callout.png */; };
+		04864FFC1CF4A570001160B5 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04864FFA1CF4A570001160B5 /* FBSDKCoreKit.framework */; };
+		04864FFD1CF4A570001160B5 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04864FFB1CF4A570001160B5 /* FBSDKLoginKit.framework */; };
 		04A57DF21CF2EF1B00D1EDE1 /* NSDateFormatter+STTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A57DDA1CF2EF1B00D1EDE1 /* NSDateFormatter+STTwitter.m */; };
 		04A57DF31CF2EF1B00D1EDE1 /* NSError+STTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A57DDC1CF2EF1B00D1EDE1 /* NSError+STTwitter.m */; };
 		04A57DF41CF2EF1B00D1EDE1 /* NSString+STTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A57DDE1CF2EF1B00D1EDE1 /* NSString+STTwitter.m */; };
@@ -509,6 +511,8 @@
 		0468FFA819A108FD0018C40B /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		0468FFA919A108FD0018C40B /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		0468FFB019A109450018C40B /* nf_map_callout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nf_map_callout.png; sourceTree = "<group>"; };
+		04864FFA1CF4A570001160B5 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		04864FFB1CF4A570001160B5 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		04A57DD91CF2EF1B00D1EDE1 /* NSDateFormatter+STTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+STTwitter.h"; sourceTree = "<group>"; };
 		04A57DDA1CF2EF1B00D1EDE1 /* NSDateFormatter+STTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+STTwitter.m"; sourceTree = "<group>"; };
 		04A57DDB1CF2EF1B00D1EDE1 /* NSError+STTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+STTwitter.h"; sourceTree = "<group>"; };
@@ -853,6 +857,8 @@
 			files = (
 				475142411C7C383E00084579 /* LocalAuthentication.framework in Frameworks */,
 				470C09C01BE7A0DD0015E9A8 /* MediaAccessibility.framework in Frameworks */,
+				04864FFD1CF4A570001160B5 /* FBSDKLoginKit.framework in Frameworks */,
+				04864FFC1CF4A570001160B5 /* FBSDKCoreKit.framework in Frameworks */,
 				470C09BE1BE79E400015E9A8 /* libsqlite3.dylib in Frameworks */,
 				47B159F91BE4DCDC000721F8 /* CoreTelephony.framework in Frameworks */,
 				47B159F71BE4DB48000721F8 /* libicucore.dylib in Frameworks */,
@@ -1576,6 +1582,8 @@
 		476AB6F61BE38AF60027F84A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04864FFA1CF4A570001160B5 /* FBSDKCoreKit.framework */,
+				04864FFB1CF4A570001160B5 /* FBSDKLoginKit.framework */,
 				475142401C7C383E00084579 /* LocalAuthentication.framework */,
 				47BE2E3A1BE89E4E008538B2 /* Accelerate.framework */,
 				47DD2BEC1BE89A20005B7CAC /* PayPalMobile */,
@@ -2362,7 +2370,7 @@
 				GCC_PREFIX_HEADER = "EnjoyFresh/EnjoyFresh-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_FILE = "EnjoyFresh/EnjoyFresh-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/PayPalMobile",
 					"$(PODS_DIR)/Mixpanel/Mixpanel",

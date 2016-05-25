@@ -79,7 +79,7 @@ NSString *dupEmail;
 //    passwdFld=[GlobalMethods setPlaceholdText:@"Your password" forTxtFld:passwdFld];
     
     btnRegFacebook.backgroundColor=[UIColor clearColor];
-    btnRegFacebook.readPermissions=@[@"public_profile", @"email", @"user_friends",@"user_birthday"];
+   // btnRegFacebook.readPermissions=@[@"public_profile", @"email", @"user_friends",@"user_birthday"];
     btnRegFacebook.frame=CGRectMake(13, 79, 145, 27);
     
     for (id loginObject in btnRegFacebook.subviews)
@@ -457,6 +457,25 @@ NSString *dupEmail;
 }
 #pragma mark
 #pragma mark - Facebook Actions
+- (void)  loginButton:(FBSDKLoginButton *)loginButton
+didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
+                error:(NSError *)error{
+    
+    
+    
+    [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+    
+    
+        if (!error) {
+        NSLog(@"fetched user:%@  and Email : %@", result,result[@"email"]);
+   
+        }
+
+    }];
+    
+
+
+}
 -(void)loginViewShowingLoggedInUser:(FBLoginView *)loginView
 {
     NSLog(@"You are logged in.");
@@ -535,9 +554,9 @@ NSString *dupEmail;
         [self.view endEditing:YES];
         appDel.isFB=YES;
         
-        btnRegFacebook.delegate = self;
+        //btnRegFacebook.delegate = self;
         
-        for (id loginObject in btnRegFacebook.subviews)
+       /* for (id loginObject in btnRegFacebook.subviews)
         {
             if ([loginObject isKindOfClass:[UILabel class]])
             {
@@ -547,13 +566,103 @@ NSString *dupEmail;
                 loginLabel.textAlignment=NSTextAlignmentCenter;
                 loginLabel.font=[UIFont systemFontOfSize:14.0f];
             }
-        }
+        }*/
+        
+        FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+        [login logInWithReadPermissions:@[@"public_profile", @"email", @"user_friends",@"user_birthday"]
+                        fromViewController:self
+                                   handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+                                       
+                                       
+                                    
+                                       if(result.token)   // This means if There is current access token.
+                                       {
+                                           // Token created successfully and you are ready to get profile info
+                                           [self getFacebookProfileInfos];
+                                       }
+                                       
+                                   }];
+
         
     }
 }
 
 
-
+-(void)getFacebookProfileInfos {
+    
+    FBSDKGraphRequest *requestMe = [[FBSDKGraphRequest alloc]initWithGraphPath:@"me" parameters:@{@"fields": @"id, name,email,first_name,last_name"}];
+    
+    FBSDKGraphRequestConnection *connection = [[FBSDKGraphRequestConnection alloc] init];
+    
+    [connection addRequest:requestMe completionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        
+        if(result)
+        {
+            if ([result objectForKey:@"email"]) {
+                
+                NSLog(@"Email: %@",[result objectForKey:@"email"]);
+                
+            }
+            if ([result objectForKey:@"first_name"]) {
+                
+                NSLog(@"First Name : %@",[result objectForKey:@"first_name"]);
+                
+            }
+            if ([result objectForKey:@"id"]) {
+                
+                NSLog(@"User id : %@",[result objectForKey:@"id"]);
+                
+            }
+            [[NSURLCache sharedURLCache] removeAllCachedResponses];
+            
+            [emailImg setHidden:YES];
+            // [socialEmailFld setHidden:YES];
+            CurrentFacebookID = [NSString stringWithFormat:@"%@", [result objectForKey:@"id"]];
+            socialDict=[[NSDictionary alloc]initWithObjectsAndKeys:result[@"first_name"],@"FirstName",result[@"last_name"],@"LastName",[result objectForKey:@"email"],@"Email",[result objectForKey:@"id"],@"FBUserId", nil];
+            
+            appDel.CurrentCustomerDetails  = [appDel.objDBClass GetUserProfileDetails];
+            
+            if(appDel.CurrentCustomerDetails == nil)
+            {
+                appDel.CurrentCustomerDetails = [[ProfileClass alloc] init];
+            }
+            
+            appDel.CurrentCustomerDetails.user_first_name = result[@"first_name"];
+            appDel.CurrentCustomerDetails.user_last_name = result[@"last_name"];
+            appDel.CurrentCustomerDetails.user_email = [result objectForKey:@"email"];
+            appDel.CurrentCustomerDetails.user_fb = [result objectForKey:@"id"];
+            
+            [appDel.objDBClass UpdateUserProfileDetails: appDel.CurrentCustomerDetails];
+            
+            [self performSelector:@selector(cleardata) withObject:nil afterDelay:0.1f];
+            
+            socialDict=[[NSDictionary alloc]initWithObjectsAndKeys:
+                        result[@"first_name"],@"FirstName",
+                        result[@"last_name"],@"LastName",
+                        appDel.CurrentCustomerDetails.user_email,@"Email",
+                        appDel.CurrentCustomerDetails.user_fb,@"FBUserId", nil];
+            
+            if(hud==nil)
+            {
+                hud = [[MBProgressHUD alloc] initWithView:appDel.nav.view];
+                hud.delegate = self;
+                [hud show:YES];
+                [self.view addSubview:hud];
+            }
+            parseInt=3;
+            NSString *urlquerystring=[NSString stringWithFormat:@"checkFBUser?facebookId=%@&email=%@",
+                                      [result objectForKey:@"id"], [result objectForKey:@"email"]];
+            [parser parseAndGetDataForGetMethod:urlquerystring];
+            emailToSend=[result objectForKey:@"email"];
+            dupEmail=[result objectForKey:@"email"];
+            
+        }
+        
+    }];
+    
+    [connection start];
+    
+}
 - (IBAction)twitterBtnClicked:(id)sender
 {
     ////////login with IOSActions

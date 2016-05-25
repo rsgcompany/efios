@@ -209,10 +209,14 @@
 //    NSLog(@"%@",[url scheme]);
     
     if (isFB==YES) {
+        BOOL result = [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                                     openURL:url
+                                                           sourceApplication:sourceApplication
+                                                                  annotation:annotation];
         nav=(UINavigationController *)self.window.rootViewController;
 
-        return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
-        
+        //return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+        return result;
     }else
     {
         

@@ -31,7 +31,7 @@
     UIBarButtonItem *barButtonPrev,*barButtonNext;
     IBOutlet UIButton *btnCheckOffers;
     NSString *zipString;
-    IBOutlet FBLoginView *btnRegFacebook;
+    IBOutlet UIView *btnRegFacebook;
     
     IBOutlet UIView *socialView;
     IBOutlet UIButton *socilLoginBtn;
@@ -57,7 +57,7 @@
 @property(nonatomic,retain)NSString *loginType;
 @property(nonatomic,retain)NSString *zipString;
 
-@property (nonatomic, retain) IBOutlet FBLoginView *FBloginButton;
+@property (nonatomic, retain) IBOutlet UIView *FBloginButton;
 @property (strong, nonatomic) IBOutlet UIButton *btnTerms;
 - (IBAction)showTermsConditions:(id)sender;
 

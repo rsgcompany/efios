@@ -136,7 +136,7 @@ static NSString *consumerKey=@"yIPITPHBFJ7CuwN857MvtGwflwF0ViZa7D3YEa78VjW9z98tx
     }
     
     self.FBloginButton.backgroundColor=[UIColor clearColor];
-    self.FBloginButton.readPermissions=@[@"public_profile", @"email", @"user_friends",@"user_birthday"];
+    //self.FBloginButton.readPermissions=@[@"public_profile", @"email", @"user_friends",@"user_birthday"];
     
     _FBloginButton.frame=CGRectMake(13, 17, 145, 27);
     for (id loginObject in _FBloginButton.subviews)
@@ -431,21 +431,113 @@ static NSString *consumerKey=@"yIPITPHBFJ7CuwN857MvtGwflwF0ViZa7D3YEa78VjW9z98tx
     [self.view endEditing:YES];
     appDel.isFB=YES;
     
-    self.FBloginButton.delegate = self;
+//    self.FBloginButton.delegate = self;
+//    
+//    for (id loginObject in _FBloginButton.subviews)
+//    {
+//        if ([loginObject isKindOfClass:[UILabel class]])
+//        {
+//            UILabel * loginLabel =  loginObject;
+//            loginLabel.text = @"";
+//            loginLabel.frame = CGRectMake(-11, 0, 300, 40);
+//            loginLabel.textAlignment=NSTextAlignmentCenter;
+//            loginLabel.font=[UIFont systemFontOfSize:14.0f];
+//        }
+//    }
     
-    for (id loginObject in _FBloginButton.subviews)
-    {
-        if ([loginObject isKindOfClass:[UILabel class]])
-        {
-            UILabel * loginLabel =  loginObject;
-            loginLabel.text = @"";
-            loginLabel.frame = CGRectMake(-11, 0, 300, 40);
-            loginLabel.textAlignment=NSTextAlignmentCenter;
-            loginLabel.font=[UIFont systemFontOfSize:14.0f];
-        }
-    }
-}
+    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+    [login logInWithReadPermissions:@[@"public_profile", @"email", @"user_friends",@"user_birthday"]
+                 fromViewController:self
+                            handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+                                
+                                
+                                
+                                if(result.token)   // This means if There is current access token.
+                                {
+                                    // Token created successfully and you are ready to get profile info
+                                    [self getFacebookProfileInfos];
+                                }
+                                
+                            }];
+    
+    
 
+}
+-(void)getFacebookProfileInfos {
+    
+    FBSDKGraphRequest *requestMe = [[FBSDKGraphRequest alloc]initWithGraphPath:@"me" parameters:@{@"fields": @"id, name,email,first_name,last_name"}];
+    
+    FBSDKGraphRequestConnection *connection = [[FBSDKGraphRequestConnection alloc] init];
+    
+    [connection addRequest:requestMe completionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        
+        if(result)
+        {
+            if ([result objectForKey:@"email"]) {
+                
+                NSLog(@"Email: %@",[result objectForKey:@"email"]);
+                
+            }
+            if ([result objectForKey:@"first_name"]) {
+                
+                NSLog(@"First Name : %@",[result objectForKey:@"first_name"]);
+                
+            }
+            if ([result objectForKey:@"id"]) {
+                
+                NSLog(@"User id : %@",[result objectForKey:@"id"]);
+                
+            }
+            [[NSURLCache sharedURLCache] removeAllCachedResponses];
+            
+
+            _CurrentFacebookID = [NSString stringWithFormat:@"%@", [result objectForKey:@"id"]];
+            socialDict=[[NSDictionary alloc]initWithObjectsAndKeys:result[@"first_name"],@"FirstName",result[@"last_name"],@"LastName",[result objectForKey:@"email"],@"Email",[result objectForKey:@"id"],@"FBUserId", nil];
+            
+            appDel.CurrentCustomerDetails  = [appDel.objDBClass GetUserProfileDetails];
+            
+            if(appDel.CurrentCustomerDetails == nil)
+            {
+                appDel.CurrentCustomerDetails = [[ProfileClass alloc] init];
+            }
+            
+            appDel.CurrentCustomerDetails.user_first_name = result[@"first_name"];
+            appDel.CurrentCustomerDetails.user_last_name = result[@"last_name"];
+            appDel.CurrentCustomerDetails.user_email = [result objectForKey:@"email"];
+            appDel.CurrentCustomerDetails.user_fb = [result objectForKey:@"id"];
+            
+            [appDel.objDBClass UpdateUserProfileDetails: appDel.CurrentCustomerDetails];
+            
+            [self performSelector:@selector(cleardata) withObject:nil afterDelay:0.1f];
+            
+            socialDict=[[NSDictionary alloc]initWithObjectsAndKeys:
+                        result[@"first_name"],@"FirstName",
+                        result[@"last_name"],@"LastName",
+                        appDel.CurrentCustomerDetails.user_email,@"Email",
+                        appDel.CurrentCustomerDetails.user_fb,@"FBUserId", nil];
+            
+            if(hud==nil)
+            {
+                hud = [[MBProgressHUD alloc] initWithView:appDel.nav.view];
+                hud.delegate = self;
+                [hud show:YES];
+                [self.view addSubview:hud];
+            }
+            parseInt=3;
+            NSString *urlquerystring=[NSString stringWithFormat:@"checkFBUser?facebookId=%@&email=%@",
+                                      [result objectForKey:@"id"], [result objectForKey:@"email"]];
+            email=[result objectForKey:@"email"];
+            [parser parseAndGetDataForGetMethod:urlquerystring];
+            
+
+            
+        }
+        
+    }];
+    
+    [connection start];
+    
+}
 - (IBAction)twitterLogin:(id)sender {
     ////////login with IOSActions
     [self.view endEditing:YES];
@@ -1309,7 +1401,7 @@ static NSString *consumerKey=@"yIPITPHBFJ7CuwN857MvtGwflwF0ViZa7D3YEa78VjW9z98tx
 }
 -(void)cleardata
 {
-    _FBloginButton.delegate=nil;
+   // _FBloginButton.delegate=nil;
     [FBSession.activeSession closeAndClearTokenInformation];
     [FBSession setActiveSession:nil];
     
