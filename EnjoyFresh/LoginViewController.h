@@ -15,7 +15,9 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <QuartzCore/QuartzCore.h>
 #import "WebViewVC.h"
-@interface LoginViewController : UIViewController<UITextFieldDelegate,parseAndGetDataDelegate,MBProgressHUDDelegate,FBLoginViewDelegate,UIAlertViewDelegate,CLLocationManagerDelegate>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+@interface LoginViewController : UIViewController<UITextFieldDelegate,parseAndGetDataDelegate,MBProgressHUDDelegate,FBSDKLoginButtonDelegate,UIAlertViewDelegate,CLLocationManagerDelegate>
 {
     IBOutlet UITextField *emailFld;
     IBOutlet UITextField *passwdFld;
@@ -47,7 +49,7 @@
     UIBarButtonItem *barButtonPrev,*barButtonNext;
     NSDictionary *socialDict;
     NSString *twitterId;
-    IBOutlet FBLoginView *btnRegFacebook;
+    IBOutlet UIView *btnRegFacebook;
     IBOutlet UIButton *btnRegTwitter;
     IBOutlet UIButton *btnRegister;
     IBOutlet UIView *InitialRegistration;
