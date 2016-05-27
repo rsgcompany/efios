@@ -64,7 +64,7 @@
     self.lblStateCity.font=[UIFont fontWithName:Regular size:11.0f];
     
     self.priceLbl.font=[UIFont fontWithName:SemiBold size:18.0f];
-    
+    self.btnPrice.titleLabel.font=[UIFont fontWithName:SemiBold size:18.0f];
     self.ordeByLbl.font=[UIFont fontWithName:Medium size:12.0f];
     self.availBylbl.font=[UIFont fontWithName:Bold size:12.0];
     
