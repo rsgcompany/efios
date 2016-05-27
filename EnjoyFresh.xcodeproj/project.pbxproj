@@ -89,6 +89,9 @@
 		0468FFAB19A108FD0018C40B /* PaymentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0468FFA619A108FD0018C40B /* PaymentCell.m */; };
 		0468FFAD19A108FD0018C40B /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0468FFA919A108FD0018C40B /* PaymentViewController.m */; };
 		0468FFB119A109450018C40B /* nf_map_callout.png in Resources */ = {isa = PBXBuildFile; fileRef = 0468FFB019A109450018C40B /* nf_map_callout.png */; };
+		046BC3BF1CF736D9003AEC22 /* libCardIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 046BC3BC1CF736D9003AEC22 /* libCardIO.a */; };
+		046BC3C01CF736D9003AEC22 /* libopencv_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 046BC3BD1CF736D9003AEC22 /* libopencv_core.a */; };
+		046BC3C11CF736D9003AEC22 /* libopencv_imgproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 046BC3BE1CF736D9003AEC22 /* libopencv_imgproc.a */; };
 		04864FFC1CF4A570001160B5 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04864FFA1CF4A570001160B5 /* FBSDKCoreKit.framework */; };
 		04864FFD1CF4A570001160B5 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04864FFB1CF4A570001160B5 /* FBSDKLoginKit.framework */; };
 		04A57DF21CF2EF1B00D1EDE1 /* NSDateFormatter+STTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A57DDA1CF2EF1B00D1EDE1 /* NSDateFormatter+STTwitter.m */; };
@@ -511,6 +514,9 @@
 		0468FFA819A108FD0018C40B /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		0468FFA919A108FD0018C40B /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		0468FFB019A109450018C40B /* nf_map_callout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nf_map_callout.png; sourceTree = "<group>"; };
+		046BC3BC1CF736D9003AEC22 /* libCardIO.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCardIO.a; sourceTree = "<group>"; };
+		046BC3BD1CF736D9003AEC22 /* libopencv_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopencv_core.a; sourceTree = "<group>"; };
+		046BC3BE1CF736D9003AEC22 /* libopencv_imgproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopencv_imgproc.a; sourceTree = "<group>"; };
 		04864FFA1CF4A570001160B5 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		04864FFB1CF4A570001160B5 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		04A57DD91CF2EF1B00D1EDE1 /* NSDateFormatter+STTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+STTwitter.h"; sourceTree = "<group>"; };
@@ -862,11 +868,14 @@
 				470C09BE1BE79E400015E9A8 /* libsqlite3.dylib in Frameworks */,
 				47B159F91BE4DCDC000721F8 /* CoreTelephony.framework in Frameworks */,
 				47B159F71BE4DB48000721F8 /* libicucore.dylib in Frameworks */,
+				046BC3BF1CF736D9003AEC22 /* libCardIO.a in Frameworks */,
 				47EEB0841BE4C084009460E3 /* FacebookSDK.framework in Frameworks */,
+				046BC3C01CF736D9003AEC22 /* libopencv_core.a in Frameworks */,
 				47EEB0821BE4AB5C009460E3 /* UIKit.framework in Frameworks */,
 				47C447661BE3E04B0049477F /* MapKit.framework in Frameworks */,
 				476AB6FA1BE38E2C0027F84A /* libz.1.2.5.dylib in Frameworks */,
 				476AB7061BE394E70027F84A /* Security.framework in Frameworks */,
+				046BC3C11CF736D9003AEC22 /* libopencv_imgproc.a in Frameworks */,
 				476AB70A1BE395280027F84A /* MobileCoreServices.framework in Frameworks */,
 				470C09BA1BE79B670015E9A8 /* Twitter.framework in Frameworks */,
 				476AB70E1BE3956D0027F84A /* CFNetwork.framework in Frameworks */,
@@ -1716,6 +1725,9 @@
 		47DD2BEC1BE89A20005B7CAC /* PayPalMobile */ = {
 			isa = PBXGroup;
 			children = (
+				046BC3BC1CF736D9003AEC22 /* libCardIO.a */,
+				046BC3BD1CF736D9003AEC22 /* libopencv_core.a */,
+				046BC3BE1CF736D9003AEC22 /* libopencv_imgproc.a */,
 				47DD2BED1BE89A20005B7CAC /* CardIO.h */,
 				47DD2BEE1BE89A20005B7CAC /* CardIOCreditCardInfo.h */,
 				47DD2BEF1BE89A20005B7CAC /* CardIODetectionMode.h */,
@@ -2375,6 +2387,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/PayPalMobile",
 					"$(PODS_DIR)/Mixpanel/Mixpanel",
+					"\"$(SRCROOT)/../CardIO\"",
 					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/Frameworks",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -2430,6 +2443,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/PayPalMobile",
 					"$(PODS_DIR)/Mixpanel/Mixpanel",
+					"\"$(SRCROOT)/../CardIO\"",
 					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/Frameworks",
 				);
 				OTHER_LDFLAGS = (

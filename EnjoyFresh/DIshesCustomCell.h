@@ -32,4 +32,6 @@
 @property (strong, nonatomic) IBOutlet UIView *starsView;
 @property (strong, nonatomic) IBOutlet UIButton *btnSoldout;
 @property (strong, nonatomic) IBOutlet UIButton *btnShare;
+@property (strong, nonatomic) IBOutlet UIButton *btnPrice;
+
 @end

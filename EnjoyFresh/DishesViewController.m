@@ -1258,7 +1258,8 @@ typedef void(^Completion)(NSDictionary*);
 //     price=(price*0.20)+price;
 //    }
     cell.priceLbl.text=[NSString stringWithFormat:@"$ %.2f",price];
-
+    cell.priceLbl.hidden=YES;
+    [cell.btnPrice setTitle:[NSString stringWithFormat:@"$ %.2f",price] forState:UIControlStateNormal];
     if([[dict valueForKey:@"soldout"] integerValue] == 1)
     {
         cell.lblDate.hidden=YES;
@@ -1369,10 +1370,13 @@ typedef void(^Completion)(NSDictionary*);
     [cell.addOrderBtn setTag:indexPath.row+222];
     [cell.segueButton setTag:indexPath.row+222];
     [cell.segueButton2 setTag:indexPath.row+222];
+    [cell.btnPrice setTag:indexPath.row+222];
+
     [cell.btnRate setTag:indexPath.row+222];
     [cell.btnRPP setTag:indexPath.row+222];
     [cell.btnDropDown setTag:indexPath.row+222];
     [cell.segueButton2 addTarget:self action:@selector(addToOrderBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.btnPrice addTarget:self action:@selector(addToOrderBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 
     [cell.addOrderBtn addTarget:self action:@selector(addToOrderBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [cell.segueButton addTarget:self action:@selector(addToOrderBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
