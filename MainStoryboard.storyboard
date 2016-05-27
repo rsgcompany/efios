@@ -1670,10 +1670,11 @@
                                                                             <color key="backgroundColor" red="0.92698469065656552" green="0.92698469065656552" blue="0.92698469065656552" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </view>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Iol-S2-5Fg">
-                                                                            <rect key="frame" x="217" y="8" width="81" height="31"/>
+                                                                            <rect key="frame" x="220" y="8" width="78" height="31"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                            <color key="backgroundColor" red="0.31372549020000001" green="0.56078431370000004" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <state key="normal">
+                                                                            <color key="backgroundColor" red="0.57647058823529407" green="0.74117647058823533" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                            <state key="normal" title="$111.00">
                                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                             </state>
                                                                         </button>
@@ -11759,7 +11760,9 @@ Afg
         <image name="Backbutton1.png" width="59" height="41"/>
         <image name="Backgroundimage.png" width="637" height="1005"/>
         <image name="Contact_icon.png" width="120" height="120"/>
-        <image name="D193F01C-58F4-43A8-AFFE-AA13EC30E425" width="25" height="25">
+        <image name="Dish_Placeholder.png" width="300" height="211"/>
+        <image name="Dropdown.png" width="18" height="10"/>
+        <image name="E879565F-5BD2-4814-860E-E1CAC08752D7" width="25" height="25">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
 GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz
@@ -11775,8 +11778,6 @@ AZ4BpgGzAbgBugG8AcEByQHMAdEB2QHcAe4B8QH2AAAAAAAAAgEAAAAAAAAAPwAAAAAAAAAAAAAAAAAA
 Afg
 </mutableData>
         </image>
-        <image name="Dish_Placeholder.png" width="300" height="211"/>
-        <image name="Dropdown.png" width="18" height="10"/>
         <image name="Email.png" width="85" height="45"/>
         <image name="Email_03.png" width="560" height="93"/>
         <image name="Email_Icon.png" width="47" height="47"/>
