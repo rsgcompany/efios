@@ -2375,7 +2375,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: enjoy fresh, inc (62KQLGVD26)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: enjoy fresh, inc (62KQLGVD26)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
@@ -2416,7 +2416,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.enjoy.enjoyfresh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "95c6cad1-2ba0-4456-b6f1-53b69a4848da";
+				PROVISIONING_PROFILE = "f58380fd-5085-4e52-adbe-1f166db76ff5";
 				SDKROOT = iphoneos8.3;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -2431,7 +2431,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: enjoy fresh, inc (62KQLGVD26)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: enjoy fresh, inc (62KQLGVD26)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
@@ -2471,7 +2471,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.enjoy.enjoyfresh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "95c6cad1-2ba0-4456-b6f1-53b69a4848da";
+				PROVISIONING_PROFILE = "f58380fd-5085-4e52-adbe-1f166db76ff5";
 				SDKROOT = iphoneos8.3;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
