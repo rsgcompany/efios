@@ -42,6 +42,10 @@
 
     //dropDownBtn.imageEdgeInsets = UIEdgeInsetsMake(5, 0, 0, 0);
 
+    if(!IS_IPHONE5){
+        
+        [scrollview setContentSize:CGSizeMake(scrollview.frame.size.width, 560)];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -206,6 +210,12 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
  }
+
+-(IBAction)copyShareURL:(id)sender{
+    
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string = shareURLTextField.text;
+}
 #pragma mark -
 #pragma mark - Message Composer Delegate
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result

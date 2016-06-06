@@ -16,7 +16,8 @@
 
     DropDown *drp;
     UIView *imgView;
-
+    IBOutlet UITextField *shareURLTextField;
+    IBOutlet UIScrollView *scrollview;
 }
 @property (strong, nonatomic) IBOutlet UIButton *backBtn;
 -(IBAction)shareBtnsClicked:(id)sender;
