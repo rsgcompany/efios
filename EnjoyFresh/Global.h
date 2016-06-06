@@ -37,7 +37,7 @@
 //#define BaseURLRestaurant @"http://enjoyfresh.rightsource-global.com/public/upload/restaurant/"
 
 
-#define gmail @"outbox@enjoyfresh.com"
+#define gmail @"delivery@enjoyfresh.com"
 
 #define Bold @"Raleway-Bold"
 #define ExtraBold @"Raleway-ExtraBold"
