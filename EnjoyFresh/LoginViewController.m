@@ -163,6 +163,10 @@ NSString *dupEmail;
         [self.view addSubview:InitialRegistration];
         self.IsInitialRegistration = NO;
     }
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"MobileNumber"]!=nil) {
+        
+        phoneFld.text=[[NSUserDefaults standardUserDefaults] valueForKey:@"MobileNumber"];
+    }
 }
 #pragma mark -
 #pragma mark - KeyBoardToolBar Methods
@@ -744,7 +748,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
     if (emailToSend==nil) {
         emailToSend=dupEmail;
     }
-    NSDictionary *params=[NSDictionary dictionaryWithObjectsAndKeys:emailToSend,@"email", nil];
+    NSDictionary *params=[NSDictionary dictionaryWithObjectsAndKeys:emailToSend,@"email",phoneFld.text,@"phone", nil];
     [parser parseAndGetDataForPostMethod:params withUlr:@"resendTwilioPin"];
 
 }
@@ -1469,7 +1473,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
         [self.view addSubview:hud];
     }
     parseInt=6;
-    NSDictionary *params=[NSDictionary dictionaryWithObjectsAndKeys:socialEmailFld.text,@"email", nil];
+    NSDictionary *params=[NSDictionary dictionaryWithObjectsAndKeys:socialEmailFld.text,@"email",phoneFld.text,@"phone", nil];
     [parser parseAndGetDataForPostMethod:params withUlr:@"resendTwilioPin"];
 }
 - (IBAction)removeAhshucks:(id)sender {

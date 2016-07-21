@@ -23,7 +23,7 @@
     IBOutlet UIScrollView *scroll;
     IBOutlet UITextField *firstNameFld,*emailFld,*mobileFld,*passwdFld,*zipCode,*lastNameFld,*promoFld,*phoneNumber;
     IBOutlet UILabel *titleLbl;
-    
+    IBOutlet UITextField *resendPhoneFld;
     CLLocationManager *locationManager;
     ParseAndGetData *parser;
     MBProgressHUD *hud;

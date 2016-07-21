@@ -39,7 +39,7 @@
 
     IBOutlet UIButton *btnFacebookReg2;
     ///////////////social loginview buttons///////////////
-    IBOutlet UITextField *socialEmailFld,*zipFld,*promoFld;
+    IBOutlet UITextField *socialEmailFld,*zipFld,*promoFld,*phoneFld;
     IBOutlet UIButton *agressBtn,*OffersBtn,*acceptBtn;
     IBOutlet UIScrollView *socialScroll;
     IBOutlet UIView *socialView;

@@ -632,6 +632,7 @@ static NSString *consumerKey=@"yIPITPHBFJ7CuwN857MvtGwflwF0ViZa7D3YEa78VjW9z98tx
     parseInt=1;
     email=emailFld.text;
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:emailFld.text,@"email",passwdFld.text,@"password",devicetoken,@"devicetoken",zipCode.text,@"zipcode",firstNameFld.text,@"firstname",lastNameFld.text,@"lastname",[NSNumber numberWithInt:offer],@"offers",loginType,@"loginType",phoneNumber.text,@"mobile",[promoFld.text length]?promoFld.text:@"",@"promoId",[appDel.token length]?appDel.token:@"",@"apn_device_token",nil];
+    [[NSUserDefaults standardUserDefaults] setObject:phoneNumber.text forKey:@"MobileNumber"];
     [parser parseAndGetDataForPostMethod:params withUlr:@"customerRegister"];
 
    /* [parser parseAndGetDataForPostMethod:params withUlr:@"customerRegister"];
@@ -756,8 +757,7 @@ static NSString *consumerKey=@"yIPITPHBFJ7CuwN857MvtGwflwF0ViZa7D3YEa78VjW9z98tx
     }
     if (textField == firstNameFld ||  textField == lastNameFld) {
         return ([string rangeOfCharacterFromSet:blockedCharacters].location == NSNotFound);
-    }
-    if(textField==phoneNumber || textField== self.socialPhone)
+    }else if(textField==phoneNumber || textField== self.socialPhone)
     {
         if (textField.text.length >= 10 && range.length == 0)
             return NO;
@@ -774,7 +774,18 @@ static NSString *consumerKey=@"yIPITPHBFJ7CuwN857MvtGwflwF0ViZa7D3YEa78VjW9z98tx
     {
         if (textField.text.length >= 5 && range.length == 0)
             return NO;
+    }else if(textField == resendPhoneFld){
+        
+        
+//        BOOL shouldChange = YES;
+//        NSCharacterSet *numbersOnly = [NSCharacterSet characterSetWithCharactersInString:@"0123456789+"];
+//        
+//        if ([textField isEqual:resendPhoneFld] && [string rangeOfCharacterFromSet:[numbersOnly invertedSet]].location != NSNotFound) {
+//            
+//            shouldChange=NO;
+//        }
     }
+    
     return YES;
 }
 
@@ -843,6 +854,10 @@ static NSString *consumerKey=@"yIPITPHBFJ7CuwN857MvtGwflwF0ViZa7D3YEa78VjW9z98tx
         if (parseInt==1) {
         
             // [self performSegueWithIdentifier:@"SignUpSegue" sender:self];
+            if ([[NSUserDefaults standardUserDefaults] valueForKey:@"MobileNumber"]!=nil) {
+                
+                resendPhoneFld.text=[[NSUserDefaults standardUserDefaults] valueForKey:@"MobileNumber"];
+            }
             self.verificationPopupView.frame=CGRectMake(0, 64, 320, 504);
             [self.view addSubview:self.verificationPopupView];
             [self.view bringSubviewToFront:self.verificationPopupView];
@@ -1439,7 +1454,7 @@ static NSString *consumerKey=@"yIPITPHBFJ7CuwN857MvtGwflwF0ViZa7D3YEa78VjW9z98tx
         [self.view addSubview:hud];
     }
     parseInt=6;
-    NSDictionary *params=[NSDictionary dictionaryWithObjectsAndKeys:email,@"email", nil];
+    NSDictionary *params=[NSDictionary dictionaryWithObjectsAndKeys:email,@"email",resendPhoneFld.text,@"phone", nil];
     [parser parseAndGetDataForPostMethod:params withUlr:@"resendTwilioPin"];
 }
 
@@ -1492,7 +1507,7 @@ static NSString *consumerKey=@"yIPITPHBFJ7CuwN857MvtGwflwF0ViZa7D3YEa78VjW9z98tx
         [self.view addSubview:hud];
     }
     parseInt=6;
-    NSDictionary *params=[NSDictionary dictionaryWithObjectsAndKeys:email,@"email", nil];
+    NSDictionary *params=[NSDictionary dictionaryWithObjectsAndKeys:email,@"email",resendPhoneFld.text,@"phone", nil];
     [parser parseAndGetDataForPostMethod:params withUlr:@"resendTwilioPin"];
 }
 

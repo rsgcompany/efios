@@ -24,7 +24,7 @@
     IBOutlet UILabel *Dish_Type;
     IBOutlet UILabel *Ingredient;
     IBOutlet UILabel *Availability;
-    NSDictionary * checkOutArr;
+    NSMutableDictionary * checkOutArr;
     CLLocationManager *locationManager;
 
     IBOutlet UIButton *Quantity_Plus_Btn;
@@ -96,7 +96,7 @@
     NSMutableArray *datesArray;
     NSArray *arrayDate;
     int selectedIndx;
-    UIScrollView *tipsView;
+    UIScrollView *tipsView,*timeSlotsView;
     
     IBOutlet UIView *promoView,*tipSubView;
     IBOutlet UILabel *tipLabel;

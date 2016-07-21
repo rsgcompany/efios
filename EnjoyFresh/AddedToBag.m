@@ -19,6 +19,8 @@ long count=nil;
 int height;
 @interface AddedToBag ()
 @property(nonatomic)NSArray *tipsArray;
+@property(nonatomic)IBOutlet UIButton *dateDropdownBtn;
+@property(nonatomic)NSArray *delivery_timeslotsArray;
 @end
 
 @implementation AddedToBag
@@ -408,6 +410,7 @@ NSMutableDictionary *dict=nil;
         
         deliveryImage.hidden=YES;
     }
+    checkOutArr=[NSMutableDictionary new];
 }
 - (void)updateCurrentLocation {
     
@@ -1093,7 +1096,11 @@ NSMutableDictionary *dict=nil;
         @"Quantity":Quantity.text
         
     }];
-    
+    if ([[Item_details valueForKey:@"is_delivery"] integerValue] ==1&& self.delivery_timeslotsArray.count>0) {
+
+        [checkOutArr setValue:self.dateDropdownBtn.titleLabel.text forKey:@"timeslotsSelected"];
+
+    }
     if ([authNet_btn.currentImage isEqual:[UIImage imageNamed:@"checked"]])
     {
         [appDel.dishesVC checkaddtoBagDishID:[Item_details valueForKey:@"dish_id"] Quantity:[checkOutArr valueForKey:@"order_quantity"] paytype:@"authNet" product:checkOutArr] ;
@@ -1190,6 +1197,42 @@ NSMutableDictionary *dict=nil;
     }
     
     
+}
+-(IBAction)showTimeSlots:(UIButton*)sender{
+    if (sender.tag<[self.delivery_timeslotsArray count]) {
+        
+        [self.dateDropdownBtn setTitle:self.delivery_timeslotsArray[sender.tag] forState:UIControlStateNormal];
+    }
+    if (timeSlotsView == nil) {
+        timeSlotsView=[[UIScrollView alloc]initWithFrame:CGRectMake(self.dateDropdownBtn.frame.origin.x,self.dateDropdownBtn.frame.origin.y+24, self.dateDropdownBtn.frame.size.width, 100)];
+        timeSlotsView.backgroundColor=[UIColor whiteColor];
+        timeSlotsView.layer.borderWidth=1.0f;
+        timeSlotsView.layer.borderColor=[UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1.0f].CGColor;
+        
+        [checkOutVw addSubview:timeSlotsView];
+        float Yaxis=1;
+        
+        for (int i=0; i<self.delivery_timeslotsArray.count; i++) {
+            
+            
+            UIButton *bt1=[[UIButton alloc]initWithFrame:CGRectMake(1, Yaxis, self.dateDropdownBtn.frame.size.width-2, 20)];
+            [bt1 addTarget:self action:@selector(showTimeSlots:) forControlEvents:UIControlEventTouchUpInside];
+            bt1.tag=i;
+            [bt1 setTitle:[self.delivery_timeslotsArray objectAtIndex:i] forState:UIControlStateNormal];
+            bt1.titleLabel.font=[UIFont systemFontOfSize:11];
+            bt1.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
+            [bt1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            bt1.backgroundColor=[UIColor whiteColor];
+            [timeSlotsView addSubview:bt1];
+            Yaxis+=21;
+            
+        }
+        
+    }
+    else{
+        [timeSlotsView removeFromSuperview];
+        timeSlotsView=nil;
+    }
 }
 -(void)removeAllpopView:(UIView*)sender{
     
@@ -1566,13 +1609,24 @@ NSMutableDictionary *dict=nil;
         }
         else if(parseInt==2)
         {
-            
-            checkOutArr=[result valueForKey:@"details"];
+            [checkOutArr removeAllObjects];
+            [checkOutArr addEntriesFromDictionary:[result valueForKey:@"details"]];
             CGRect check=checkOutVw.frame;
             check.origin.x=0;
             check.origin.y=0;
             CGRect first=firstScren.frame;
             //first.origin.x=320;
+            self.delivery_timeslotsArray=[NSArray arrayWithArray:checkOutArr[@"delivery_timeslots"]];
+
+            if ([[Item_details valueForKey:@"is_delivery"] integerValue] ==1&& self.delivery_timeslotsArray.count>0) {
+                
+                [self.dateDropdownBtn setTitle:self.delivery_timeslotsArray[0] forState:UIControlStateNormal];
+                self.dateDropdownBtn.hidden=NO;
+                self.lblDate.hidden=YES;
+            }else{
+                self.dateDropdownBtn.hidden=YES;
+                self.lblDate.hidden=NO;
+            }
             
             [UIView animateWithDuration:0.5
                              animations:^{
