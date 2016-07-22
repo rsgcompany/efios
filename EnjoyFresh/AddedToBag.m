@@ -21,6 +21,8 @@ int height;
 @property(nonatomic)NSArray *tipsArray;
 @property(nonatomic)IBOutlet UIButton *dateDropdownBtn;
 @property(nonatomic)NSArray *delivery_timeslotsArray;
+@property(nonatomic)BOOL isDelivery;
+@property(nonatomic)IBOutlet UILabel *deliveryTimelbl;
 @end
 
 @implementation AddedToBag
@@ -411,6 +413,8 @@ NSMutableDictionary *dict=nil;
         deliveryImage.hidden=YES;
     }
     checkOutArr=[NSMutableDictionary new];
+    
+    self.isDelivery=YES;
 }
 - (void)updateCurrentLocation {
     
@@ -902,7 +906,7 @@ NSMutableDictionary *dict=nil;
     if ([sender tag] == 11) {
         [self.btnDineOpt setTitle:@"Delivery" forState:UIControlStateNormal];
         
-        
+        self.isDelivery=YES;
         NSLog(@"addrss :%@",addrFromLocation);
         [UIView animateWithDuration:0.5
                               delay:0.1
@@ -939,7 +943,8 @@ NSMutableDictionary *dict=nil;
         self.addressId=@"";
         [self.view endEditing:YES];
         [self.btnDineOpt setTitle:@"Dine In" forState:UIControlStateNormal];
-        
+        self.isDelivery=NO;
+
         [UIView animateWithDuration:0.5
                               delay:0.1
                             options: UIViewAnimationCurveEaseOut
@@ -969,6 +974,9 @@ NSMutableDictionary *dict=nil;
 
     }
     else {
+        
+        self.isDelivery=NO;
+
         self.addressId=@"";
         [self.view endEditing:YES];
 
@@ -1096,7 +1104,7 @@ NSMutableDictionary *dict=nil;
         @"Quantity":Quantity.text
         
     }];
-    if ([[Item_details valueForKey:@"is_delivery"] integerValue] ==1&& self.delivery_timeslotsArray.count>0) {
+    if (self.isDelivery && self.delivery_timeslotsArray.count>0) {
 
         [checkOutArr setValue:self.dateDropdownBtn.titleLabel.text forKey:@"timeslotsSelected"];
 
@@ -1196,7 +1204,6 @@ NSMutableDictionary *dict=nil;
 
     }
     
-    
 }
 -(IBAction)showTimeSlots:(UIButton*)sender{
     if (sender.tag<[self.delivery_timeslotsArray count]) {
@@ -1204,7 +1211,7 @@ NSMutableDictionary *dict=nil;
         [self.dateDropdownBtn setTitle:self.delivery_timeslotsArray[sender.tag] forState:UIControlStateNormal];
     }
     if (timeSlotsView == nil) {
-        timeSlotsView=[[UIScrollView alloc]initWithFrame:CGRectMake(self.dateDropdownBtn.frame.origin.x,self.dateDropdownBtn.frame.origin.y+24, self.dateDropdownBtn.frame.size.width, 100)];
+        timeSlotsView=[[UIScrollView alloc]initWithFrame:CGRectMake(self.dateDropdownBtn.frame.origin.x,self.dateDropdownBtn.frame.origin.y+24, self.dateDropdownBtn.frame.size.width, 60)];
         timeSlotsView.backgroundColor=[UIColor whiteColor];
         timeSlotsView.layer.borderWidth=1.0f;
         timeSlotsView.layer.borderColor=[UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1.0f].CGColor;
@@ -1618,13 +1625,15 @@ NSMutableDictionary *dict=nil;
             //first.origin.x=320;
             self.delivery_timeslotsArray=[NSArray arrayWithArray:checkOutArr[@"delivery_timeslots"]];
 
-            if ([[Item_details valueForKey:@"is_delivery"] integerValue] ==1&& self.delivery_timeslotsArray.count>0) {
+            if (self.isDelivery&& self.delivery_timeslotsArray.count>0) {
                 
                 [self.dateDropdownBtn setTitle:self.delivery_timeslotsArray[0] forState:UIControlStateNormal];
                 self.dateDropdownBtn.hidden=NO;
+                self.deliveryTimelbl.hidden=NO;
                 self.lblDate.hidden=YES;
             }else{
                 self.dateDropdownBtn.hidden=YES;
+                self.deliveryTimelbl.hidden=YES;
                 self.lblDate.hidden=NO;
             }
             

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -59,6 +60,7 @@
                 <outlet property="choseOfferBtn" destination="fPD-m8-qN0" id="9nN-i6-NLQ"/>
                 <outlet property="dateDropdownBtn" destination="Qzn-ce-VIM" id="o8d-xf-DR8"/>
                 <outlet property="deliveryImage" destination="a2b-ij-bmo" id="uXi-gH-RMM"/>
+                <outlet property="deliveryTimelbl" destination="A8C-aB-tm6" id="imb-PV-fif"/>
                 <outlet property="discountAmt_Order" destination="d90-70-cyD" id="TnQ-Wn-8NT"/>
                 <outlet property="discountamt_order_Left" destination="410-Tn-4mK" id="oDV-ff-uAQ"/>
                 <outlet property="dishImage2" destination="9mb-Wt-DzR" id="BnO-yM-CWL"/>
@@ -806,12 +808,12 @@
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Qzn-ce-VIM">
-                            <rect key="frame" x="111" y="153" width="161" height="22"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Qzn-ce-VIM">
+                            <rect key="frame" x="191" y="153" width="104" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.95085621840000001" green="0.95085621840000001" blue="0.95085621840000001" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                            <inset key="imageEdgeInsets" minX="134" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="86" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" image="newdropdown.png">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -850,6 +852,13 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delivery Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="A8C-aB-tm6">
+                            <rect key="frame" x="112" y="154" width="90" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>

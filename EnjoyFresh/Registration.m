@@ -833,7 +833,7 @@ static NSString *consumerKey=@"yIPITPHBFJ7CuwN857MvtGwflwF0ViZa7D3YEa78VjW9z98tx
             //            [self.navigationController pushViewController:dishes animated:YES];
         }
         else if ([strErrorMessage isEqualToString:@"User is not verified"]){
-            self.ahshucksPopup.frame=CGRectMake(0, 64, 320, 504);
+            self.ahshucksPopup.frame=CGRectMake(0, 44, 320, 504);
             [self.view addSubview:self.ahshucksPopup];
             [self.view bringSubviewToFront:self.ahshucksPopup];
             if (appDel.isFB) {

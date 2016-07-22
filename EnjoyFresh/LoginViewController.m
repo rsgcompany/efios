@@ -1066,7 +1066,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
         else if([strErrorMessage isEqualToString:@"User is not verified"])
         {
             //[GlobalMethods showAlertwithString: @"Email already taken! Please use a different email address."];
-            self.ahshucksView.frame=CGRectMake(0, 64,self.ahshucksView.frame.size.width, self.ahshucksView.frame.size.height);
+            self.ahshucksView.frame=CGRectMake(0, 44,self.ahshucksView.frame.size.width, self.ahshucksView.frame.size.height);
             [self.view addSubview:self.ahshucksView];
             [self.view bringSubviewToFront:self.ahshucksView];
 
