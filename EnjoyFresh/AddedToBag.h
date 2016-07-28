@@ -95,7 +95,7 @@
     UIView *datesView;
     NSMutableArray *datesArray;
     NSArray *arrayDate;
-    int selectedIndx;
+    int selectedIndx,selectedTimeSlot;
     UIScrollView *tipsView,*timeSlotsView;
     
     IBOutlet UIView *promoView,*tipSubView;

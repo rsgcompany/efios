@@ -1096,6 +1096,12 @@ NSMutableDictionary *dict=nil;
 
 -(IBAction)checkoutClicked:(id)sender
 {
+    if (selectedTimeSlot==0) {
+        
+        [GlobalMethods showAlertwithString:@"Please select time slots"];
+        return;
+    }
+    
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
     
     [mixpanel track:@"Order Button Clicked_iOSMobile" properties:@ {
@@ -1128,6 +1134,12 @@ NSMutableDictionary *dict=nil;
 -(IBAction)showTipsView{
     
     if (tipsView == nil) {
+        
+        if (timeSlotsView!=nil) {
+            [timeSlotsView removeFromSuperview];
+            timeSlotsView=nil;
+            
+        }
         tipsView=[[UIScrollView alloc]initWithFrame:CGRectMake(self.btnTips.frame.origin.x+tipSubView.frame.origin.x,tipSubView.frame.origin.y+self.btnTips.frame.origin.y+24, self.btnTips.frame.size.width, 100)];
         tipsView.backgroundColor=[UIColor whiteColor];
         tipsView.layer.borderWidth=1.0f;
@@ -1206,18 +1218,24 @@ NSMutableDictionary *dict=nil;
     
 }
 -(IBAction)showTimeSlots:(UIButton*)sender{
+    selectedTimeSlot=sender.tag;
     if (sender.tag<[self.delivery_timeslotsArray count]) {
         
         [self.dateDropdownBtn setTitle:self.delivery_timeslotsArray[sender.tag] forState:UIControlStateNormal];
     }
     if (timeSlotsView == nil) {
+        if (tipsView!=nil) {
+            [tipsView removeFromSuperview];
+            tipsView=nil;
+            
+        }
         timeSlotsView=[[UIScrollView alloc]initWithFrame:CGRectMake(self.dateDropdownBtn.frame.origin.x,self.dateDropdownBtn.frame.origin.y+24, self.dateDropdownBtn.frame.size.width, 60)];
         timeSlotsView.backgroundColor=[UIColor whiteColor];
         timeSlotsView.layer.borderWidth=1.0f;
         timeSlotsView.layer.borderColor=[UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1.0f].CGColor;
         
         [checkOutVw addSubview:timeSlotsView];
-        float Yaxis=1;
+        float Yaxis=-20;
         
         for (int i=0; i<self.delivery_timeslotsArray.count; i++) {
             
@@ -1624,7 +1642,7 @@ NSMutableDictionary *dict=nil;
             CGRect first=firstScren.frame;
             //first.origin.x=320;
             self.delivery_timeslotsArray=[NSArray arrayWithArray:checkOutArr[@"delivery_timeslots"]];
-
+            selectedTimeSlot=0;
             if (self.isDelivery&& self.delivery_timeslotsArray.count>0) {
                 
                 [self.dateDropdownBtn setTitle:self.delivery_timeslotsArray[0] forState:UIControlStateNormal];
