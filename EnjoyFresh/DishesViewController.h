@@ -51,7 +51,7 @@
     NSString *selCat;
     UIActionSheet *action;
     NSString *dietryStr;
-    NSArray *dishesArr,*dishesCopyArr;
+    NSMutableArray *dishesArr,*dishesCopyArr;
     NSMutableArray *arr1;
     NSMutableArray *array;
     BOOL sliderFirst;
@@ -87,6 +87,8 @@
     NSArray *arrayDates;
     DIshesCustomCell *cellToChange;
     NSString *drpSelDate;
+    
+    BOOL isFetchAll,isLoadMoreData;
 }
 
 @property (strong, nonatomic) IBOutlet UILabel *lblHeadLoc;

@@ -21,7 +21,7 @@
 #include <stdlib.h>
 
 //#define int Cell_height=430;
-
+NSInteger const DishCountPerRequest =10;
 BOOL senderFlag=NO;
 OrderConfirmationView *ordCnfView;
 NSMutableDictionary *dict;
@@ -42,6 +42,7 @@ CGPoint location;
 @property(nonatomic)CGPoint lastContentOffset;
 @property(nonatomic)NSMutableArray *duplicateDatesArray,*availableDatesArray;
 @property(nonatomic)BOOL isNOTFirstLunch;
+@property(nonatomic)NSInteger dishIndex;
 @end
 static UIColor *favcolor;
 static UIColor *unfavcolor;
@@ -62,6 +63,8 @@ typedef void(^Completion)(NSDictionary*);
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
     self.duplicateDatesArray=[NSMutableArray new];
     self.availableDatesArray=[NSMutableArray new];
+    self.dishesArr=[NSMutableArray new];
+    self.dishesCopyArr=[NSMutableArray new];
     // Do any additional setup after loading the view from its nib.
     [self.navigationController setNavigationBarHidden:YES];
     _payPalConfig = [[PayPalConfiguration alloc] init];
@@ -71,7 +74,7 @@ typedef void(^Completion)(NSDictionary*);
     IsInitialLoad = YES;
     
     CurrentButtonTag = 0;
-
+    self.dishIndex=1;
     dishes_Tbl.delegate=self;
     dishes_Tbl.dataSource=self;
     
@@ -148,6 +151,12 @@ typedef void(^Completion)(NSDictionary*);
     selCat=@"All";
     pickerSelIndex=0;
     
+   UIActivityIndicatorView *indicatorFooter = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(dishes_Tbl.frame), 44)];
+    [indicatorFooter setColor:[UIColor blackColor]];
+    [indicatorFooter startAnimating];
+    [dishes_Tbl setTableFooterView:indicatorFooter];
+    
+    isLoadMoreData=YES;
 //    self.lowerLabel.center = CGPointMake(38.5, 107.5);
 //    self.upperLabel.center = CGPointMake(160.5, 107.5);
     
@@ -508,13 +517,13 @@ typedef void(^Completion)(NSDictionary*);
     if([CLLocationManager locationServicesEnabled] &&
        [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied && locationZIp!=nil)
     {
-        urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=%@&min=0&max=75&findNearMe=1",locationZIp];
+        urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=%@&min=0&max=75&findNearMe=1&fromIndex=%d",locationZIp,_dishIndex];
     }
     else{
         if([zipCd length])
-            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?accessToken=%@&zip=%@&min=%@&max=%@",appDel.accessToken,zipCd,lowerLabel.text,upperLabel.text];
+            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?accessToken=%@&zip=%@&min=%@&max=%@&fromIndex=%d",appDel.accessToken,zipCd,lowerLabel.text,upperLabel.text,_dishIndex];
         else
-            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=94101&min=0&max=25"];
+            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=94101&min=0&max=25&fromIndex=%d",_dishIndex];
     }
     
     
@@ -558,17 +567,16 @@ typedef void(^Completion)(NSDictionary*);
     if([CLLocationManager locationServicesEnabled] &&
        [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied && locationZIp!=nil)
     {
-        urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=%@&min=0&max=75&findNearMe=1",locationZIp];
+        urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=%@&min=0&max=75&findNearMe=1&fromIndex=%d",locationZIp,_dishIndex];
     }
     else{
         if([zipCd length])
-            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?accessToken=%@&zip=%@&min=%@&max=%@",appDel.accessToken,zipCd,lowerLabel.text,upperLabel.text];
+            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?accessToken=%@&zip=%@&min=%@&max=%@&fromIndex=%d",appDel.accessToken,zipCd,lowerLabel.text,upperLabel.text,_dishIndex];
         else
-            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=94101&min=0&max=25"];
+            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=94101&min=0&max=25&fromIndex=%d",_dishIndex];
     }
     [parser parseAndGetDataForGetMethod:urlquerystring];
     urlquerystring=nil;
-    
 }
 
 -(void)getdefaultDishesforZip
@@ -582,7 +590,7 @@ typedef void(^Completion)(NSDictionary*);
         [hud show:YES];
         [self.view addSubview:hud];
     }
-    NSString *urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=94101&min=0&max=25"];
+    NSString *urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=94101&min=0&max=25&fromIndex=%d",_dishIndex];
     [parser parseAndGetDataForGetMethod:urlquerystring];
     urlquerystring=nil;
 }
@@ -840,11 +848,24 @@ typedef void(^Completion)(NSDictionary*);
             {
                 withRatingCount=0;
                 withoutRatingCount=0;
-                dishesArr =[result valueForKey:@"message"];
+                NSArray *tempArray=[result valueForKey:@"message"];
+                if (isLoadMoreData) {
+                    
+                    isLoadMoreData=NO;
+                    dishes_Tbl.tableFooterView.hidden = YES;
+
+                }
+                if (isFetchAll) {
+                    isFetchAll=NO;
+                    [dishesArr removeAllObjects];
+                    [dishesCopyArr removeAllObjects];
+                    
+                }
+                [dishesArr addObjectsFromArray:tempArray];
 //                NSPredicate *pred=[NSPredicate predicateWithFormat:@"available = '1' && order_by_date <= avail_by_date && qty != '0'"];
 //                dishesArr=[dishesArr filteredArrayUsingPredicate:pred];
-                dishesCopyArr=dishesArr;
-                dishesCopyArr=[result valueForKey:@"message"];
+
+                [dishesCopyArr addObjectsFromArray:tempArray];
                 //NSLog(@"Dishes Details: %@",  dishesArr);
                 [ offeringTypeArr addObjectsFromArray:(NSMutableArray *)[dishesArr valueForKey:@"offering_types"]];
                 //[offeringTypeArr removeObjectIdenticalTo:[NSNull null]];
@@ -913,7 +934,20 @@ typedef void(^Completion)(NSDictionary*);
             }
             else
             {
-                
+                NSArray *tempArray=[result valueForKey:@"message"];
+                if (isLoadMoreData) {
+                    
+                    isLoadMoreData=NO;
+                    dishes_Tbl.tableFooterView.hidden = YES;
+                    
+                }
+                if (isFetchAll) {
+                    isFetchAll=NO;
+                    [dishesArr removeAllObjects];
+                    [dishesCopyArr removeAllObjects];
+                    
+                }
+
                 dishesArr =[result valueForKey:@"dishes"];
                 NSPredicate *pred=[NSPredicate predicateWithFormat:@"available = '1' && order_by_date < avail_by_date && qty != '0'"];
                 dishesArr=[dishesArr filteredArrayUsingPredicate:pred];
@@ -1548,9 +1582,8 @@ typedef void(^Completion)(NSDictionary*);
 #pragma mark
 #pragma mark - ScrollView Delegates
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//    if(!IS_IPHONE5){
-//        [dishes_Tbl setFrame:CGRectMake(0, 64, 320, self.view.frame.size.height-64)];
-//    }
+
+    
     [self HideShareView];
     UISearchBar *searchBar = search_bar;
     CGRect rect = searchBar.frame;
@@ -1579,7 +1612,30 @@ typedef void(^Completion)(NSDictionary*);
     }
     self.lastContentOffset = currentOffset;
 
+    if ((scrollView.contentOffset.y + scrollView.frame.size.height) >= scrollView.contentSize.height)
+    {
+        if (!isLoadMoreData)
+        {
+            isLoadMoreData = YES;
+
+            dishes_Tbl.tableFooterView.hidden = NO;
+            _dishIndex=_dishIndex+DishCountPerRequest;
+            [self getDishes];
+
+
+        }
+    }}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    float endScrolling = scrollView.contentOffset.y + scrollView.frame.size.height;
+    if (endScrolling >= scrollView.contentSize.height)
+    {
+        NSLog(@"Scroll End Called");
+
+    }
 }
+
 
 #pragma mark
 #pragma mark - Button Actions
@@ -1923,7 +1979,7 @@ typedef void(^Completion)(NSDictionary*);
             parseInt=11;
             
             
-            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=%@&min=0&max=75&findNearMe=1",locationZIp];
+            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=%@&min=0&max=75&findNearMe=1&fromIndex=%d",locationZIp,_dishIndex];
             [parser parseAndGetDataForGetMethod:urlquerystring];
             urlquerystring=nil;
             
