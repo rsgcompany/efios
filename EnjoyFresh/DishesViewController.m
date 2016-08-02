@@ -2201,9 +2201,7 @@ typedef void(^Completion)(NSDictionary*);
     
     [self showHUD];
 
-    [self getAllMYDishes:^(BOOL *sucess) {
-        
-        
+    if(_dishIndex==999){
         UIButton *btnTemp = (UIButton *)sender;
         int bTag = (int)btnTemp.tag;
         NSString *str=btnTemp.titleLabel.text;
@@ -2395,9 +2393,206 @@ typedef void(^Completion)(NSDictionary*);
             
             [self performSelector:@selector(hudWasHidden:) withObject:nil afterDelay:4];
         });
-
-        
-    }];
+    }else{
+        [self getAllMYDishes:^(BOOL *sucess) {
+            
+            
+            UIButton *btnTemp = (UIButton *)sender;
+            int bTag = (int)btnTemp.tag;
+            NSString *str=btnTemp.titleLabel.text;
+            
+            NSLog(@"string:%@",str);
+            //refine array
+            selCat=str;
+            [self SetDefaultOptionColors];
+            
+            NSPredicate *veganPredict = nil;
+            NSPredicate *vegetarianPredict = nil;
+            NSPredicate *glutenPredict = nil;
+            NSPredicate *organicPredict = nil;
+            NSPredicate *localPredict = nil;
+            NSString *predictString = @"";
+            
+            dispatch_async( dispatch_get_main_queue(), ^{
+                
+                [self setImages];
+                [self resetImagesDel];
+                NSArray *temparray=nil;
+                NSMutableArray *compArr;
+                NSMutableArray *arr=[NSMutableArray new];
+                [dishes_Tbl reloadData];
+                
+                switch (switchTag) {
+                    case 11:
+                        
+                    {
+                        if([selCat isEqualToString:@"All"])
+                        {
+                            if([dietryStr length])
+                            {
+                                NSPredicate *prediate1=[NSPredicate predicateWithFormat:@"ANY dietary IN (%@)",dietryStr];
+                                NSPredicate *prediate2=[NSPredicate predicateWithFormat:@"restaurant_location.distance >= %f && restaurant_location.distance <= %f",[lowerLabel.text floatValue],[upperLabel.text floatValue]];
+                                
+                                compArr = [[NSMutableArray alloc] init];
+                                
+                                if(veganPredict)
+                                {
+                                    [compArr addObject:veganPredict];
+                                }
+                                
+                                if(vegetarianPredict)
+                                {
+                                    [compArr addObject:vegetarianPredict];
+                                }
+                                
+                                if(localPredict)
+                                {
+                                    [compArr addObject:localPredict];
+                                }
+                                
+                                if(glutenPredict)
+                                {
+                                    [compArr addObject:glutenPredict];
+                                }
+                                
+                                if(organicPredict)
+                                {
+                                    [compArr addObject:organicPredict];
+                                }
+                                
+                                [compArr addObject:prediate2];
+                                
+                                NSPredicate *compoundPredicate =
+                                [NSCompoundPredicate andPredicateWithSubpredicates:@[prediate1,prediate2]];
+                                
+                                compoundPredicate= [NSCompoundPredicate andPredicateWithSubpredicates:compArr];
+                                
+                                dishesArr=[dishesCopyArr filteredArrayUsingPredicate:compoundPredicate];
+                            }
+                            else
+                                dishesArr=dishesCopyArr;
+                            [self changeForButton:btnTemp];
+                            
+                        }
+                        else
+                        {
+                            
+                            NSPredicate *pred=[NSPredicate predicateWithFormat:@"category.title == %@",selCat];
+                            
+                            NSArray *array=[[NSArray alloc]init];
+                            
+                            array=[dishesCopyArr filteredArrayUsingPredicate:pred];
+                            
+                            if ([array count]==0) {
+                                UIAlertView *alert=[[UIAlertView alloc]initWithTitle:AppTitle message:@"There are no dishes available for your specification" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+                                [alert show];
+                            }
+                            else{
+                                if([dietryStr length]){
+                                    dishesArr=[dishesArr filteredArrayUsingPredicate:pred];
+                                }else{
+                                    dishesArr=[dishesCopyArr filteredArrayUsingPredicate:pred];
+                                }
+                                [self changeForButton:btnTemp];
+                                NSPredicate *pred1=[NSPredicate predicateWithFormat:@"ANY future_available_dates.avail_by_date == %@",selectedDate];
+                                
+                            }
+                            
+                        }
+                        withRatingCount=0;
+                        withoutRatingCount=0;
+                        
+                        [dishes_Tbl reloadData];
+                        
+                        [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+                        [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+                    }
+                        [self.duplicateDatesArray removeAllObjects];
+                        temparray=[dishesArr valueForKey:@"future_available_dates"];
+                        
+                        [self.availableDatesArray removeAllObjects];
+                        [self.availableDatesArray addObjectsFromArray:[dishesArr valueForKey:@"order_by_date"]];
+                        
+                        [self.duplicateDatesArray addObjectsFromArray:temparray];
+                        [self filteruniqueAvailabledate];
+                        break;
+                        
+                    case 33:
+                    {
+                        dietryStr=str;
+                        array=[[NSMutableArray alloc]init];
+                        [array addObject:str];
+                        if ([array count])
+                        {
+                            
+                            //  NSPredicate *pred2=[NSPredicate predicateWithFormat:@"restaurant_location.distance >= %f && restaurant_location.distance <= %f",[lowerLabel.text floatValue],[upperLabel.text floatValue]];
+                            NSPredicate * predict =
+                            [NSPredicate predicateWithFormat:@"dietary contains[c] %@",dietryStr];
+                            compArr = [[NSMutableArray alloc] init];
+                            [compArr addObject:predict];
+                            NSArray *array=[[NSArray alloc]init];
+                            
+                            array=[dishesCopyArr filteredArrayUsingPredicate:predict];
+                            
+                            arr=nil;
+                            if ([array count]==0) {
+                                UIAlertView *alert=[[UIAlertView alloc]initWithTitle:AppTitle message:@"There are no dishes available for your specification" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+                                [alert show];
+                            }
+                            else{
+                                [self changeForButton:btnTemp];
+                                
+                                NSPredicate *compoundPredicate= [NSCompoundPredicate andPredicateWithSubpredicates:compArr];
+                                dishesArr=[dishesCopyArr filteredArrayUsingPredicate:compoundPredicate];
+                                
+                                [dishes_Tbl reloadData];
+                                [dishes_Tbl setFrame:CGRectMake(0,250, 320, Cell_height*[dishesArr count]+ 289)];
+                                [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289)];
+                            }
+                            
+                        }
+                        else
+                        {
+                            dishesArr=[dishesCopyArr copy];
+                            dietryStr=@"";
+                            [dishes_Tbl setFrame:CGRectMake(0,250, 320, Cell_height*[dishesArr count]+ 289)];
+                            [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289)];
+                        }
+                        array=nil;
+                        dietryStr=nil;
+                        [dishes_Tbl reloadData];
+                        [dishes_Tbl setFrame:CGRectMake(0,250, 320, Cell_height*[dishesArr count]+ 289)];
+                        [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289)];
+                    }
+                        [self.duplicateDatesArray removeAllObjects];
+                        
+                        temparray=[dishesArr valueForKey:@"future_available_dates"];
+                        
+                        [self.availableDatesArray removeAllObjects];
+                        [self.availableDatesArray addObjectsFromArray:[dishesArr valueForKey:@"order_by_date"]];
+                        
+                        [self.duplicateDatesArray addObjectsFromArray:temparray];
+                        [self filteruniqueAvailabledate];
+                        
+                        break;
+                    case 44:
+                    {
+                        parseInt=2;
+                        [self getDishes];
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+                [self performSelector:@selector(hudWasHidden:) withObject:nil afterDelay:4];
+            });
+            
+            
+        }];
+    }
+    
     
 }
 
