@@ -87,7 +87,7 @@
     NSArray *arrayDates;
     DIshesCustomCell *cellToChange;
     NSString *drpSelDate;
-    
+    NSInteger totalDishcount;
     BOOL isFetchAll,isLoadMoreData;
 }
 
