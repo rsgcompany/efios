@@ -1612,7 +1612,7 @@ typedef void(^Completion)(NSDictionary*);
     }
     self.lastContentOffset = currentOffset;
 
-    if ((scrollView.contentOffset.y + scrollView.frame.size.height) >= scrollView.contentSize.height)
+    if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height)
     {
         if (!isLoadMoreData)
         {
