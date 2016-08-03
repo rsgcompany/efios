@@ -110,6 +110,7 @@
 		04A57E071CF2F1C100D1EDE1 /* JSONSyntaxHighlight.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A57E031CF2F1C100D1EDE1 /* JSONSyntaxHighlight.m */; };
 		04A57E081CF2F1C100D1EDE1 /* STHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A57E051CF2F1C100D1EDE1 /* STHTTPRequest.m */; };
 		04AE0DDB1CCF177100E0F231 /* xclose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AE0DDA1CCF177100E0F231 /* xclose@2x.png */; };
+		04C717931D51434600603593 /* UIScrollView+DXRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C717921D51434600603593 /* UIScrollView+DXRefresh.m */; };
 		04D60FF7199C02BD00D4A10A /* SettingViewController_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D60FF3199C02BD00D4A10A /* SettingViewController_iPhone4.xib */; };
 		04D60FF8199C02BD00D4A10A /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D60FF5199C02BD00D4A10A /* SettingViewController.m */; };
 		04D6100C199C046F00D4A10A /* Notifications_Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D61000199C046F00D4A10A /* Notifications_Icon@2x.png */; };
@@ -553,6 +554,8 @@
 		04A57E041CF2F1C100D1EDE1 /* STHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STHTTPRequest.h; sourceTree = "<group>"; };
 		04A57E051CF2F1C100D1EDE1 /* STHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STHTTPRequest.m; sourceTree = "<group>"; };
 		04AE0DDA1CCF177100E0F231 /* xclose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xclose@2x.png"; sourceTree = "<group>"; };
+		04C717911D51434600603593 /* UIScrollView+DXRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+DXRefresh.h"; sourceTree = "<group>"; };
+		04C717921D51434600603593 /* UIScrollView+DXRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+DXRefresh.m"; sourceTree = "<group>"; };
 		04D60FF3199C02BD00D4A10A /* SettingViewController_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController_iPhone4.xib; sourceTree = "<group>"; };
 		04D60FF4199C02BD00D4A10A /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		04D60FF5199C02BD00D4A10A /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
@@ -1174,6 +1177,8 @@
 				043362631CD901E200493C24 /* TPKeyboardAvoidingScrollView.m */,
 				043362641CD901E200493C24 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
 				043362651CD901E200493C24 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+				04C717911D51434600603593 /* UIScrollView+DXRefresh.h */,
+				04C717921D51434600603593 /* UIScrollView+DXRefresh.m */,
 				47363EF31BDFBA13005B73F9 /* images.xcassets */,
 				47D5FFE71B1F27B30006CDA3 /* images */,
 				0414DB7719A3D9F00027CE58 /* Slider */,
@@ -2234,6 +2239,7 @@
 				0468FF8D19A108470018C40B /* EHDragOutViewTopToBottomStrategy.m in Sources */,
 				0468FF9A19A108890018C40B /* FideMeViewController.m in Sources */,
 				040995BD1CE9F26E00AE6864 /* AFHTTPRequestOperationManager.m in Sources */,
+				04C717931D51434600603593 /* UIScrollView+DXRefresh.m in Sources */,
 				0418087419BD97D800808149 /* Registration.m in Sources */,
 				5EBB257119F143D5009D7BAE /* CardDetails.m in Sources */,
 				043477811996053F00B04ABE /* SBJsonParser.m in Sources */,

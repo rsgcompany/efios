@@ -24,7 +24,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 #import "DIshesCustomCell.h"
-
+#import "UIScrollView+DXRefresh.h"
 #define stars @"★★★★★"
 
 @class AddedToBag;
