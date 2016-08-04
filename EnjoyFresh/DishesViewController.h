@@ -88,7 +88,7 @@
     DIshesCustomCell *cellToChange;
     NSString *drpSelDate;
     NSInteger totalDishcount;
-    BOOL isFetchAll,isLoadMoreData;
+    BOOL isFetchAll,isLoadingMoreData;
 }
 
 @property (strong, nonatomic) IBOutlet UILabel *lblHeadLoc;

@@ -22,6 +22,9 @@
 
 //#define int Cell_height=430;
 NSInteger const DishCountPerRequest =10;
+NSInteger const ExpandRefine =200;
+NSInteger const ExpandCalender =370;
+
 BOOL senderFlag=NO;
 OrderConfirmationView *ordCnfView;
 NSMutableDictionary *dict;
@@ -154,7 +157,7 @@ typedef void(^Completion)(NSDictionary*);
     pickerSelIndex=0;
     
     
-    isLoadMoreData=YES;
+    isLoadingMoreData=NO;
 
     [self.scrollView addFooterWithTarget:self action:@selector(bottomRefresh)];
 
@@ -248,11 +251,11 @@ typedef void(^Completion)(NSDictionary*);
 }
 -(void)bottomRefresh{
     
-
+    if (_dishIndex!=999 && !isLoadingMoreData) {
+        isLoadingMoreData=YES;
         _dishIndex=_dishIndex+DishCountPerRequest;
         [self getDishes];
-    
-
+    }
 }
 - (void)appDidBecomeActive:(NSNotification *)notification {
     NSLog(@"did become active notification");
@@ -495,16 +498,17 @@ typedef void(^Completion)(NSDictionary*);
     [dishes_Tbl setFrame:CGRectMake(0, 89, 320, 480)];
 
     //[dishes_Tbl setFrame:CGRectMake(0.0f, 89.0f, 320.0f,Cell_height*withRatingCount+390*withoutRatingCount)];
-    [self.scrollView setContentSize:CGSizeMake(320,Cell_height*withRatingCount+390*withoutRatingCount+90)];
+    [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.frame.size.height+90)];
     //[dishes_Tbl reloadData];
 
-    
+    _dishIndex=999;
+    isFetchAll=YES;
 
-//    [[NSURLCache sharedURLCache] removeAllCachedResponses];
-//    
-//    SDImageCache *imageCache = [SDImageCache sharedImageCache];
-//    [imageCache clearMemory];
-//    [imageCache clearDisk];
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    
+    SDImageCache *imageCache = [SDImageCache sharedImageCache];
+    [imageCache clearMemory];
+    [imageCache clearDisk];
     
     NSString *zipCd=[[[NSUserDefaults standardUserDefaults]valueForKey:@"UserProfile"]valueForKey:@"zipcode"];
     
@@ -542,12 +546,9 @@ typedef void(^Completion)(NSDictionary*);
             
         }
     }
-    
-    
+
     [parser parseAndGetDataForGetMethod:urlquerystring];
     urlquerystring=nil;
-
-    
 }
 
 
@@ -556,12 +557,11 @@ typedef void(^Completion)(NSDictionary*);
     NSLog(@"Access Token: %@", appDel.accessToken);
     parseInt=2;
 
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+//    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     
-    SDImageCache *imageCache = [SDImageCache sharedImageCache];
-    [imageCache clearMemory];
-    [imageCache clearDisk];
-    
+//    SDImageCache *imageCache = [SDImageCache sharedImageCache];
+//    [imageCache clearMemory];
+//    [imageCache clearDisk];
     
     if (hud==nil)
     {
@@ -573,13 +573,9 @@ typedef void(^Completion)(NSDictionary*);
     }
     
     NSString *zipCd=[[[NSUserDefaults standardUserDefaults]valueForKey:@"UserProfile"]valueForKey:@"zipcode"];
-    
     zipCd = appDel.CurrentCustomerDetails.user_zipcode;
-    
     NSString *urlquerystring;
-    
     NSString *locationZIp=[addrFromLocation valueForKey:@"ZIP"];
-
     
     if([CLLocationManager locationServicesEnabled] &&
        [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied && locationZIp!=nil)
@@ -805,9 +801,9 @@ typedef void(^Completion)(NSDictionary*);
                 datesArray=[[NSMutableArray alloc]init];
                 dishesArr =[result valueForKey:@"message"];
                 NSArray *tempArray=[result valueForKey:@"message"];
-                if (isLoadMoreData) {
+                if (isLoadingMoreData) {
                     
-                    isLoadMoreData=NO;
+                    isLoadingMoreData=NO;
                     
                 }
                 if (isFetchAll|| _dishIndex==999) {
@@ -833,8 +829,8 @@ typedef void(^Completion)(NSDictionary*);
                 [offeringTypeArr removeAllObjects];
                 
                 [offeringTypeArr addObjectsFromArray:[catSet1 allObjects]];
-                NSArray *arr1=[NSArray array];
-                [offeringTypeArr removeObject:arr1];
+                //NSArray *arr1=[NSArray array];
+                //[offeringTypeArr removeObject:arr1];
                 
                 //////////////////////////////
                 
@@ -859,8 +855,8 @@ typedef void(^Completion)(NSDictionary*);
                 }
                 arr=nil;
                 
-                    [dishes_Tbl setFrame:CGRectMake(0,89, 320,(Cell_height*withRatingCount+390*withoutRatingCount))];
-                    [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+80)];
+                    [dishes_Tbl setFrame:CGRectMake(0,89, 320,dishes_Tbl.contentSize.height)];
+                    [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+80)];
                 
                 NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(caseInsensitiveCompare:)];
                 
@@ -905,9 +901,9 @@ typedef void(^Completion)(NSDictionary*);
                 withRatingCount=0;
                 withoutRatingCount=0;
                 NSArray *tempArray=[result valueForKey:@"message"];
-                if (isLoadMoreData) {
+                if (isLoadingMoreData) {
                     
-                    isLoadMoreData=NO;
+                    isLoadingMoreData=NO;
 
                 }
                 if (isFetchAll|| _dishIndex==999) {
@@ -932,8 +928,8 @@ typedef void(^Completion)(NSDictionary*);
                 [offeringTypeArr removeAllObjects];
 
                 [offeringTypeArr addObjectsFromArray:[catSet1 allObjects]];
-                NSArray *arr1=[NSArray array];
-                [offeringTypeArr removeObject:arr1];
+                //NSArray *arr1=[NSArray array];
+                //[offeringTypeArr removeObject:arr1];
                 
                 //////////////////////////////
                 
@@ -963,13 +959,13 @@ typedef void(^Completion)(NSDictionary*);
                     }
                 arr=nil;
                 if (switchTag) {
-                    [dishes_Tbl setFrame:CGRectMake(0,250, 320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-                    [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+                    [dishes_Tbl setFrame:CGRectMake(0,250, 320,dishes_Tbl.contentSize.height)];
+                    [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+ 289)];
                     
                 }
                 else{
-                   [dishes_Tbl setFrame:CGRectMake(0,89, 320,(Cell_height*withRatingCount+390*withoutRatingCount))];
-                   [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+80)];
+                   [dishes_Tbl setFrame:CGRectMake(0,89, 320,dishes_Tbl.contentSize.height)];
+                   [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+80)];
                 }
                 NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(caseInsensitiveCompare:)];
                 
@@ -1002,7 +998,7 @@ typedef void(^Completion)(NSDictionary*);
                 
                 
                 if (isFetchAll) {
-                    isFetchAll=NO;
+
                     [dishesArr removeAllObjects];
                     [dishesCopyArr removeAllObjects];
                     
@@ -1789,6 +1785,7 @@ typedef void(^Completion)(NSDictionary*);
      }];
 }
 - (IBAction)refineSearchMethod:(id)sender {
+    
     [self.view endEditing:YES];
     [self showHUD];
     withRatingCount=0;
@@ -1805,8 +1802,8 @@ typedef void(^Completion)(NSDictionary*);
             
             [dishes_Tbl reloadData];
             
-            [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-            [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+            [dishes_Tbl setFrame:CGRectMake(0,250, 320, dishes_Tbl.contentSize.height)];
+            [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+ ExpandRefine)];
             switchTag=(int)[sender tag];
             [self cusineArray];
             
@@ -1828,8 +1825,8 @@ typedef void(^Completion)(NSDictionary*);
         else if([sender tag] == 22){
             [dishes_Tbl reloadData];
             
-            [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-            [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+            [dishes_Tbl setFrame:CGRectMake(0,250, 320, dishes_Tbl.contentSize.height)];
+            [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+ 289)];
             // [self resetOfferings]
             // [self setImages];
             self.cuisineDietaryView.hidden=YES;
@@ -1857,8 +1854,8 @@ typedef void(^Completion)(NSDictionary*);
         else if ([sender tag] == 33){
             [dishes_Tbl reloadData];
             
-            [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-            [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+            [dishes_Tbl setFrame:CGRectMake(0,250, 320, dishes_Tbl.contentSize.height)];
+            [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+ ExpandRefine)];
             self.cuisineDietaryView.hidden=NO;
             self.sliderOfferingView.hidden=YES;
             self.calendarView.hidden=YES;
@@ -1886,8 +1883,8 @@ typedef void(^Completion)(NSDictionary*);
         else if ([sender tag] == 44){
             [dishes_Tbl reloadData];
             
-            [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-            [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+            [dishes_Tbl setFrame:CGRectMake(0,250, 320, dishes_Tbl.contentSize.height)];
+            [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+ ExpandRefine)];
             [self configureLabelSlider ];
             [self updateSliderLabels];
             self.cuisineDietaryView.hidden=YES;
@@ -1944,8 +1941,8 @@ typedef void(^Completion)(NSDictionary*);
             [self.calendarView addSubview:calendar];
             //        [self.calendarView bringSubviewToFront:self.tempView];
             [self.calendarView sendSubviewToBack:calendar];
-            [dishes_Tbl setFrame:CGRectMake(0,295+146, 320, Cell_height*[dishesArr count]+ 289)];
-            [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289+146)];
+            [dishes_Tbl setFrame:CGRectMake(0,295+146, 320,dishes_Tbl.contentSize.height)];
+            [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+ExpandCalender)];
             
             
             [self.btnDistance setAlpha:1.0f];
@@ -1977,8 +1974,8 @@ typedef void(^Completion)(NSDictionary*);
     [dishesArr addObjectsFromArray: [dishesCopyArr copy]];
     [dishes_Tbl reloadData];
     
-    [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-    [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+    [dishes_Tbl setFrame:CGRectMake(0,250, 320, dishes_Tbl.contentSize.height)];
+    [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+ 289)];
     [self dietaryArray];
 }
 
@@ -2210,18 +2207,26 @@ typedef void(^Completion)(NSDictionary*);
 }
 -(void)getAllMYDishes:(getAllDishesWithCompletion)compeltion{
     
+    //Resetting all values
+    switchTag=0;
+    selectedDate=nil;
+    withRatingCount=0;
+    withoutRatingCount=0;
+    refineflag=NO;
+    allflag=NO;
+    clearClick=YES;
+    
     _dishIndex=999;
     isFetchAll=YES;
-    [self getDishes];
     [self setGetalldishes:compeltion];
     [self getDishes];
+
 }
 -(void)refineSelector:(id)sender{
     
     [self showHUD];
     [dishesArr removeAllObjects];
 
-    if(_dishIndex==999){
         UIButton *btnTemp = (UIButton *)sender;
         int bTag = (int)btnTemp.tag;
         NSString *str=btnTemp.titleLabel.text;
@@ -2330,8 +2335,8 @@ typedef void(^Completion)(NSDictionary*);
                     
                     [dishes_Tbl reloadData];
                     
-                    [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-                    [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
+                    [dishes_Tbl setFrame:CGRectMake(0,250, 320, dishes_Tbl.contentSize.height)];
+                    [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+ ExpandRefine)];
                 }
                     [self.duplicateDatesArray removeAllObjects];
                     temparray=[dishesArr valueForKey:@"future_available_dates"];
@@ -2372,24 +2377,23 @@ typedef void(^Completion)(NSDictionary*);
                             [dishesArr addObjectsFromArray: [dishesCopyArr filteredArrayUsingPredicate:compoundPredicate]];
                             
                             [dishes_Tbl reloadData];
-                            [dishes_Tbl setFrame:CGRectMake(0,250, 320, Cell_height*[dishesArr count]+ 289)];
-                            [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289)];
+                            [dishes_Tbl setFrame:CGRectMake(0,250, 320, dishes_Tbl.contentSize.height)];
+                            [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+ ExpandRefine)];
                         }
-                        
                     }
                     else
                     {
                         [dishesArr removeAllObjects];
                         [dishesArr addObjectsFromArray: [dishesCopyArr copy]];
                         dietryStr=@"";
-                        [dishes_Tbl setFrame:CGRectMake(0,250, 320, Cell_height*[dishesArr count]+ 289)];
-                        [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289)];
+                        [dishes_Tbl setFrame:CGRectMake(0,250, 320, dishes_Tbl.contentSize.height)];
+                        [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+ 289)];
                     }
                     array=nil;
                     dietryStr=nil;
                     [dishes_Tbl reloadData];
-                    [dishes_Tbl setFrame:CGRectMake(0,250, 320, Cell_height*[dishesArr count]+ 289)];
-                    [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289)];
+                    [dishes_Tbl setFrame:CGRectMake(0,250, 320, dishes_Tbl.contentSize.height)];
+                    [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+ ExpandRefine)];
                 }
                     [self.duplicateDatesArray removeAllObjects];
                     
@@ -2415,207 +2419,6 @@ typedef void(^Completion)(NSDictionary*);
             
             [self performSelector:@selector(hudWasHidden:) withObject:nil afterDelay:4];
         });
-    }else{
-        [self getAllMYDishes:^(BOOL *sucess) {
-            
-            
-            UIButton *btnTemp = (UIButton *)sender;
-            int bTag = (int)btnTemp.tag;
-            NSString *str=btnTemp.titleLabel.text;
-            
-            NSLog(@"string:%@",str);
-            //refine array
-            selCat=str;
-            [self SetDefaultOptionColors];
-            
-            NSPredicate *veganPredict = nil;
-            NSPredicate *vegetarianPredict = nil;
-            NSPredicate *glutenPredict = nil;
-            NSPredicate *organicPredict = nil;
-            NSPredicate *localPredict = nil;
-            NSString *predictString = @"";
-            
-            dispatch_async( dispatch_get_main_queue(), ^{
-                
-                [self setImages];
-                [self resetImagesDel];
-                NSArray *temparray=nil;
-                NSMutableArray *compArr;
-                NSMutableArray *arr=[NSMutableArray new];
-                [dishes_Tbl reloadData];
-                
-                switch (switchTag) {
-                    case 11:
-                        
-                    {
-                        if([selCat isEqualToString:@"All"])
-                        {
-                            [dishesArr removeAllObjects];
-
-                            if([dietryStr length])
-                            {
-                                NSPredicate *prediate1=[NSPredicate predicateWithFormat:@"ANY dietary IN (%@)",dietryStr];
-                                NSPredicate *prediate2=[NSPredicate predicateWithFormat:@"restaurant_location.distance >= %f && restaurant_location.distance <= %f",[lowerLabel.text floatValue],[upperLabel.text floatValue]];
-                                
-                                compArr = [[NSMutableArray alloc] init];
-                                
-                                if(veganPredict)
-                                {
-                                    [compArr addObject:veganPredict];
-                                }
-                                
-                                if(vegetarianPredict)
-                                {
-                                    [compArr addObject:vegetarianPredict];
-                                }
-                                
-                                if(localPredict)
-                                {
-                                    [compArr addObject:localPredict];
-                                }
-                                
-                                if(glutenPredict)
-                                {
-                                    [compArr addObject:glutenPredict];
-                                }
-                                
-                                if(organicPredict)
-                                {
-                                    [compArr addObject:organicPredict];
-                                }
-                                
-                                [compArr addObject:prediate2];
-                                
-                                NSPredicate *compoundPredicate =
-                                [NSCompoundPredicate andPredicateWithSubpredicates:@[prediate1,prediate2]];
-                                
-                                compoundPredicate= [NSCompoundPredicate andPredicateWithSubpredicates:compArr];
-                                [dishesArr addObjectsFromArray:[dishesCopyArr filteredArrayUsingPredicate:compoundPredicate]];
-                            }
-                            else
-                                [dishesArr addObjectsFromArray: dishesCopyArr];
-                            [self changeForButton:btnTemp];
-                            
-                        }
-                        else
-                        {
-                            
-                            NSPredicate *pred=[NSPredicate predicateWithFormat:@"category.title == %@",selCat];
-                            
-                            NSArray *array=[[NSArray alloc]init];
-                            
-                            array=[dishesCopyArr filteredArrayUsingPredicate:pred];
-                            
-                            if ([array count]==0) {
-                                UIAlertView *alert=[[UIAlertView alloc]initWithTitle:AppTitle message:@"There are no dishes available for your specification" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-                                [alert show];
-                            }
-                            else{
-                                if([dietryStr length]){
-                                    [dishesArr addObjectsFromArray: [dishesArr filteredArrayUsingPredicate:pred]];
-                                }else{
-                                    [dishesArr addObjectsFromArray: [dishesCopyArr filteredArrayUsingPredicate:pred]];
-                                }
-                                [self changeForButton:btnTemp];
-                                NSPredicate *pred1=[NSPredicate predicateWithFormat:@"ANY future_available_dates.avail_by_date == %@",selectedDate];
-                                
-                            }
-                            
-                        }
-                        withRatingCount=0;
-                        withoutRatingCount=0;
-                        
-                        [dishes_Tbl reloadData];
-                        
-                        [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-                        [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+ 289)];
-                    }
-                        [self.duplicateDatesArray removeAllObjects];
-                        temparray=[dishesArr valueForKey:@"future_available_dates"];
-                        
-                        [self.availableDatesArray removeAllObjects];
-                        [self.availableDatesArray addObjectsFromArray:[dishesArr valueForKey:@"order_by_date"]];
-                        
-                        [self.duplicateDatesArray addObjectsFromArray:temparray];
-                        [self filteruniqueAvailabledate];
-                        break;
-                        
-                    case 33:
-                    {
-                        dietryStr=str;
-                        array=[[NSMutableArray alloc]init];
-                        [array addObject:str];
-                        if ([array count])
-                        {
-                            
-                            //  NSPredicate *pred2=[NSPredicate predicateWithFormat:@"restaurant_location.distance >= %f && restaurant_location.distance <= %f",[lowerLabel.text floatValue],[upperLabel.text floatValue]];
-                            NSPredicate * predict =
-                            [NSPredicate predicateWithFormat:@"dietary contains[c] %@",dietryStr];
-                            compArr = [[NSMutableArray alloc] init];
-                            [compArr addObject:predict];
-                            NSArray *array=[[NSArray alloc]init];
-                            
-                            array=[dishesCopyArr filteredArrayUsingPredicate:predict];
-                            
-                            arr=nil;
-                            if ([array count]==0) {
-                                UIAlertView *alert=[[UIAlertView alloc]initWithTitle:AppTitle message:@"There are no dishes available for your specification" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-                                [alert show];
-                            }
-                            else{
-                                [self changeForButton:btnTemp];
-                                [dishesArr removeAllObjects];
-                                NSPredicate *compoundPredicate= [NSCompoundPredicate andPredicateWithSubpredicates:compArr];
-                                [dishesArr addObjectsFromArray: [dishesCopyArr filteredArrayUsingPredicate:compoundPredicate]];
-                                
-                                [dishes_Tbl reloadData];
-                                [dishes_Tbl setFrame:CGRectMake(0,250, 320, Cell_height*[dishesArr count]+ 289)];
-                                [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289)];
-                            }
-                            
-                        }
-                        else
-                        {
-                            [dishesArr addObjectsFromArray: [dishesCopyArr copy]];
-                            dietryStr=@"";
-                            [dishes_Tbl setFrame:CGRectMake(0,250, 320, Cell_height*[dishesArr count]+ 289)];
-                            [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289)];
-                        }
-                        array=nil;
-                        dietryStr=nil;
-                        [dishes_Tbl reloadData];
-                        [dishes_Tbl setFrame:CGRectMake(0,250, 320, Cell_height*[dishesArr count]+ 289)];
-                        [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289)];
-                    }
-                        [self.duplicateDatesArray removeAllObjects];
-                        
-                        temparray=[dishesArr valueForKey:@"future_available_dates"];
-                        
-                        [self.availableDatesArray removeAllObjects];
-                        [self.availableDatesArray addObjectsFromArray:[dishesArr valueForKey:@"order_by_date"]];
-                        
-                        [self.duplicateDatesArray addObjectsFromArray:temparray];
-                        [self filteruniqueAvailabledate];
-                        
-                        break;
-                    case 44:
-                    {
-                        parseInt=2;
-                        [self getDishes];
-                    }
-                        break;
-                        
-                    default:
-                        break;
-                }
-                
-                [self performSelector:@selector(hudWasHidden:) withObject:nil afterDelay:4];
-            });
-            
-            
-        }];
-    }
-    
     
 }
 
@@ -2627,8 +2430,8 @@ typedef void(^Completion)(NSDictionary*);
     [dishesArr addObjectsFromArray: [dishesCopyArr copy]];
     [dishes_Tbl reloadData];
     
-    [dishes_Tbl setFrame:CGRectMake(0,250, 320, (Cell_height*withRatingCount+390*withoutRatingCount))];
-    [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+289)];
+    [dishes_Tbl setFrame:CGRectMake(0,250, 320, dishes_Tbl.contentSize.height)];
+    [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+289)];
 
     [self setImages];
     
@@ -2716,8 +2519,8 @@ typedef void(^Completion)(NSDictionary*);
         }
 
         [dishes_Tbl reloadData];
-        [dishes_Tbl setFrame:CGRectMake(0,250, 320, Cell_height*[dishesArr count]+ 289)];
-        [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289)];
+        [dishes_Tbl setFrame:CGRectMake(0,250, 320, dishes_Tbl.contentSize.height)];
+        [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+ ExpandRefine)];
 
     }
     
@@ -2865,89 +2668,173 @@ BOOL clearClick=NO;
 - (IBAction)showRefineFilters:(id)sender {
     [self.view endEditing:YES];
 
-    [self showHUD];
-    selectedDate=nil;
-    withRatingCount=0;
-    withoutRatingCount=0;
-    if (!refineflag) {
-        refineflag=YES;
-        dispatch_async( dispatch_get_main_queue(), ^{
-
-            
-            [self setImages];
-
-            [dishesArr removeAllObjects];
-            //[self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.frame.size.height+190)];
-            [dishesArr addObjectsFromArray: dishesCopyArr];
-            [self.duplicateDatesArray removeAllObjects];
-            [self.availableDatesArray removeAllObjects];
-            NSArray *temparray=[dishesArr valueForKey:@"future_available_dates"];
-            [self.duplicateDatesArray addObjectsFromArray:temparray];
-            [self.availableDatesArray addObjectsFromArray:[dishesArr valueForKey:@"order_by_date"]];
-            [self filteruniqueAvailabledate];
-            [dishes_Tbl reloadData];
-            [self cusineArray];
-            [self SetUnderScore:self.btnCategory];
-            self.btnClearAll.hidden=NO;
-            self.btnSearchNear.hidden=YES;
-            
-            [UIView animateWithDuration:0.0f
-                                  delay:0.0f
-                                options:UIViewAnimationOptionTransitionCurlDown
-                             animations:^{
-                                 [dishes_Tbl setFrame:CGRectMake(0,250, 320,(Cell_height*withRatingCount+390*withoutRatingCount))];
-                                 [self.scrollView setContentSize:CGSizeMake(320,Cell_height*withRatingCount+390*withoutRatingCount+220)];
-                                 [self performSelector:@selector(hudWasHidden:) withObject:nil afterDelay:4];
-
-                             }
-                             completion:nil];
-            
-            [self.btnDistance setAlpha:1.0f];
-            [self.btnOffering setAlpha:1.0f];
-            [self.btnDietary setAlpha:1.0f];
-            [self.btnDate setAlpha:1.0f];
-            [self.btnCategory setAlpha:0.6f];
-            
-            self.btnDistance.titleLabel.font=[UIFont fontWithName:Medium size:11];
-            _btnOffering.titleLabel.font=[UIFont fontWithName:Medium size:11];
-            _btnDietary.titleLabel.font=[UIFont fontWithName:Medium size:11];
-            _btnDate.titleLabel.font=[UIFont fontWithName:Medium size:11];
-            
-            [self.btnDistance setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-            [self.btnOffering setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-            [self.btnDietary setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-            [self.btnDate setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-            self.btnCategory.titleLabel.font=[UIFont fontWithName:Bold size:11];
-            [self.btnCategory setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            
-            switchTag=11;
-
-         });
+    if (_dishIndex==999||isFetchAll==YES) {
         
+        [self showHUD];
+
+        selectedDate=nil;
+        withRatingCount=0;
+        withoutRatingCount=0;
+        if (!refineflag) {
+            refineflag=YES;
+            dispatch_async( dispatch_get_main_queue(), ^{
+                
+                
+                [self setImages];
+                
+                [dishesArr removeAllObjects];
+                //[self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.frame.size.height+190)];
+                [dishesArr addObjectsFromArray: dishesCopyArr];
+                [self.duplicateDatesArray removeAllObjects];
+                [self.availableDatesArray removeAllObjects];
+                NSArray *temparray=[dishesArr valueForKey:@"future_available_dates"];
+                [self.duplicateDatesArray addObjectsFromArray:temparray];
+                [self.availableDatesArray addObjectsFromArray:[dishesArr valueForKey:@"order_by_date"]];
+                [self filteruniqueAvailabledate];
+                [dishes_Tbl reloadData];
+                [self cusineArray];
+                [self SetUnderScore:self.btnCategory];
+                self.btnClearAll.hidden=NO;
+                self.btnSearchNear.hidden=YES;
+                
+                [UIView animateWithDuration:0.0f
+                                      delay:0.0f
+                                    options:UIViewAnimationOptionTransitionCurlDown
+                                 animations:^{
+                                     [dishes_Tbl setFrame:CGRectMake(0,250,320,dishes_Tbl.contentSize.height)];
+                                     [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.frame.size.height+ExpandRefine)];
+                                     [self performSelector:@selector(hudWasHidden:) withObject:nil afterDelay:4];
+                                     
+                                 }
+                                 completion:nil];
+                
+                [self.btnDistance setAlpha:1.0f];
+                [self.btnOffering setAlpha:1.0f];
+                [self.btnDietary setAlpha:1.0f];
+                [self.btnDate setAlpha:1.0f];
+                [self.btnCategory setAlpha:0.6f];
+                
+                self.btnDistance.titleLabel.font=[UIFont fontWithName:Medium size:11];
+                _btnOffering.titleLabel.font=[UIFont fontWithName:Medium size:11];
+                _btnDietary.titleLabel.font=[UIFont fontWithName:Medium size:11];
+                _btnDate.titleLabel.font=[UIFont fontWithName:Medium size:11];
+                
+                [self.btnDistance setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+                [self.btnOffering setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+                [self.btnDietary setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+                [self.btnDate setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+                self.btnCategory.titleLabel.font=[UIFont fontWithName:Bold size:11];
+                [self.btnCategory setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                
+                switchTag=11;
+                
+            });
+            
+        }
+        else{
+            
+            dispatch_async( dispatch_get_main_queue(), ^{
+                
+                [self setImages];
+                
+                [dishes_Tbl reloadData];
+                
+                refineflag=NO;
+                allflag=NO;
+                [dishes_Tbl setFrame:CGRectMake(0,89, 320, dishes_Tbl.contentSize.height)];
+                [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+50)];
+                self.btnClearAll.hidden=YES;
+                self.btnSearchNear.hidden=NO;
+                
+                [self performSelector:@selector(hudWasHidden:) withObject:nil afterDelay:4];
+                
+            });
+        }
+    }else{
+        
+        [self getAllMYDishes:^(BOOL *sucess) {
+            
+            selectedDate=nil;
+            withRatingCount=0;
+            withoutRatingCount=0;
+            if (!refineflag) {
+                refineflag=YES;
+                dispatch_async( dispatch_get_main_queue(), ^{
+                    
+                    
+                    [self setImages];
+                    
+                    [dishesArr removeAllObjects];
+                    //[self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.frame.size.height+190)];
+                    [dishesArr addObjectsFromArray: dishesCopyArr];
+                    [self.duplicateDatesArray removeAllObjects];
+                    [self.availableDatesArray removeAllObjects];
+                    NSArray *temparray=[dishesArr valueForKey:@"future_available_dates"];
+                    [self.duplicateDatesArray addObjectsFromArray:temparray];
+                    [self.availableDatesArray addObjectsFromArray:[dishesArr valueForKey:@"order_by_date"]];
+                    [self filteruniqueAvailabledate];
+                    [dishes_Tbl reloadData];
+                    [self cusineArray];
+                    [self SetUnderScore:self.btnCategory];
+                    self.btnClearAll.hidden=NO;
+                    self.btnSearchNear.hidden=YES;
+                    
+                    [UIView animateWithDuration:0.0f
+                                          delay:0.0f
+                                        options:UIViewAnimationOptionTransitionCurlDown
+                                     animations:^{
+                                         [dishes_Tbl setFrame:CGRectMake(0,250, 320,dishes_Tbl.contentSize.height)];
+                                         [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.frame.size.height+220)];
+                                         [self performSelector:@selector(hudWasHidden:) withObject:nil afterDelay:4];
+                                         
+                                     }
+                                     completion:nil];
+                    
+                    [self.btnDistance setAlpha:1.0f];
+                    [self.btnOffering setAlpha:1.0f];
+                    [self.btnDietary setAlpha:1.0f];
+                    [self.btnDate setAlpha:1.0f];
+                    [self.btnCategory setAlpha:0.6f];
+                    
+                    self.btnDistance.titleLabel.font=[UIFont fontWithName:Medium size:11];
+                    _btnOffering.titleLabel.font=[UIFont fontWithName:Medium size:11];
+                    _btnDietary.titleLabel.font=[UIFont fontWithName:Medium size:11];
+                    _btnDate.titleLabel.font=[UIFont fontWithName:Medium size:11];
+                    
+                    [self.btnDistance setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+                    [self.btnOffering setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+                    [self.btnDietary setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+                    [self.btnDate setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+                    self.btnCategory.titleLabel.font=[UIFont fontWithName:Bold size:11];
+                    [self.btnCategory setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                    
+                    switchTag=11;
+                    
+                });
+                
+            }
+            else{
+                
+                dispatch_async( dispatch_get_main_queue(), ^{
+                    
+                    [self setImages];
+                    
+                    [dishes_Tbl reloadData];
+                    
+                    refineflag=NO;
+                    allflag=NO;
+                    [dishes_Tbl setFrame:CGRectMake(0,89, 320, dishes_Tbl.contentSize.height)];
+                    [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.frame.size.height+70)];
+                    self.btnClearAll.hidden=YES;
+                    self.btnSearchNear.hidden=NO;
+                    
+                    [self performSelector:@selector(hudWasHidden:) withObject:nil afterDelay:4];
+                    
+                });
+            }
+
+        }];
     }
-    else{
-        
-        dispatch_async( dispatch_get_main_queue(), ^{
-
-            [self setImages];
-
-            [dishes_Tbl reloadData];
-            
-            refineflag=NO;
-            allflag=NO;
-            [dishes_Tbl setFrame:CGRectMake(0,89, 320, (Cell_height*withRatingCount+390*withoutRatingCount))];
-            [self.scrollView setContentSize:CGSizeMake(320,(Cell_height*withRatingCount+390*withoutRatingCount)+70)];
-            self.btnClearAll.hidden=YES;
-            self.btnSearchNear.hidden=NO;
-            
-            [self performSelector:@selector(hudWasHidden:) withObject:nil afterDelay:4];
-
-        });
-        
-
-    }
-    
-    
 }
 -(void)setInitail{
     
@@ -2975,8 +2862,8 @@ BOOL clearClick=NO;
                                delay:0.0f
                              options:UIViewAnimationOptionTransitionCurlUp
                           animations:^{
-                              [dishes_Tbl setFrame:CGRectMake(0.0f, 89.0f, 320.0f,Cell_height*withRatingCount+390*withoutRatingCount)];
-                              [self.scrollView setContentSize:CGSizeMake(320,Cell_height*withRatingCount+390*withoutRatingCount+90)];
+                              [dishes_Tbl setFrame:CGRectMake(0.0f, 89.0f, 320.0f,dishes_Tbl.contentSize.height)];
+                              [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.frame.size.height+50)];
                               [self performSelector:@selector(hudWasHidden:) withObject:nil afterDelay:4];
 
                           }
@@ -3038,8 +2925,8 @@ BOOL clearClick=NO;
             [self.btnCommunal setBackgroundImage:[UIImage imageNamed:@"offering-btn-2.png"] forState:UIControlStateNormal];
         }
         [dishes_Tbl reloadData];
-        [dishes_Tbl setFrame:CGRectMake(0,250, 320, Cell_height*[dishesArr count]+ 289)];
-        [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289)];
+        [dishes_Tbl setFrame:CGRectMake(0,250, 320, dishes_Tbl.contentSize.height)];
+        [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+ 289)];
         
     }
    
@@ -3834,8 +3721,8 @@ BOOL clearClick=NO;
     
    refineflag=NO;
     allflag=NO;
-    [dishes_Tbl setFrame:CGRectMake(0,89, 320, Cell_height*[dishesArr count]+ 289)];
-    [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+ 289)];
+    [dishes_Tbl setFrame:CGRectMake(0,89, 320, dishes_Tbl.contentSize.height)];
+    [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+ 289)];
 }
 -(void)pickercancel:(id)sender
 {
