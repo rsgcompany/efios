@@ -1267,8 +1267,6 @@ typedef void(^Completion)(NSDictionary*);
        // sleep(5);
 
     }
-    
-        
 }
 -(void)dataDidFailedLoadingWithError:(NSString *)err
 {
@@ -1287,7 +1285,6 @@ typedef void(^Completion)(NSDictionary*);
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
     if (section==0) {
         return [dishesArr count];
     }
@@ -3876,8 +3873,8 @@ BOOL clearClick=NO;
         [self viewWillAppear:YES];
         [dishes_Tbl reloadData];
         search_bar.text=searchBar.text;
-        [dishes_Tbl setFrame:CGRectMake(0,89, 320, Cell_height*[dishesArr count])];
-        [self.scrollView setContentSize:CGSizeMake(320,Cell_height*[dishesArr count]+140)];
+        [dishes_Tbl setFrame:CGRectMake(0,89, 320, dishes_Tbl.contentSize.height)];
+        [self.scrollView setContentSize:CGSizeMake(320,  dishes_Tbl.contentSize.height+50)];
     }
     [self dismissKeyboard:self];
 }
