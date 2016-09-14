@@ -77,14 +77,6 @@ NSMutableDictionary *dict=nil;
     locationManager.distanceFilter = kCLDistanceFilterNone;
     locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
     [self updateCurrentLocation];
-
-    //    Quantity.layer.borderWidth=1.0f;
-    //    Quantity.layer.masksToBounds=YES;
-    //    Quantity.layer.cornerRadius=40;
-    //    Quantity.layer.borderColor=[UIColor grayColor].CGColor;
-    //
-    //    Quantity_Minus_Btn.layer.cornerRadius=15;
-    //    Quantity_Plus_Btn.layer.cornerRadius=15;
     
     Dishimage.layer.cornerRadius=75/2;
     Dishimage.layer.masksToBounds=YES;
@@ -119,9 +111,11 @@ NSMutableDictionary *dict=nil;
 
     
     Chef_Name.text=[NSString stringWithFormat:@"%@",[[Item_details valueForKey:@"restaurant_details"]valueForKey:@"restaurant_title"]];
+    
+    Dish_Name.text=[NSString stringWithFormat:@"%@",[Item_details valueForKey:@"dish_title"]];
     price=[[Item_details valueForKey:@"price"] floatValue];
     float commision=[Item_details[@"comm_percent"] floatValue];
-
+    
     if (commision==20.00 && (price*(commision/100))>5) {
         
         price=price+5;
@@ -131,10 +125,16 @@ NSMutableDictionary *dict=nil;
         
     }
 
-    Price_lbl.text=[NSString stringWithFormat:@"$ %.2f",price];
-    Dish_Name.text=[NSString stringWithFormat:@"%@",[Item_details valueForKey:@"dish_title"]];
-    
     Quantity.text=@"01";//[NSString stringWithFormat:@"01/%@",qty_available];
+    if ([Item_details[@"is_cater"] boolValue]==YES) {
+       
+        Quantity.text=[NSString stringWithFormat:@"%d",[Item_details[@"min_quantity"] integerValue]];
+        Price_lbl.text=[NSString stringWithFormat:@"$ %.2f",price*[Item_details[@"min_quantity"] integerValue]];
+
+    }else{
+        Price_lbl.text=[NSString stringWithFormat:@"$ %.2f",price];
+
+    }
     
     NSArray*date=[[Item_details valueForKey:@"avail_by_date"] componentsSeparatedByString:@"-"];
     
@@ -554,11 +554,17 @@ NSMutableDictionary *dict=nil;
     
     qty=[Quantity.text integerValue];
     
-    if ([sender tag] ==10) {
-        qty=qty-1;
-        if (qty<=0) {
-            qty=1;
+    if ([sender tag] ==10 ) {
+
+        if ([Item_details[@"is_cater"] boolValue]==YES && [Item_details[@"min_quantity"] integerValue]>=qty) {
+            
+        }else{
+            qty=qty-1;
+            if (qty<=0) {
+                qty=1;
+            }
         }
+        
         
     }else if ([sender tag]==20)
     {
@@ -1709,8 +1715,8 @@ NSMutableDictionary *dict=nil;
         discountAmt_Order.text=@"-";
     }
     
-    
-    TotalAmt_Order.text=[NSString stringWithFormat:@"$ %@",[checkOutArr valueForKey:@"price_with_tax"]];
+    float pricewithtax=[[checkOutArr valueForKey:@"price_with_tax"] floatValue] *[[checkOutArr valueForKey:@"order_quantity"] integerValue];
+    TotalAmt_Order.text=[NSString stringWithFormat:@"$ %.2f",[[checkOutArr valueForKey:@"price_with_tax"] floatValue]];
     TotalAmt_Order.font=[UIFont fontWithName:SemiBold size:20];
     TaxAmt_Order.text=[NSString stringWithFormat:@"$ %@",[checkOutArr valueForKey:@"tax_total"]];
     if ([[checkOutArr valueForKey:@"discount_type"] isEqualToString:@"first"])
