@@ -1327,6 +1327,13 @@ typedef void(^Completion)(NSDictionary*);
     
     float price=[[dict valueForKey:@"price"] floatValue];
     
+    if ([dict[@"is_cater"] boolValue]==YES) {
+        
+
+        price=price*[dict[@"min_quantity"] integerValue];
+        
+    }
+    
     if (commision==20.00 && (price*(commision/100))>5) {
         
         price=price+5;

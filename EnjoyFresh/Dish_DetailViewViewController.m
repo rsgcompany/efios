@@ -205,7 +205,11 @@ currentDishTweet, currentDishRestaurant, currentDishDescription, currentDishName
     
 
     float price=[[_Dish_Details_dic valueForKey:@"price"] floatValue];
-    
+    if ([_Dish_Details_dic[@"is_cater"] boolValue]==YES) {
+        
+        price=price*[_Dish_Details_dic[@"min_quantity"] integerValue];
+        
+    }
     if (commision==20.00 && (price*(commision/100))>5) {
         
         price=price+5;

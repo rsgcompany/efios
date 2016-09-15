@@ -615,7 +615,13 @@ int favFlag;
             [cell.dishDetail setTag:indexPath.row+222];
 
             float price=[[dish valueForKey:@"price"] floatValue];
-            
+            if ([dish[@"is_cater"] boolValue]==YES) {
+                
+                
+                price=price*[dish[@"min_quantity"] integerValue];
+                
+            }
+
             float commision=[dish[@"comm_percent"] floatValue];
             
             
