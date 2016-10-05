@@ -875,6 +875,8 @@ typedef void(^Completion)(NSDictionary*);
             break;
         case 2:
         {
+            NSLog(@"step2");
+
             [self.refreshControl endRefreshing];
             [self.scrollView footerEndRefreshing];
             if (errMsg)
@@ -1009,10 +1011,16 @@ typedef void(^Completion)(NSDictionary*);
                 
                 [dishesArr removeAllObjects];
                 [dishesCopyArr removeAllObjects];
-                dishesArr =[result valueForKey:@"dishes"];
+                [dishesArr addObjectsFromArray:[result valueForKey:@"dishes"]];
                 NSPredicate *pred=[NSPredicate predicateWithFormat:@"available = '1' && order_by_date < avail_by_date && qty != '0'"];
-                dishesArr=[dishesArr filteredArrayUsingPredicate:pred];
-                dishesCopyArr=dishesArr;
+                
+                [dishesArr removeAllObjects];
+                [dishesCopyArr removeAllObjects];
+                [dishesArr addObjectsFromArray:[dishesArr filteredArrayUsingPredicate:pred]];
+                
+                [dishesCopyArr addObjectsFromArray:dishesArr];
+                
+
                 
                 [categoryArr removeAllObjects];
                 [categoryArr addObjectsFromArray:[dishesArr valueForKey:@"category"]];
@@ -1039,7 +1047,9 @@ typedef void(^Completion)(NSDictionary*);
                 }
                 else
                     compoundPredicate= [NSCompoundPredicate andPredicateWithSubpredicates:@[prediate2,prediate3]];
-                dishesArr=[dishesCopyArr filteredArrayUsingPredicate:compoundPredicate];
+                
+                [dishesArr removeAllObjects];
+                [dishesArr addObjectsFromArray: [dishesCopyArr filteredArrayUsingPredicate:compoundPredicate]];
                 [dishes_Tbl reloadData];
                 if (![dishesArr count])
                 {
