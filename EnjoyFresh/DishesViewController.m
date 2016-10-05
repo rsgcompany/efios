@@ -678,6 +678,8 @@ typedef void(^Completion)(NSDictionary*);
 -(void)dataDidFinishLoadingwithResult:(NSDictionary *)result
 {
     
+    NSLog(@"step1");
+
     BOOL errMsg=[[result valueForKey:@"error"]boolValue];
     
     NSString *strErrorMessage = [result valueForKey:@"message"];
@@ -762,6 +764,8 @@ typedef void(^Completion)(NSDictionary*);
             break;
         case 11:
         {
+            NSLog(@"step11");
+
             if (errMsg)
             {
                 NSLog(@"Dish Listing Result: %@", result);
@@ -794,11 +798,13 @@ typedef void(^Completion)(NSDictionary*);
             }
             else
             {
+                NSLog(@"step12");
+
                 withRatingCount=0;
                 withoutRatingCount=0;
                 datesArray=nil;
                 datesArray=[[NSMutableArray alloc]init];
-                dishesArr =[result valueForKey:@"message"];
+
                 NSArray *tempArray=[result valueForKey:@"message"];
                /* if (isLoadingMoreData) {
                     
@@ -832,7 +838,8 @@ typedef void(^Completion)(NSDictionary*);
                 [offeringTypeArr addObjectsFromArray:[catSet1 allObjects]];
                 //NSArray *arr1=[NSArray array];
                 //[offeringTypeArr removeObject:arr1];
-                
+                NSLog(@"step13");
+
                 //////////////////////////////
                 
                 [categoryArr addObjectsFromArray:[dishesArr valueForKey:@"category"]];
@@ -856,8 +863,8 @@ typedef void(^Completion)(NSDictionary*);
                 }
                 arr=nil;
                 
-                    [dishes_Tbl setFrame:CGRectMake(0,89, 320,dishes_Tbl.contentSize.height)];
-                    [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+80)];
+                [dishes_Tbl setFrame:CGRectMake(0,89, 320,dishes_Tbl.contentSize.height)];
+                [self.scrollView setContentSize:CGSizeMake(320,dishes_Tbl.contentSize.height+80)];
                 
                 NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(caseInsensitiveCompare:)];
                 
@@ -2046,7 +2053,10 @@ typedef void(^Completion)(NSDictionary*);
 
             }
             
+            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=%@&min=0&max=75&findNearMe=1",@"34786"];
             
+            [parser parseAndGetDataForGetMethod:urlquerystring];
+            urlquerystring=nil;
             
         }
         else{
@@ -2063,10 +2073,7 @@ typedef void(^Completion)(NSDictionary*);
             [alert show];
         }
 
-        urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=%@&min=0&max=75&findNearMe=1",@"34786"];
-        
-        [parser parseAndGetDataForGetMethod:urlquerystring];
-        urlquerystring=nil;
+       
     }];
     
 }
