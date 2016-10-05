@@ -2046,7 +2046,7 @@ typedef void(^Completion)(NSDictionary*);
 
             }
             
-            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=%@&min=0&max=75&findNearMe=1",@"04096"];
+            urlquerystring=[NSString stringWithFormat:@"getZipDishInfo?zip=%@&min=0&max=75&findNearMe=1",@"34786"];
 
             [parser parseAndGetDataForGetMethod:urlquerystring];
             urlquerystring=nil;
